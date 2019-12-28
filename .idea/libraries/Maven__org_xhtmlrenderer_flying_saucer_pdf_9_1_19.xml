@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.xhtmlrenderer:flying-saucer-pdf:9.1.19">
+    <CLASSES>
+      <root url="jar://D:/maven/repository/org/xhtmlrenderer/flying-saucer-pdf/9.1.19/flying-saucer-pdf-9.1.19.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/maven/repository/org/xhtmlrenderer/flying-saucer-pdf/9.1.19/flying-saucer-pdf-9.1.19-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/maven/repository/org/xhtmlrenderer/flying-saucer-pdf/9.1.19/flying-saucer-pdf-9.1.19-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

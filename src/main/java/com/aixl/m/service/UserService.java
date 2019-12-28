@@ -1,0 +1,59 @@
+package com.aixl.m.service;
+
+
+import com.aixl.m.dao.aiUserMapper;
+import com.aixl.m.model.aiUser;
+import com.aixl.m.utils.RedisUtils;
+import com.aixl.m.utils.ReturnObject;
+import com.aixl.m.utils.ReturnUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserService {
+
+
+    @Autowired
+    private RedisUtils<Object> redisUtils;
+
+    private aiUserMapper userMapper;
+
+    private String MSG;
+
+
+    /**
+     * 用户登录
+     * @param id
+     * @param pwd
+     * @return
+     */
+    public ReturnObject<Object> getUser(String id, String pwd){
+        aiUser user = (aiUser) redisUtils.getCache(id);
+        if(user == null){
+            try {
+                user = userMapper.selectByPrimaryKey(id);
+                if(user!=null){
+                    redisUtils.setCache(id,user);
+                    if(user.getAiUserPwd().equals(pwd))
+                        this.MSG ="登录成功";
+                    else
+                        this.MSG = "账号或密码错误";
+
+                }else {
+                    this.MSG = "账号或密码错误";
+                }
+                return ReturnUtils.success(this.MSG,1);
+            }catch (Exception e){
+                this.MSG = "登录失败";
+                return ReturnUtils.success(this.MSG,0);
+            }
+        }else {
+           if(user.getAiUserPwd().equals(pwd)){
+               this.MSG = "登录成功";
+           }else {
+               this.MSG = "账号或密码错误";
+           }
+           return ReturnUtils.success(this.MSG,1);
+        }
+    }
+}

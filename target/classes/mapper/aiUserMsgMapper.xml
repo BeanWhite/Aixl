@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aixl.m.dao.aiUserMsgMapper">
+  <resultMap id="BaseResultMap" type="com.aixl.m.model.aiUserMsg">
+    <id column="ai_user_id" jdbcType="VARCHAR" property="aiUserId" />
+    <result column="ai_user_patient_number" jdbcType="VARCHAR" property="aiUserPatientNumber" />
+    <result column="ai_user_department" jdbcType="VARCHAR" property="aiUserDepartment" />
+    <result column="ai_user_photo" jdbcType="VARCHAR" property="aiUserPhoto" />
+    <result column="ai_doc_name" jdbcType="VARCHAR" property="aiDocName" />
+    <result column="ai_user_id_num" jdbcType="VARCHAR" property="aiUserIdNum" />
+    <result column="ai_user_office" jdbcType="VARCHAR" property="aiUserOffice" />
+    <result column="ai_user_from" jdbcType="VARCHAR" property="aiUserFrom" />
+    <result column="ai_user_qq" jdbcType="VARCHAR" property="aiUserQq" />
+    <result column="ai_user_phone" jdbcType="VARCHAR" property="aiUserPhone" />
+    <result column="ai_user_email" jdbcType="VARCHAR" property="aiUserEmail" />
+    <result column="ai_user_emergency_con_phone" jdbcType="VARCHAR" property="aiUserEmergencyConPhone" />
+    <result column="ai_user_home" jdbcType="VARCHAR" property="aiUserHome" />
+    <result column="ai_user_address" jdbcType="VARCHAR" property="aiUserAddress" />
+    <result column="ai_user_emergency_con_name" jdbcType="VARCHAR" property="aiUserEmergencyConName" />
+    <result column="ai_user_age" jdbcType="INTEGER" property="aiUserAge" />
+    <result column="ai_user_sex" jdbcType="VARCHAR" property="aiUserSex" />
+    <result column="ai_user_name" jdbcType="VARCHAR" property="aiUserName" />
+    <result column="ai_user_nation" jdbcType="VARCHAR" property="aiUserNation" />
+    <result column="ai_user_native_place" jdbcType="VARCHAR" property="aiUserNativePlace" />
+    <result column="ai_user_edu_bg" jdbcType="VARCHAR" property="aiUserEduBg" />
+    <result column="ai_user_politics_status" jdbcType="VARCHAR" property="aiUserPoliticsStatus" />
+    <result column="ai_user_health_con" jdbcType="VARCHAR" property="aiUserHealthCon" />
+    <result column="ai_user_height" jdbcType="REAL" property="aiUserHeight" />
+    <result column="ai_user_weight" jdbcType="REAL" property="aiUserWeight" />
+    <result column="ai_user_birth" jdbcType="DATE" property="aiUserBirth" />
+    <result column="ai_user_unit" jdbcType="VARCHAR" property="aiUserUnit" />
+    <result column="ai_user_marriage" jdbcType="VARCHAR" property="aiUserMarriage" />
+    <result column="ai_user_profession" jdbcType="VARCHAR" property="aiUserProfession" />
+    <result column="ai_user_trade" jdbcType="VARCHAR" property="aiUserTrade" />
+    <result column="ai_user_duty" jdbcType="VARCHAR" property="aiUserDuty" />
+    <result column="ai_user_ai_user_abilityname" jdbcType="VARCHAR" property="aiUserAiUserAbilityname" />
+    <result column="ai_user_blood_type" jdbcType="VARCHAR" property="aiUserBloodType" />
+    <result column="ai_user_children" jdbcType="VARCHAR" property="aiUserChildren" />
+    <result column="ai_user_parents" jdbcType="VARCHAR" property="aiUserParents" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ai_user_msg
+    where ai_user_id = #{aiUserId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aixl.m.model.aiUserMsg">
+    insert into ai_user_msg (ai_user_id, ai_user_patient_number, ai_user_department, 
+      ai_user_photo, ai_doc_name, ai_user_id_num, 
+      ai_user_office, ai_user_from, ai_user_qq, 
+      ai_user_phone, ai_user_email, ai_user_emergency_con_phone, 
+      ai_user_home, ai_user_address, ai_user_emergency_con_name, 
+      ai_user_age, ai_user_sex, ai_user_name, 
+      ai_user_nation, ai_user_native_place, ai_user_edu_bg, 
+      ai_user_politics_status, ai_user_health_con, 
+      ai_user_height, ai_user_weight, ai_user_birth, 
+      ai_user_unit, ai_user_marriage, ai_user_profession, 
+      ai_user_trade, ai_user_duty, ai_user_ai_user_abilityname, 
+      ai_user_blood_type, ai_user_children, ai_user_parents
+      )
+    values (#{aiUserId,jdbcType=VARCHAR}, #{aiUserPatientNumber,jdbcType=VARCHAR}, #{aiUserDepartment,jdbcType=VARCHAR}, 
+      #{aiUserPhoto,jdbcType=VARCHAR}, #{aiDocName,jdbcType=VARCHAR}, #{aiUserIdNum,jdbcType=VARCHAR}, 
+      #{aiUserOffice,jdbcType=VARCHAR}, #{aiUserFrom,jdbcType=VARCHAR}, #{aiUserQq,jdbcType=VARCHAR}, 
+      #{aiUserPhone,jdbcType=VARCHAR}, #{aiUserEmail,jdbcType=VARCHAR}, #{aiUserEmergencyConPhone,jdbcType=VARCHAR}, 
+      #{aiUserHome,jdbcType=VARCHAR}, #{aiUserAddress,jdbcType=VARCHAR}, #{aiUserEmergencyConName,jdbcType=VARCHAR}, 
+      #{aiUserAge,jdbcType=INTEGER}, #{aiUserSex,jdbcType=VARCHAR}, #{aiUserName,jdbcType=VARCHAR}, 
+      #{aiUserNation,jdbcType=VARCHAR}, #{aiUserNativePlace,jdbcType=VARCHAR}, #{aiUserEduBg,jdbcType=VARCHAR}, 
+      #{aiUserPoliticsStatus,jdbcType=VARCHAR}, #{aiUserHealthCon,jdbcType=VARCHAR}, 
+      #{aiUserHeight,jdbcType=REAL}, #{aiUserWeight,jdbcType=REAL}, #{aiUserBirth,jdbcType=DATE}, 
+      #{aiUserUnit,jdbcType=VARCHAR}, #{aiUserMarriage,jdbcType=VARCHAR}, #{aiUserProfession,jdbcType=VARCHAR}, 
+      #{aiUserTrade,jdbcType=VARCHAR}, #{aiUserDuty,jdbcType=VARCHAR}, #{aiUserAiUserAbilityname,jdbcType=VARCHAR}, 
+      #{aiUserBloodType,jdbcType=VARCHAR}, #{aiUserChildren,jdbcType=VARCHAR}, #{aiUserParents,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.aixl.m.model.aiUserMsg">
+    update ai_user_msg
+    set ai_user_patient_number = #{aiUserPatientNumber,jdbcType=VARCHAR},
+      ai_user_department = #{aiUserDepartment,jdbcType=VARCHAR},
+      ai_user_photo = #{aiUserPhoto,jdbcType=VARCHAR},
+      ai_doc_name = #{aiDocName,jdbcType=VARCHAR},
+      ai_user_id_num = #{aiUserIdNum,jdbcType=VARCHAR},
+      ai_user_office = #{aiUserOffice,jdbcType=VARCHAR},
+      ai_user_from = #{aiUserFrom,jdbcType=VARCHAR},
+      ai_user_qq = #{aiUserQq,jdbcType=VARCHAR},
+      ai_user_phone = #{aiUserPhone,jdbcType=VARCHAR},
+      ai_user_email = #{aiUserEmail,jdbcType=VARCHAR},
+      ai_user_emergency_con_phone = #{aiUserEmergencyConPhone,jdbcType=VARCHAR},
+      ai_user_home = #{aiUserHome,jdbcType=VARCHAR},
+      ai_user_address = #{aiUserAddress,jdbcType=VARCHAR},
+      ai_user_emergency_con_name = #{aiUserEmergencyConName,jdbcType=VARCHAR},
+      ai_user_age = #{aiUserAge,jdbcType=INTEGER},
+      ai_user_sex = #{aiUserSex,jdbcType=VARCHAR},
+      ai_user_name = #{aiUserName,jdbcType=VARCHAR},
+      ai_user_nation = #{aiUserNation,jdbcType=VARCHAR},
+      ai_user_native_place = #{aiUserNativePlace,jdbcType=VARCHAR},
+      ai_user_edu_bg = #{aiUserEduBg,jdbcType=VARCHAR},
+      ai_user_politics_status = #{aiUserPoliticsStatus,jdbcType=VARCHAR},
+      ai_user_health_con = #{aiUserHealthCon,jdbcType=VARCHAR},
+      ai_user_height = #{aiUserHeight,jdbcType=REAL},
+      ai_user_weight = #{aiUserWeight,jdbcType=REAL},
+      ai_user_birth = #{aiUserBirth,jdbcType=DATE},
+      ai_user_unit = #{aiUserUnit,jdbcType=VARCHAR},
+      ai_user_marriage = #{aiUserMarriage,jdbcType=VARCHAR},
+      ai_user_profession = #{aiUserProfession,jdbcType=VARCHAR},
+      ai_user_trade = #{aiUserTrade,jdbcType=VARCHAR},
+      ai_user_duty = #{aiUserDuty,jdbcType=VARCHAR},
+      ai_user_ai_user_abilityname = #{aiUserAiUserAbilityname,jdbcType=VARCHAR},
+      ai_user_blood_type = #{aiUserBloodType,jdbcType=VARCHAR},
+      ai_user_children = #{aiUserChildren,jdbcType=VARCHAR},
+      ai_user_parents = #{aiUserParents,jdbcType=VARCHAR}
+    where ai_user_id = #{aiUserId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ai_user_id, ai_user_patient_number, ai_user_department, ai_user_photo, ai_doc_name, 
+    ai_user_id_num, ai_user_office, ai_user_from, ai_user_qq, ai_user_phone, ai_user_email, 
+    ai_user_emergency_con_phone, ai_user_home, ai_user_address, ai_user_emergency_con_name, 
+    ai_user_age, ai_user_sex, ai_user_name, ai_user_nation, ai_user_native_place, ai_user_edu_bg, 
+    ai_user_politics_status, ai_user_health_con, ai_user_height, ai_user_weight, ai_user_birth, 
+    ai_user_unit, ai_user_marriage, ai_user_profession, ai_user_trade, ai_user_duty, 
+    ai_user_ai_user_abilityname, ai_user_blood_type, ai_user_children, ai_user_parents
+    from ai_user_msg
+    where ai_user_id = #{aiUserId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ai_user_id, ai_user_patient_number, ai_user_department, ai_user_photo, ai_doc_name, 
+    ai_user_id_num, ai_user_office, ai_user_from, ai_user_qq, ai_user_phone, ai_user_email, 
+    ai_user_emergency_con_phone, ai_user_home, ai_user_address, ai_user_emergency_con_name, 
+    ai_user_age, ai_user_sex, ai_user_name, ai_user_nation, ai_user_native_place, ai_user_edu_bg, 
+    ai_user_politics_status, ai_user_health_con, ai_user_height, ai_user_weight, ai_user_birth, 
+    ai_user_unit, ai_user_marriage, ai_user_profession, ai_user_trade, ai_user_duty, 
+    ai_user_ai_user_abilityname, ai_user_blood_type, ai_user_children, ai_user_parents
+    from ai_user_msg
+  </select>
+
+
+  <select id="selectMsgForDoc" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select ai_user_name,ai_user_sex,ai_user_age,ai_user_edu_bg,ai_user_marriage,ai_user_profession,
+    ai_user_office,ai_user_from from ai_user_msg where ai_user_id=#{parameter,jdbcType=VARCHAR} or
+    ai_user_name = #{parameter,jdbcType=VARCHAR}
+  </select>
+</mapper>

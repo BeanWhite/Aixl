@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- 一、配置数据库连接信息 -->
+    <!--targetRuntime=“MyBatis3“可以生成带条件的增删改查 -->
+    <!--targetRuntime=“MyBatis3Simple“可以生成基本的增删改查-->
+    <context id="DB2Tables" targetRuntime="MyBatis3Simple">
+
+
+
+        <!--去除注释-->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--在url中天剑nullCatalogMeansCurrent=true可以去除读取同名表-->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/neuropsychoogical_cognition?useUnicode=true&amp;
+                        useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;
+                        nullCatalogMeansCurrent=true"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 二、指定javabean生成的位置 -->
+        <javaModelGenerator targetPackage="com.aixl.m.model"
+                            targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- 三、指定sql映射文件生成的位置 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject=".\src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 四、指定dao接口生成的位置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.aixl.m.dao"
+                             targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 五、table指定每个表的生成策略 -->
+        <!--配置要逆向解析的数据表，tableName对应表名，domainObjectName对应javaBean名-->
+        <!--        在table中添加schema="root" 属性解决sql重复-->
+<!--        <table schema="root" tableName="ai_admin" domainObjectName="aiAdmin"/>-->
+<!--        <table schema="root" tableName="ai_doc" domainObjectName="aiDoc"/>-->
+<!--        <table schema="root" tableName="ai_scale" domainObjectName="aiScale"/>-->
+<!--        <table schema="root" tableName="ai_score_method" domainObjectName="aiScoreMethod"/>-->
+<!--        <table schema="root" tableName="ai_test" domainObjectName="aiTest"/>-->
+<!--        <table schema="root" tableName="ai_test_result" domainObjectName="aiTestResult"/>-->
+        <table schema="root" tableName="ai_user" domainObjectName="aiUser"/>
+        <table schema="root" tableName="ai_user_msg" domainObjectName="aiUserMsg"/>
+
+
+
+<!--        <table schema="root" tableName="service" domainObjectName="service"/>-->
+    </context>
+</generatorConfiguration>
