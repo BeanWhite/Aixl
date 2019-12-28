@@ -32,7 +32,7 @@ public class aiScaleController {
      * @return
      */
     @RequestMapping(value = "/testMsg/{id}",method = RequestMethod.GET)
-    public ReturnObject<Object> getScaleMsg(@PathVariable("id") Integer id)
+    public ReturnObject<Object> getScaleMsg(@PathVariable("id") Integer id){
         return scaleService.getScaleTest(id);
     }
 
