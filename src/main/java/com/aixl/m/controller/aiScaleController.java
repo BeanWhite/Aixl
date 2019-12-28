@@ -40,9 +40,4 @@ public class aiScaleController {
         return scaleService.getScaleTest(id);
     }
 
-    public void t(){
-
-    }
-
-
 }
