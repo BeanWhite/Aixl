@@ -17,7 +17,6 @@ public class aiScaleController {
 
 
     /**
-     *
      * 获取所有量基本信息表接口
      * @return
      */
@@ -39,5 +38,5 @@ public class aiScaleController {
     public ReturnObject<Object> getScaleMsg(@PathVariable("id") Integer id){
         return scaleService.getScaleTest(id);
     }
-
+    
 }
