@@ -27,7 +27,6 @@ public class aiScaleController {
 
 
 
-
     /**
      *
      * 根据id获取量表题目信息接口
