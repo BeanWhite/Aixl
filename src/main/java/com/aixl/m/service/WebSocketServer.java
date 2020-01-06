@@ -1,6 +1,9 @@
 package com.aixl.m.service;
 
+import com.aixl.m.model.httpHeaderDataPackage;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONField;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -8,9 +11,12 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 
@@ -26,6 +32,8 @@ public class WebSocketServer {
     //concurrent包的线程安全set,用来存放每个客户端对应的MyWebSocket对象。
     private static CopyOnWriteArraySet<WebSocketServer> webSocketServers = new CopyOnWriteArraySet<>();
 
+    private static ConcurrentMap<String,WebSocketServer> webSocketServersMap = new ConcurrentHashMap<>();
+
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private Session session;
 
@@ -38,13 +46,14 @@ public class WebSocketServer {
     @OnOpen
     //sid为必须参数，用于确定是哪一个用户
     //@PathParam 为根据路径值取值，@QueryParam为根据键值对取值
-    public void onOpen(Session session,@PathParam("sid") String sid) {
+    public void onOpen(Session session, @PathParam("sid") String sid) {
         this.session = session;
-        webSocketServers.add(this);
-        addOnlineCount();
         this.sid = sid;
+        webSocketServers.add(this);
+        webSocketServersMap.put(sid,this);
+        addOnlineCount();
         try {
-            //sendMessage("连接成功");
+            sendMessage("连接成功！！！");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,6 +65,7 @@ public class WebSocketServer {
     @OnClose
     public void onClose() {
         webSocketServers.remove(this);//从set中删除
+        webSocketServersMap.remove(this.sid);
         subOnlineCount();//在线人数减一
     }
 
@@ -72,8 +82,7 @@ public class WebSocketServer {
         //群发消息
         for (WebSocketServer item : webSocketServers) {
             try {
-                ByteBuffer bf = ByteBuffer.wrap(message);
-                item.sendMessage(bf);
+                item.sendMessage(message);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -81,29 +90,43 @@ public class WebSocketServer {
     }
 
     @OnMessage
-    public void onMessage(String message, Session session) {
-        //向指定用户发送消息
-        //Set<String> targerUsers = new HashSet<>(Arrays.asList(message.split("[|]")));
+    public void onMessage(String message, Session session) throws Exception {
+       // System.out.println(message.toString());
+        httpHeaderDataPackage dataPackage = JSON.parseObject(message, httpHeaderDataPackage.class);
+        //httpHeaderDataPackage dataPackage = new httpHeaderDataPackage();
+        if (dataPackage.is_isMain()) {
+            //新版本
+            if (dataPackage.getTargets() != null || dataPackage.getTarget() != null) {
+                if (dataPackage.isLongData()) {
+                    //发送长数据，可能需要切分
+                } else {
+                        WebSocketServer webSocketServer = webSocketServersMap.get(dataPackage.getTarget());
+                        if(webSocketServer!=null)
+                            webSocketServer.sendMessage(JSON.toJSONString(dataPackage));
 
-        String a[] = message.split("[|]");
-        //目标用户id
-        Set<String> targetUsers = new HashSet<>(Arrays.asList(Arrays.copyOf(a,a.length-1)));
-        //消息内容
-        String msg = a[a.length-1];
-        for (WebSocketServer item : webSocketServers) {
-            //判断是否为目标用户
-            if(targetUsers.contains(item.sid)){
-                try {
-                    item.sendMessage(msg);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    //发送短数据，不需要切分
+//                    System.out.println(dataPackage.getData().toString());
+//                    // ByteBuffer buffer = encodeKey(dataPackage.getData().toString());
+//                    byte[] o = dataPackage.getData().toString().getBytes();
+//
+////                System.out.println(buffer);
+////                byte[] o = decodeValue(buffer);
+//                    for (int i = 0; i < o.length; i++)
+//                        System.out.println(o[i]);
+//                    System.out.println(new String(o));
+//                    ByteBuffer buffer1 = encodeValue(o);
+////                System.out.println(buffer1);
+//                    String string = decodeKey(buffer1);
+//                    //  String str = decodeKey(buffer);
+//                    //  System.out.println(str);
+//                    System.out.println(string);
                 }
             }
-
         }
+        //有目标id才能发送数据
+
+
     }
-
-
 
 
     @OnError
@@ -132,7 +155,7 @@ public class WebSocketServer {
     public void sendMessage(Object s) throws Exception {
         try {
 
-            this.session.getBasicRemote().sendObject("dafdfa");
+            this.session.getBasicRemote().sendObject(s);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -170,6 +193,38 @@ public class WebSocketServer {
         }
     }
 
+
+    //ByteBuffer、byte[]、string转化
+    public String decodeKey(ByteBuffer bytes) {
+        Charset charset = Charset.forName("utf-8");
+        return charset.decode(bytes).toString();
+    }
+
+    public byte[] decodeValue(ByteBuffer bytes) {
+        int len = bytes.limit() - bytes.position();
+        byte[] bytes1 = new byte[len];
+        bytes.get(bytes1);
+        return bytes1;
+    }
+
+
+    public ByteBuffer encodeKey(String key) {
+        try {
+            return ByteBuffer.wrap(key.getBytes("utf-8"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ByteBuffer.wrap(key.getBytes());
+    }
+
+
+    public ByteBuffer encodeValue(byte[] value) {
+        ByteBuffer byteBuffer = ByteBuffer.allocate(value.length);
+        byteBuffer.clear();
+        byteBuffer.get(value, 0, value.length);
+        return byteBuffer;
+    }
+
     //定义位线程安全类型
     public static synchronized int getOnlineCount() {
         return onlineCount;
@@ -182,5 +237,6 @@ public class WebSocketServer {
     public static synchronized void subOnlineCount() {
         WebSocketServer.onlineCount--;
     }
+
 
 }
