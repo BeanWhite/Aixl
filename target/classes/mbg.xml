@@ -54,10 +54,10 @@
 <!--        <table schema="root" tableName="ai_doc" domainObjectName="aiDoc"/>-->
 <!--        <table schema="root" tableName="ai_scale" domainObjectName="aiScale"/>-->
 <!--        <table schema="root" tableName="ai_score_method" domainObjectName="aiScoreMethod"/>-->
-<!--        <table schema="root" tableName="ai_test" domainObjectName="aiTest"/>-->
+        <table schema="root" tableName="ai_test" domainObjectName="aiTest"/>
 <!--        <table schema="root" tableName="ai_test_result" domainObjectName="aiTestResult"/>-->
-        <table schema="root" tableName="ai_user" domainObjectName="aiUser"/>
-        <table schema="root" tableName="ai_user_msg" domainObjectName="aiUserMsg"/>
+<!--        <table schema="root" tableName="ai_user" domainObjectName="aiUser"/>-->
+<!--        <table schema="root" tableName="ai_user_msg" domainObjectName="aiUserMsg"/>-->
 
 
 

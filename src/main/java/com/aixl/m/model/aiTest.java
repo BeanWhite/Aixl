@@ -11,8 +11,6 @@ public class aiTest {
 
     private String aiQuestionAnswer;
 
-    private String aiQuestionImg;
-
     private String aiQuestionType;
 
     private String aiQuestionScore;
@@ -26,6 +24,8 @@ public class aiTest {
     private String aiScoreMethodName;
 
     private String aiScoreMethod;
+
+    private byte[] aiQuestionImg;
 
     public Integer getAiScaleId() {
         return aiScaleId;
@@ -65,14 +65,6 @@ public class aiTest {
 
     public void setAiQuestionAnswer(String aiQuestionAnswer) {
         this.aiQuestionAnswer = aiQuestionAnswer == null ? null : aiQuestionAnswer.trim();
-    }
-
-    public String getAiQuestionImg() {
-        return aiQuestionImg;
-    }
-
-    public void setAiQuestionImg(String aiQuestionImg) {
-        this.aiQuestionImg = aiQuestionImg == null ? null : aiQuestionImg.trim();
     }
 
     public String getAiQuestionType() {
@@ -129,5 +121,13 @@ public class aiTest {
 
     public void setAiScoreMethod(String aiScoreMethod) {
         this.aiScoreMethod = aiScoreMethod == null ? null : aiScoreMethod.trim();
+    }
+
+    public byte[] getAiQuestionImg() {
+        return aiQuestionImg;
+    }
+
+    public void setAiQuestionImg(byte[] aiQuestionImg) {
+        this.aiQuestionImg = aiQuestionImg;
     }
 }
