@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aixl.m.dao.aiTestMapper">
+  <resultMap id="BaseResultMap" type="com.aixl.m.model.aiTest">
+    <result column="ai_scale_id" jdbcType="INTEGER" property="aiScaleId" />
+    <result column="ai_question_id" jdbcType="INTEGER" property="aiQuestionId" />
+    <result column="ai_question_content" jdbcType="VARCHAR" property="aiQuestionContent" />
+    <result column="ai_question_option" jdbcType="VARCHAR" property="aiQuestionOption" />
+    <result column="ai_question_answer" jdbcType="VARCHAR" property="aiQuestionAnswer" />
+    <result column="ai_question_type" jdbcType="VARCHAR" property="aiQuestionType" />
+    <result column="ai_question_score" jdbcType="VARCHAR" property="aiQuestionScore" />
+    <result column="ai_question_notice" jdbcType="VARCHAR" property="aiQuestionNotice" />
+    <result column="ai_question_guid" jdbcType="VARCHAR" property="aiQuestionGuid" />
+    <result column="ai_question_answer_describe" jdbcType="VARCHAR" property="aiQuestionAnswerDescribe" />
+    <result column="ai_score_method_name" jdbcType="VARCHAR" property="aiScoreMethodName" />
+    <result column="ai_score_method" jdbcType="VARCHAR" property="aiScoreMethod" />
+    <result column="ai_question_img" jdbcType="LONGVARBINARY" property="aiQuestionImg" />
+  </resultMap>
+  <insert id="insert" parameterType="com.aixl.m.model.aiTest">
+    insert into ai_test (ai_scale_id, ai_question_id, ai_question_content, 
+      ai_question_option, ai_question_answer, ai_question_type, 
+      ai_question_score, ai_question_notice, ai_question_guid, 
+      ai_question_answer_describe, ai_score_method_name, 
+      ai_score_method, ai_question_img)
+    values (#{aiScaleId,jdbcType=INTEGER}, #{aiQuestionId,jdbcType=INTEGER}, #{aiQuestionContent,jdbcType=VARCHAR}, 
+      #{aiQuestionOption,jdbcType=VARCHAR}, #{aiQuestionAnswer,jdbcType=VARCHAR}, #{aiQuestionType,jdbcType=VARCHAR}, 
+      #{aiQuestionScore,jdbcType=VARCHAR}, #{aiQuestionNotice,jdbcType=VARCHAR}, #{aiQuestionGuid,jdbcType=VARCHAR}, 
+      #{aiQuestionAnswerDescribe,jdbcType=VARCHAR}, #{aiScoreMethodName,jdbcType=VARCHAR}, 
+      #{aiScoreMethod,jdbcType=VARCHAR}, #{aiQuestionImg,jdbcType=LONGVARBINARY})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ai_scale_id, ai_question_id, ai_question_content, ai_question_option, ai_question_answer, 
+    ai_question_type, ai_question_score, ai_question_notice, ai_question_guid, ai_question_answer_describe, 
+    ai_score_method_name, ai_score_method, ai_question_img
+    from ai_test
+  </select>
+
+  <select id="selectByScaleId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from ai_test where ai_scale_id=#{id}
+  </select>
+</mapper>

@@ -34,6 +34,7 @@ public class UserMsgService {
         } else {
             try {
                 userMsgList = userMsgMapper.selectMsgForDoc(parameter);
+                if(userMsgList.size()>0)
                 redisUtils.setCache("user=" + parameter, userMsgList);
                 return ReturnUtils.success("1", userMsgList);
             } catch (Exception e) {

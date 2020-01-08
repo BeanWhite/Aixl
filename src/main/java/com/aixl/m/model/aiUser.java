@@ -5,6 +5,8 @@ public class aiUser {
 
     private String aiUserPwd;
 
+    private String aiUserType;
+
     public String getAiUserId() {
         return aiUserId;
     }
@@ -19,5 +21,13 @@ public class aiUser {
 
     public void setAiUserPwd(String aiUserPwd) {
         this.aiUserPwd = aiUserPwd == null ? null : aiUserPwd.trim();
+    }
+
+    public String getAiUserType() {
+        return aiUserType;
+    }
+
+    public void setAiUserType(String aiUserType) {
+        this.aiUserType = aiUserType == null ? null : aiUserType.trim();
     }
 }

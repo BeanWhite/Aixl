@@ -16,6 +16,7 @@ public class UserService {
     @Autowired
     private RedisUtils<Object> redisUtils;
 
+    @Autowired
     private aiUserMapper userMapper;
 
     private String MSG;
@@ -42,10 +43,11 @@ public class UserService {
                 }else {
                     this.MSG = "账号或密码错误";
                 }
-                return ReturnUtils.success(this.MSG,1);
+
             }catch (Exception e){
                 this.MSG = "登录失败";
-                return ReturnUtils.success(this.MSG,0);
+                e.printStackTrace();
+                return ReturnUtils.success(this.MSG,null,0);
             }
         }else {
            if(user.getAiUserPwd().equals(pwd)){
@@ -53,7 +55,8 @@ public class UserService {
            }else {
                this.MSG = "账号或密码错误";
            }
-           return ReturnUtils.success(this.MSG,1);
+
         }
+        return ReturnUtils.success(this.MSG,this.MSG=="登录成功"?user.getAiUserType():null,1);
     }
 }

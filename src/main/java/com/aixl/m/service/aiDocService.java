@@ -40,11 +40,9 @@ public class aiDocService {
                 }else {
                     this.MSG = "账号或密码错误";
                 }
-
-                return ReturnUtils.success(this.MSG,"1");
             }catch (Exception e){
                 this.MSG = "登录失败";
-                return ReturnUtils.success(this.MSG,"1");
+                return ReturnUtils.success(this.MSG,null,0);
             }
 
         }else {
@@ -52,8 +50,8 @@ public class aiDocService {
                 this.MSG = "登录成功";
             else
                 this.MSG = "账号或密码错误";
-            return ReturnUtils.success(this.MSG,"1");
         }
+        return ReturnUtils.success(this.MSG,this.MSG=="登录成功"?doc.getAiUserType():null,1);
     }
 
 }
