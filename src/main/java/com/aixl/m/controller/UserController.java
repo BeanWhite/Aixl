@@ -19,7 +19,6 @@ public class UserController {
 
     @RequestMapping(value = "/msgForDoc/{str}",method = RequestMethod.GET)
     public ReturnObject<Object> getUserMsgForDoc(@PathVariable(value = "str") String string){
-        System.out.println(string);
         return userMsgService.getUserMsgForDoc(string);
     }
 

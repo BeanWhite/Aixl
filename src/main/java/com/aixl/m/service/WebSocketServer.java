@@ -12,6 +12,7 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,7 +33,12 @@ public class WebSocketServer {
     //concurrent包的线程安全set,用来存放每个客户端对应的MyWebSocket对象。
     private static CopyOnWriteArraySet<WebSocketServer> webSocketServers = new CopyOnWriteArraySet<>();
 
-    private static ConcurrentMap<String,WebSocketServer> webSocketServersMap = new ConcurrentHashMap<>();
+    //存放每个客户端对应的websocket对象<websocket对象id，websocket对象>
+    private static ConcurrentMap<String, WebSocketServer> webSocketServersMap = new ConcurrentHashMap<>();
+
+    //待发送的的消息列表,用户登录成功后即发送推送信息<目标对象id，消息列表>
+    private static ConcurrentMap<String, ArrayList<Object>> beSentMSG = new ConcurrentHashMap<>();
+
 
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private Session session;
@@ -46,11 +52,14 @@ public class WebSocketServer {
     @OnOpen
     //sid为必须参数，用于确定是哪一个用户
     //@PathParam 为根据路径值取值，@QueryParam为根据键值对取值
-    public void onOpen(Session session, @PathParam("sid") String sid) {
+    public void onOpen(Session session, @PathParam("sid") String sid) throws Exception {
         this.session = session;
         this.sid = sid;
+        //连接成功后检查是否有为接受的消息
+        checkMsg(sid);
+        System.out.println(this.sid);
         webSocketServers.add(this);
-        webSocketServersMap.put(sid,this);
+        webSocketServersMap.put(sid, this);
         addOnlineCount();
         try {
             sendMessage("连接成功！！！");
@@ -91,20 +100,10 @@ public class WebSocketServer {
 
     @OnMessage
     public void onMessage(String message, Session session) throws Exception {
-       // System.out.println(message.toString());
-        httpHeaderDataPackage dataPackage = JSON.parseObject(message, httpHeaderDataPackage.class);
-        //httpHeaderDataPackage dataPackage = new httpHeaderDataPackage();
-        if (dataPackage.is_isMain()) {
-            //新版本
-            if (dataPackage.getTargets() != null || dataPackage.getTarget() != null) {
-                if (dataPackage.isLongData()) {
-                    //发送长数据，可能需要切分
-                } else {
-                        WebSocketServer webSocketServer = webSocketServersMap.get(dataPackage.getTarget());
-                        if(webSocketServer!=null)
-                            webSocketServer.sendMessage(JSON.toJSONString(dataPackage));
-
-                    //发送短数据，不需要切分
+        //有消息到来三种处理情况1、转发；2、存入消息队列；3、取消本次发送
+        pointUser(message, session);
+        //有目标id才能发送数据
+        //发送短数据，不需要切分
 //                    System.out.println(dataPackage.getData().toString());
 //                    // ByteBuffer buffer = encodeKey(dataPackage.getData().toString());
 //                    byte[] o = dataPackage.getData().toString().getBytes();
@@ -120,11 +119,6 @@ public class WebSocketServer {
 //                    //  String str = decodeKey(buffer);
 //                    //  System.out.println(str);
 //                    System.out.println(string);
-                }
-            }
-        }
-        //有目标id才能发送数据
-
 
     }
 
@@ -132,6 +126,51 @@ public class WebSocketServer {
     @OnError
     public void onError(Session session, Throwable error) {
         error.printStackTrace();
+    }
+
+    public void pointUser(String message, Session session) throws Exception {
+        httpHeaderDataPackage dataPackage = JSON.parseObject(message, httpHeaderDataPackage.class);
+        if (dataPackage.is_isMain()) {
+            //新版本
+            if (dataPackage.getTargets() != null || dataPackage.getTarget() != null) {
+                if (dataPackage.isLongData()) {
+                    //发送长数据，可能需要切分
+                } else {
+                    //检查当前用户是否在线
+                    WebSocketServer webSocketServer = webSocketServersMap.get(dataPackage.getTarget());
+                    if (webSocketServer != null)
+                        webSocketServer.sendMessage(JSON.toJSONString(dataPackage));
+                    else if (dataPackage.isCache()) {//判断是否需要存入消息队列，默认不需要
+                        //不在线就存入消息列表缓存堆里面
+                        if (beSentMSG.get(dataPackage.getTarget()) != null) {
+                            //如果该用户已有没推送的消息
+                            beSentMSG.get(dataPackage.getTarget()).add(dataPackage);
+                        } else {
+                            ArrayList<Object> list = null;
+                            list.add(dataPackage);
+                            beSentMSG.put(dataPackage.getTarget(), list);
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    /**
+     * 检查待发送消息列表
+     */
+    public void checkMsg(String sid) throws Exception {
+        ArrayList<Object> list = beSentMSG.get(sid);
+        //如果有待发送的消息
+        if (list != null && list.size() != 0) {
+            for (int i = 0; i < list.size(); i++) {
+                webSocketServersMap.get(sid).sendMessage(JSON.toJSONString(list.get(i)));
+            }
+            //发送完移除
+            beSentMSG.remove(sid);
+        } else return;
     }
 
     /**
@@ -237,6 +276,5 @@ public class WebSocketServer {
     public static synchronized void subOnlineCount() {
         WebSocketServer.onlineCount--;
     }
-
 
 }

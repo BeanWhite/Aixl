@@ -23,11 +23,22 @@ public class ReturnUtils {
         return success(null, o);
     }
 
-    public static ReturnObject<Object> success(String msg, Object o) {
+    public static ReturnObject<Object> success(String msg,Object o,String status){
         ReturnObject<Object> object = new ReturnObject<>();
         object.setMsg(msg == null ? SUCCESS_MSG : msg);
         object.setObject(o);
+        object.setStatus(status);
         return object;
+    }
+    public static ReturnObject<Object> success(String msg,Object o,int status){
+        ReturnObject<Object> object = new ReturnObject<>();
+        object.setMsg(msg == null ? SUCCESS_MSG : msg);
+        object.setObject(o);
+        object.setStatus_n(status);
+        return object;
+    }
+    public static ReturnObject<Object> success(String msg, Object o) {
+        return success(msg,o,null);
     }
 
 

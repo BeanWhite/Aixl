@@ -13,6 +13,9 @@ public class httpHeaderDataPackage {
     //单个目标id
     private String target;
 
+    //数据包名称
+    private String dataName;
+
     //发送方id
     private String from_who;
 
@@ -48,6 +51,25 @@ public class httpHeaderDataPackage {
 
     //反馈消息内容
     private String feedBack;
+
+    //数据包是否需要缓存到服务器消息队列
+    private boolean isCache;
+
+    public boolean isCache() {
+        return isCache;
+    }
+
+    public void setCache(boolean cache) {
+        isCache = cache;
+    }
+
+    public String getDataName() {
+        return dataName;
+    }
+
+    public void setDataName(String dataName) {
+        this.dataName = dataName;
+    }
 
     public boolean isEndIncise() {
         return endIncise;

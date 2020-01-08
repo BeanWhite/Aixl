@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 @Repository
 public interface aiUserMapper {
     int deleteByPrimaryKey(String aiUserId);
@@ -17,5 +16,4 @@ public interface aiUserMapper {
     List<aiUser> selectAll();
 
     int updateByPrimaryKey(aiUser record);
-
 }

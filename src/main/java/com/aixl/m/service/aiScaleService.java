@@ -38,10 +38,10 @@ public class aiScaleService {
         else {
             try {
                 scale = scaleMapper.selectAll();
-
-                if(scale==null)
+                if(scale.size()==0)
                     return ReturnUtils.success("1","没有内容");
-                redisUtils.setCache("allScales",scale);
+                else
+                    redisUtils.setCache("allScales",scale);
                 return ReturnUtils.success("1",scale);
             }catch (Exception e){
                 return ReturnUtils.success("0","没有内容");
@@ -60,13 +60,11 @@ public class aiScaleService {
         if(tests==null){
             try {
                 tests = testMapper.selectByScaleId(id);
-
-                if(tests==null){
+                if(tests.size()==0){
                     return ReturnUtils.success("1","没有内容");
                 }else {
                     redisUtils.setCache("scaleTestMsg="+id,tests);
                     return ReturnUtils.success("1",tests);
-
                 }
             }catch (Exception e){
                 return ReturnUtils.success("0","没有内容");

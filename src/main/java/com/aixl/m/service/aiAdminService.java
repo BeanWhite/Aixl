@@ -62,7 +62,7 @@ public class aiAdminService {
 //            Date date = new Date(L);
 //            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM + -dd hh:mm:ss");
            // System.out.println("线程"+Thread.currentThread().getName()+"\t"+simpleDateFormat.format(date)+"\t");
-            return ReturnUtils.success(this.MSG, this.MSG=="登录成功"?1:0);
+
         } else {
             try {
                 admin = adminMapper.selectByPrimaryKey(id, pwd);
@@ -74,9 +74,10 @@ public class aiAdminService {
                 }
             } catch (Exception e) {
                 MSG = "账号或密码错误";
+                return ReturnUtils.success(this.MSG,null,0);
             }
-            return ReturnUtils.success(this.MSG,(this.MSG=="登录成功"?1:0));
         }
+        return ReturnUtils.success(this.MSG,this.MSG=="登录成功"?admin.getAiUserType():null,1);
     }
 
     public ReturnObject<Object> getAdmin(String id, String pwd) {

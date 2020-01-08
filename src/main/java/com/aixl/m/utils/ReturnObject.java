@@ -7,10 +7,33 @@ import com.alibaba.fastjson.JSON;
  * @param <T>  数据类
  */
 public class ReturnObject <T extends Object > {
-//    返回状态消息
+//    返回消息
     private String msg;
  //    返回数据对象
     private T object;
+
+
+    //返回状态
+    private String status;
+
+    //返回数字状态
+    private int status_n;
+
+    public int getStatus_n() {
+        return status_n;
+    }
+
+    public void setStatus_n(int status_n) {
+        this.status_n = status_n;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getMsg() {
         return msg;
