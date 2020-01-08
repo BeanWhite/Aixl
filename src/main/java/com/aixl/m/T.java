@@ -2,9 +2,15 @@ package com.aixl.m;
 
 import com.aixl.m.utils.Prince.Prince;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 public class T {
 
     public static void main(String[] args) throws Exception {
+        String string = "fasdfasdfasdfas对方的说法那是的可来得及发色大姐你佛I酷大家佛I安圣诞节哦哦拍的就佛";
+        InputStream inputStream = new ByteArrayInputStream(string.getBytes());
         Prince prince = new Prince("C:\\Program Files (x86)\\Prince\\engine\\bin\\prince.exe");
         //添加js
         //prince.addScript("");
@@ -23,6 +29,8 @@ public class T {
         //pdf输出
       //  prince.setPDFOutputIntent("D:\\");
         prince.convert("D:\\AixlProject\\AiWeb\\new_file.html","D:\\1.pdf");
+
+        //prince.convert("D:\\AixlProject\\AiWeb\\new_file.html",);
        
 
     }

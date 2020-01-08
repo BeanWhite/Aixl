@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    name: crm
+    name: aixl
     druid:
       filters: stat
       driver-class-name: com.mysql.cj.jdbc.Driver
