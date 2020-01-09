@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aixl.m.dao.aiTestResultMapper">
+  <resultMap id="BaseResultMap" type="com.aixl.m.model.aiTestResult">
+    <result column="ai_user_id" jdbcType="VARCHAR" property="aiUserId" />
+    <result column="ai_result_name" jdbcType="VARCHAR" property="aiResultName" />
+    <result column="ai_result_describe" jdbcType="VARCHAR" property="aiResultDescribe" />
+    <result column="ai_result_lev" jdbcType="VARCHAR" property="aiResultLev" />
+    <result column="ai_result_time" jdbcType="DATE" property="aiResultTime" />
+    <result column="ai_result_last_time" jdbcType="DATE" property="aiResultLastTime" />
+    <result column="ai_result_total" jdbcType="VARCHAR" property="aiResultTotal" />
+  </resultMap>
+  <insert id="insert" parameterType="com.aixl.m.model.aiTestResult">
+    insert into ai_test_result (ai_user_id, ai_result_name, ai_result_describe, 
+      ai_result_lev, ai_result_time, ai_result_last_time, 
+      ai_result_total)
+    values (#{aiUserId,jdbcType=VARCHAR}, #{aiResultName,jdbcType=VARCHAR}, #{aiResultDescribe,jdbcType=VARCHAR}, 
+      #{aiResultLev,jdbcType=VARCHAR}, #{aiResultTime,jdbcType=DATE}, #{aiResultLastTime,jdbcType=DATE}, 
+      #{aiResultTotal,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ai_user_id, ai_result_name, ai_result_describe, ai_result_lev, ai_result_time, 
+    ai_result_last_time, ai_result_total
+    from ai_test_result
+  </select>
+</mapper>

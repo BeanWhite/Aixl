@@ -15,6 +15,9 @@ import java.util.List;
 @Service
 public class UserMsgService {
 
+    //设置redis保存时间
+    private long keepTime = 24*60*60*2;
+
     @Autowired
     private RedisUtils<Object> redisUtils;
 
@@ -35,7 +38,7 @@ public class UserMsgService {
             try {
                 userMsgList = userMsgMapper.selectMsgForDoc(parameter);
                 if(userMsgList.size()>0)
-                redisUtils.setCache("user=" + parameter, userMsgList);
+                redisUtils.setCache("user=" + parameter, userMsgList,keepTime);
                 return ReturnUtils.success("1", userMsgList);
             } catch (Exception e) {
                 e.printStackTrace();

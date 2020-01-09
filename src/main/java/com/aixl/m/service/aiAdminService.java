@@ -21,6 +21,8 @@ import java.util.Date;
 public class aiAdminService {
 
     // private RedisService redisService;
+//设置redis保存时间
+    private long keepTime = 24*60*60*2;
 
     @Autowired
     private RedisUtils<Object> redisUtils;
@@ -70,7 +72,7 @@ public class aiAdminService {
                     MSG = "账号或密码错误";
                 } else{
                     MSG = "登录成功";
-                    redisUtils.setCache(id, admin);
+                    redisUtils.setCache(id, admin,keepTime);
                 }
             } catch (Exception e) {
                 MSG = "账号或密码错误";

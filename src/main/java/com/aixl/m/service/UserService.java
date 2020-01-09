@@ -21,6 +21,8 @@ public class UserService {
 
     private String MSG;
 
+    //设置redis保存时间
+    private long keepTime = 24*60*60*2;
 
     /**
      * 用户登录
@@ -34,7 +36,7 @@ public class UserService {
             try {
                 user = userMapper.selectByPrimaryKey(id);
                 if(user!=null){
-                    redisUtils.setCache(id,user);
+                    redisUtils.setCache(id,user,keepTime);
                     if(user.getAiUserPwd().equals(pwd))
                         this.MSG ="登录成功";
                     else

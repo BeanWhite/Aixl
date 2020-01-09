@@ -10,20 +10,6 @@ import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-//public class RedisUtils{
-//    @Autowired
-//    private RedisTemplate<String,String> template;
-//
-//    @Resource
-//    private ListOperations<String,String> listOperations;
-//
-//    public void addLink(String id, URL url){
-//        listOperations.leftPush(id,url.toExternalForm());
-//        template.boundListOps(id).leftPush(url.toExternalForm());
-//
-//    }
-//}
-
 /**
  * 封装的redis工具类
  * @param <T>

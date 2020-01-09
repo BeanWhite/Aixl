@@ -20,6 +20,9 @@ public class aiDocService {
 
     private String MSG;
 
+    //设置redis保存时间
+    private long keepTime = 24*60*60*2;
+
     /**
      * 医生登录，数据库操作出错时返回“登录失败”。
      * @param id
@@ -36,7 +39,7 @@ public class aiDocService {
                         this.MSG = "登录成功";
                     else
                         this.MSG = "账号或密码错误";
-                    redisUtils.setCache(id,doc);
+                    redisUtils.setCache(id,doc,keepTime);
                 }else {
                     this.MSG = "账号或密码错误";
                 }

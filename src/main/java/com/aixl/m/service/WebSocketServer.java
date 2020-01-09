@@ -56,16 +56,16 @@ public class WebSocketServer {
         this.session = session;
         this.sid = sid;
         //连接成功后检查是否有为接受的消息
-        checkMsg(sid);
         System.out.println(this.sid);
         webSocketServers.add(this);
         webSocketServersMap.put(sid, this);
+        checkMsg(sid,session);
         addOnlineCount();
-        try {
-            sendMessage("连接成功！！！");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            sendMessage("连接成功！！！");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**
@@ -129,6 +129,7 @@ public class WebSocketServer {
     }
 
     public void pointUser(String message, Session session) throws Exception {
+        //System.out.println(message.toString());
         httpHeaderDataPackage dataPackage = JSON.parseObject(message, httpHeaderDataPackage.class);
         if (dataPackage.is_isMain()) {
             //新版本
@@ -146,7 +147,7 @@ public class WebSocketServer {
                             //如果该用户已有没推送的消息
                             beSentMSG.get(dataPackage.getTarget()).add(dataPackage);
                         } else {
-                            ArrayList<Object> list = null;
+                            ArrayList<Object> list = new ArrayList<>();
                             list.add(dataPackage);
                             beSentMSG.put(dataPackage.getTarget(), list);
 
@@ -161,15 +162,18 @@ public class WebSocketServer {
     /**
      * 检查待发送消息列表
      */
-    public void checkMsg(String sid) throws Exception {
+    public void checkMsg(String sid,Session session) throws Exception {
         ArrayList<Object> list = beSentMSG.get(sid);
         //如果有待发送的消息
-        if (list != null && list.size() != 0) {
+       WebSocketServer webSocketServer = webSocketServersMap.get(sid);
+
+        if (list != null && list.size() > 0&&webSocketServer!=null) {
             for (int i = 0; i < list.size(); i++) {
                 webSocketServersMap.get(sid).sendMessage(JSON.toJSONString(list.get(i)));
             }
             //发送完移除
             beSentMSG.remove(sid);
+            System.out.println(beSentMSG.get(sid));
         } else return;
     }
 

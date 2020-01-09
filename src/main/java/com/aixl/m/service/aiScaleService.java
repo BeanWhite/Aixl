@@ -21,7 +21,8 @@ public class aiScaleService {
     @Autowired
     aiTestMapper testMapper;
 
-
+    //设置redis保存时间
+    private long keepTime = 24*60*60*2;
 
     @Autowired
     RedisUtils<Object> redisUtils;
@@ -41,7 +42,7 @@ public class aiScaleService {
                 if(scale.size()==0)
                     return ReturnUtils.success("1","没有内容");
                 else
-                    redisUtils.setCache("allScales",scale);
+                    redisUtils.setCache("allScales",scale,keepTime);
                 return ReturnUtils.success("1",scale);
             }catch (Exception e){
                 return ReturnUtils.success("0","没有内容");
@@ -63,7 +64,7 @@ public class aiScaleService {
                 if(tests.size()==0){
                     return ReturnUtils.success("1","没有内容");
                 }else {
-                    redisUtils.setCache("scaleTestMsg="+id,tests);
+                    redisUtils.setCache("scaleTestMsg="+id,tests,keepTime);
                     return ReturnUtils.success("1",tests);
                 }
             }catch (Exception e){
