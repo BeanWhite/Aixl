@@ -31,12 +31,12 @@ public class UserService {
      * @return
      */
     public ReturnObject<Object> getUser(String id, String pwd){
-        aiUser user = (aiUser) redisUtils.getCache(id);
+        aiUser user = (aiUser) redisUtils.getCache("user="+id);
         if(user == null){
             try {
                 user = userMapper.selectByPrimaryKey(id);
                 if(user!=null){
-                    redisUtils.setCache(id,user,keepTime);
+                    redisUtils.setCache("user="+id,user,keepTime);
                     if(user.getAiUserPwd().equals(pwd))
                         this.MSG ="登录成功";
                     else

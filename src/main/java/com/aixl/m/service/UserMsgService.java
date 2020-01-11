@@ -31,14 +31,14 @@ public class UserMsgService {
      * @return
      */
     public ReturnObject<Object> getUserMsgForDoc(String parameter) {
-        List<aiUserMsg> userMsgList = (List<aiUserMsg>) redisUtils.getCache("user=" + parameter);
+        List<aiUserMsg> userMsgList = (List<aiUserMsg>) redisUtils.getCache("userMSG=" + parameter);
         if (userMsgList != null) {
             return ReturnUtils.success("1", userMsgList);
         } else {
             try {
                 userMsgList = userMsgMapper.selectMsgForDoc(parameter);
                 if(userMsgList.size()>0)
-                redisUtils.setCache("user=" + parameter, userMsgList,keepTime);
+                redisUtils.setCache("userMSG=" + parameter, userMsgList,keepTime);
                 return ReturnUtils.success("1", userMsgList);
             } catch (Exception e) {
                 e.printStackTrace();

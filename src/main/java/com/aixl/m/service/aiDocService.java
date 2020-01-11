@@ -30,7 +30,7 @@ public class aiDocService {
      * @return
      */
     public ReturnObject<Object> getDoc(String id,String pwd){
-        aiDoc doc = (aiDoc) redisUtils.getCache(id);
+        aiDoc doc = (aiDoc) redisUtils.getCache("doc="+id);
         if(doc == null){
             try {
                 doc = docMapper.selectByPrimaryKey(id);
@@ -39,7 +39,7 @@ public class aiDocService {
                         this.MSG = "登录成功";
                     else
                         this.MSG = "账号或密码错误";
-                    redisUtils.setCache(id,doc,keepTime);
+                    redisUtils.setCache("doc="+id,doc,keepTime);
                 }else {
                     this.MSG = "账号或密码错误";
                 }

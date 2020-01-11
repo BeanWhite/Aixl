@@ -42,7 +42,7 @@ public class aiAdminService {
     @Async
     public ReturnObject<Object> Test(String id, String pwd){
         //  redisUtils.set("1","id:1,pwd:1");
-        aiAdmin admin = (aiAdmin) redisUtils.getCache(id);
+        aiAdmin admin = (aiAdmin) redisUtils.getCache("admin="+id);
         if (admin != null) {
             if(admin.getAiAdminPwd().equals(pwd))
                 this.MSG = "登录成功";
@@ -72,7 +72,7 @@ public class aiAdminService {
                     MSG = "账号或密码错误";
                 } else{
                     MSG = "登录成功";
-                    redisUtils.setCache(id, admin,keepTime);
+                    redisUtils.setCache("admin="+id, admin,keepTime);
                 }
             } catch (Exception e) {
                 MSG = "账号或密码错误";

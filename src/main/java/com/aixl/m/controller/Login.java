@@ -58,18 +58,19 @@ public class Login {
         return object;
     }
 
-    // @RequestMapping(value = "/admin", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin", method = RequestMethod.POST)
     public ReturnObject<Object> getAdmin(String id, String pwd) {
         return adminService.getAdmin(id, pwd);
     }
 
-    // @RequestMapping(value = "/doc",method = RequestMethod.POST)
+    @RequestMapping(value = "/doc",method = RequestMethod.POST)
     public ReturnObject<Object> getDoc(String id, String pwd) {
         return docService.getDoc(id, pwd);
     }
 
-    //  @RequestMapping(value = "user",method = RequestMethod.POST)
+    @RequestMapping(value = "/user",method = RequestMethod.POST)
     public ReturnObject<Object> getUser(String id, String pwd) {
+        System.out.println(id+"\t"+pwd);
         return userService.getUser(id, pwd);
     }
 
