@@ -1,6 +1,10 @@
 server:
   port: 80
-
+  tomcat:
+    #设置传输数据大小为无限制
+    max-connections: -1
+    max-http-form-post-size: -1
+    max-threads: -1
 
 spring:
   datasource:
@@ -79,6 +83,14 @@ spring:
         min-idle: 0
     #连接超时时间（毫秒）
     timeout: 5000
+  http:
+
+
+  #设置post传输大小无限制
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
 
 
 

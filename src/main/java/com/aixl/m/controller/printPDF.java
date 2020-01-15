@@ -15,6 +15,7 @@ import javax.websocket.server.PathParam;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.util.ArrayList;
 
 
 @RestController
@@ -24,22 +25,20 @@ public class printPDF {
 
 
     @RequestMapping(value = "/p", method = RequestMethod.POST)
-    public ReturnObject print(String s) throws Exception{
-       System.out.println(s);
-        String string = "fasdfasdfasdfas对方的说法那是的可来得及发色大姐你佛I酷大家佛I安圣诞节哦哦拍的就佛";
-        InputStream inputStream = new ByteArrayInputStream(string.getBytes());
+    public ReturnObject print(String s, String name) throws Exception{
+       //System.out.println(s);
         Prince prince = new Prince("C:\\Program Files (x86)\\Prince\\engine\\bin\\prince.exe");
         //添加js
         //prince.addScript("");
         //添加css
         //prince.addStyleSheet("D:\\AixlProject\\AiWeb\\css\\print.css");
-
+        //prince.addStyleSheet("C:\\Users\\h\\Desktop\\css.css");
         //添加html
         // prince.setBaseURL("D:\\AixlProject\\AiWeb\\new_file.html");
-        prince.setHTML(true);
-        prince.setJavaScript(true);
+
+        prince.setBaseURL("D:\\AixlProject\\AiWeb\\html\\report\\report.html");
        // boolean b =   prince.convertString(s,"src/pdf/2.pdf");
-        boolean b = prince.convertString(s,"D:\\AixlProject\\AiWeb\\js\\pdf.js\\1.pdf");
+        boolean b = prince.convertString(s,"D:\\AixlProject\\AiWeb\\js\\pdf.js\\"+name);
         System.out.println(b);
         //输入类型
         // prince.setInputType("html");
@@ -57,11 +56,11 @@ public class printPDF {
     }
 
     @RequestMapping(value = "/p1",method = RequestMethod.POST)
-    public MultipartFile p1(MultipartFile b){
+    public Integer p1(){
 //        MultipartHttpServletRequest mul = (MultipartHttpServletRequest)b;
 //        MultipartFile file = mul.getFile("file");
 
-        System.out.println(b);
-       return b;
+
+       return 1111;
     }
 }
