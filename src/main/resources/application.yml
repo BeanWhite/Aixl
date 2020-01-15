@@ -84,6 +84,12 @@ spring:
     #连接超时时间（毫秒）
     timeout: 5000
   http:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
+      force-response: true
+      force-request: true
 
 
   #设置post传输大小无限制
