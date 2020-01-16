@@ -3,12 +3,15 @@ package com.aixl.m.controller;
 import com.aixl.m.model.ImgModel;
 import com.aixl.m.model.PicData;
 import com.aixl.m.utils.Prince.Prince;
+import com.aixl.m.utils.RedisUtils;
 import com.aixl.m.utils.ReturnObject;
 import com.aixl.m.utils.ReturnUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.lowagie.text.html.simpleparser.Img;
 import com.lowagie.text.pdf.codec.Base64;
 import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import sun.misc.BASE64Decoder;
@@ -29,6 +32,9 @@ public class printPDF {
 
     // 图片路劲层级分隔符
     private static String separator = "/";
+
+    @Autowired
+    private RedisUtils redisUtils;
 
 
     @RequestMapping(value = "/p", method = RequestMethod.POST)
@@ -66,61 +72,71 @@ public class printPDF {
     public Integer p1() {
 //        MultipartHttpServletRequest mul = (MultipartHttpServletRequest)b;
 //        MultipartFile file = mul.getFile("file");
-
-
         return 1111;
     }
 
-    @RequestMapping(value = "/saveImg", method = RequestMethod.POST)
-    public void saveImg(@RequestBody JSONObject imgModel)  {
-        //ImgModel imgModel1 = JSON.parseObject(imgModel,ImgModel.class);
-        //System.out.println(imgModel1.getImages().size());
-        System.out.println(imgModel);
+    //获取待打印的图片位置信息
+    @RequestMapping(value = "/picMsg", method = RequestMethod.GET)
+    public ReturnObject getPicMsg(String scaleName) {
+        try {
+            return ReturnUtils.success(redisUtils.getCache(scaleName));
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @RequestMapping(value = "/Img", method = RequestMethod.POST)
+    public void saveImg(@RequestBody JSONObject imgModel) {
+        ImgModel img = JSON.parseObject(String.valueOf(imgModel), ImgModel.class);
         String rgex = "data:image/(.*?);base64"; //base64前缀
         String baseImg = ""; //图片url
         String fileName = "";//图片保存文件名
-        String path = "D:/AixlProject/AiWeb/img/cacheImg"; //生基本成路径
-       // ImgModel imgModel = JSON.parseObject(Img, ImgModel.class);
-       // ArrayList<PicData> images = imgModel.getImages();
-//        for (int i = 0; i < images.size(); i++) {
-//            baseImg = images.get(i).getUrl();
-//            fileName = images.get(i).getName();
-//            if (images.get(i).getPath() != null||images.get(i).getPath()!="") {
-//                path = images.get(i).getPath();
-//            }
-//            String type = getSubUtilSimple(baseImg, rgex);//获取图片格式
-//            baseImg = baseImg.replaceFirst("data:(.+?);base64,", ""); //去除base64图片的前缀
-//            byte[] b;
-//            byte[] bs;
-//            OutputStream os = null;
-//            b = Base64.decode(baseImg.replaceAll(" ", "+")); //把图片转换成二进制
-//            fileName = fileName + "." + type;
-//            File file = new File(path);
-//            if (!file.exists() && !file.isDirectory()) {
-//                file.mkdirs();
-//            }
-//            File imageFile = new File(path + "/" + fileName);
-//            BASE64Decoder d = new BASE64Decoder();
-//            // 保存
-//            try {
-//                //bs = d.decodeBuffer(Base64.encode(b));
-//                bs = d.decodeBuffer(Base64.encodeBytes(b));
-//                os = new FileOutputStream(imageFile);
-//                os.write(bs);
-//            } catch (IOException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//
-//            } finally {
-//                if (os != null) {
-//                    try {
-//                        os.close();
-//                    } catch (IOException e) {
-//                        e.getLocalizedMessage();
-//                    }
-//                }
-//            }
-//        }
+        String path = ""; //生基本成路径
+        ArrayList<PicData> images = img.getImages();
+        for (int i = 0; i < images.size(); i++) {
+            baseImg = images.get(i).getUrl();
+            fileName = images.get(i).getName();
+            if (images.get(i).getPath().length() == 0) {
+                path = images.get(i).getPath();
+            }
+            String type = getSubUtilSimple(baseImg, rgex);//获取图片格式
+            baseImg = baseImg.replaceFirst("data:(.+?);base64,", ""); //去除base64图片的前缀
+            byte[] b;
+            byte[] bs;
+            OutputStream os = null;
+            b = Base64.decode(baseImg.replaceAll(" ", "+")); //把图片转换成二进制
+            fileName = fileName + "." + type;
+            File file = new File(path);
+            if (!file.exists() && !file.isDirectory()) {
+                file.mkdirs();
+            }
+            File imageFile = new File(path + "/" + fileName);
+            BASE64Decoder d = new BASE64Decoder();
+            // 保存
+            try {
+                //bs = d.decodeBuffer(Base64.encode(b));
+                bs = d.decodeBuffer(Base64.encodeBytes(b));
+                os = new FileOutputStream(imageFile);
+                os.write(bs);
+                //清空url节省空间、流量
+                images.get(i).setUrl("");
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+
+            } finally {
+                if (os != null) {
+                    try {
+                        os.close();
+                    } catch (IOException e) {
+                        e.getLocalizedMessage();
+                    }
+                }
+            }
+        }
+
+        redisUtils.setCache(images.get(0).getScaleName(), images);
     }
 
     public static String getSubUtilSimple(String soap, String rgex) {

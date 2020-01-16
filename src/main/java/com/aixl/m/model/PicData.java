@@ -1,9 +1,18 @@
 package com.aixl.m.model;
 
 public class PicData {
-    private String url;
-    private String name;
-    private String path;
+    private String url; //图片base64编码
+    private String name;//图片文件名
+    private String path="D:/AixlProject/AiWeb/img/cacheImg";
+    private String scaleName; //图片所属量表
+
+    public String getScaleName() {
+        return scaleName;
+    }
+
+    public void setScaleName(String scaleName) {
+        this.scaleName = scaleName;
+    }
 
     public String getUrl() {
         return url;
@@ -26,6 +35,18 @@ public class PicData {
     }
 
     public void setPath(String path) {
-        this.path = path;
+        if(path.length()<=0)
+            return;
+       this.path = path;
+    }
+
+    @Override
+    public String toString() {
+        return "PicData{" +
+                "url='" + url + '\'' +
+                ", name='" + name + '\'' +
+                ", path='" + path + '\'' +
+                ", scaleName='" + scaleName + '\'' +
+                '}';
     }
 }
