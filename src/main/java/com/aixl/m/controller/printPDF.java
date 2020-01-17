@@ -8,16 +8,13 @@ import com.aixl.m.utils.ReturnObject;
 import com.aixl.m.utils.ReturnUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.lowagie.text.html.simpleparser.Img;
 import com.lowagie.text.pdf.codec.Base64;
-import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import sun.misc.BASE64Decoder;
 
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 
 import java.util.ArrayList;
@@ -90,17 +87,20 @@ public class printPDF {
     public void saveImg(@RequestBody JSONObject imgModel) {
         ImgModel img = JSON.parseObject(String.valueOf(imgModel), ImgModel.class);
         String rgex = "data:image/(.*?);base64"; //base64前缀
-        String baseImg = ""; //图片url
-        String fileName = "";//图片保存文件名
-        String path = ""; //生基本成路径
+
         ArrayList<PicData> images = img.getImages();
         for (int i = 0; i < images.size(); i++) {
+            String baseImg = ""; //图片url
+            String fileName = "";//图片保存文件名
+            String path = ""; //生基本成路径
+
             baseImg = images.get(i).getUrl();
             fileName = images.get(i).getName();
-            if (images.get(i).getPath().length() == 0) {
+            if (images.get(i).getPath().length() > 0&&images.get(i).getPath()!=null) {
                 path = images.get(i).getPath();
             }
-            String type = getSubUtilSimple(baseImg, rgex);//获取图片格式
+            //String type = "jpeg";
+             String type = getSubUtilSimple(baseImg, rgex);//获取图片格式
             baseImg = baseImg.replaceFirst("data:(.+?);base64,", ""); //去除base64图片的前缀
             byte[] b;
             byte[] bs;
@@ -135,7 +135,7 @@ public class printPDF {
                 }
             }
         }
-
+        //存入redius方便下次使用
         redisUtils.setCache(images.get(0).getScaleName(), images);
     }
 
