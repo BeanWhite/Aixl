@@ -56,7 +56,7 @@ public class WebSocketServer {
         this.session = session;
         this.sid = sid;
         //连接成功后检查是否有为接受的消息
-        System.out.println(this.sid);
+        System.out.println("===="+this.sid+"\t"+"用户登录sid");
         webSocketServers.add(this);
         webSocketServersMap.put(sid, this);
         checkMsg(sid,session);
@@ -87,11 +87,11 @@ public class WebSocketServer {
      */
     @OnMessage
     public void onMessage(byte[] message, Session session) {
-        //System.out.println("接受byte字节");
+        System.out.println("接受byte字节");
         //群发消息
         for (WebSocketServer item : webSocketServers) {
             try {
-                item.sendMessage(message);
+                //item.sendMessage(message);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -173,7 +173,7 @@ public class WebSocketServer {
             }
             //发送完移除
             beSentMSG.remove(sid);
-            System.out.println(beSentMSG.get(sid));
+            System.out.println(beSentMSG.get(sid)+"\t"+"检查到该用户由消息推送未完成");
         } else return;
     }
 
@@ -189,6 +189,7 @@ public class WebSocketServer {
         try {
             //this.session.getAsyncRemote().sendText(s);//异步发送消息
             this.session.getBasicRemote().sendText(s);//同步发送消息
+            System.out.println("服务器推送消息");
         } catch (Exception e) {
             e.printStackTrace();
         }
