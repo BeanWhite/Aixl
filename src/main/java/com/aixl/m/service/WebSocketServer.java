@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -100,7 +101,7 @@ public class WebSocketServer {
 
     @OnMessage
     public void onMessage(String message, Session session) throws Exception {
-        //有消息到来三种处理情况1、转发；2、存入消息队列；3、取消本次发送
+        //有消息到来4种处理情况1、转发；2、存入消息队列；3、取消本次发送; 4、处理计算本次数据，然后转发给目标用户
         pointUser(message, session);
         //有目标id才能发送数据
         //发送短数据，不需要切分
@@ -128,9 +129,34 @@ public class WebSocketServer {
         error.printStackTrace();
     }
 
+
+    public void dateOption(httpHeaderDataPackage obj){
+        System.out.println(obj.getStatus());
+        switch (obj.getStatus()){
+            case 201:
+                String[] a = (String[]) obj.getData();
+                for(int i=0;i<a.length;i++)
+                    System.out.println("**"+a[i]+"**");
+                break;//处理连线测验结果
+            default:break;
+        }
+    }
+
+    /**
+     * 服务器接收客户端发过来的消息，如果status > 100则需要服务器处理
+     * @param message
+     * @param session
+     * @throws Exception
+     */
     public void pointUser(String message, Session session) throws Exception {
         //System.out.println(message.toString());
         httpHeaderDataPackage dataPackage = JSON.parseObject(message, httpHeaderDataPackage.class);
+
+        if(dataPackage.getStatus()>100){
+         dateOption(dataPackage);
+            return;//处理完成后直接返回
+        }
+
         if (dataPackage.is_isMain()) {
             //新版本
             if (dataPackage.getTargets() != null || dataPackage.getTarget() != null) {
@@ -150,7 +176,6 @@ public class WebSocketServer {
                             ArrayList<Object> list = new ArrayList<>();
                             list.add(dataPackage);
                             beSentMSG.put(dataPackage.getTarget(), list);
-
                         }
                     }
                 }

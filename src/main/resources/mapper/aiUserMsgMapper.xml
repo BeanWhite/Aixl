@@ -141,4 +141,8 @@
     select ai_user_name,ai_user_sex,ai_user_age,ai_user_edu_bg,ai_user_marriage,ai_user_profession,
     ai_user_office,ai_user_from from ai_user_msg where ai_user_id=#{parameter,jdbcType=VARCHAR}
   </select>
+
+<!--  <select id="selectMsgForDoc" parameterType="java.lang.String" resultMap="BaseResultMap">-->
+<!--    select  * from ai_user_msg where ai_user_id=#{parameter,jdbcType=VARCHAR}-->
+<!--  </select>-->
 </mapper>
