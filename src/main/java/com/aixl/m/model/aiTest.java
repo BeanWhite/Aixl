@@ -1,5 +1,7 @@
 package com.aixl.m.model;
 
+import java.util.Arrays;
+
 public class aiTest {
     private Integer aiScaleId;
 
@@ -26,6 +28,16 @@ public class aiTest {
     private String aiScoreMethod;
 
     private byte[] aiQuestionImg;
+
+    private String aiScaleName;
+
+    public String getAiScaleName() {
+        return aiScaleName;
+    }
+
+    public void setAiScaleName(String aiScaleName) {
+        this.aiScaleName = aiScaleName;
+    }
 
     public Integer getAiScaleId() {
         return aiScaleId;
@@ -129,5 +141,25 @@ public class aiTest {
 
     public void setAiQuestionImg(byte[] aiQuestionImg) {
         this.aiQuestionImg = aiQuestionImg;
+    }
+
+    @Override
+    public String toString() {
+        return "aiTest{" +
+                "aiScaleId=" + aiScaleId +
+                ", aiQuestionId=" + aiQuestionId +
+                ", aiQuestionContent='" + aiQuestionContent + '\'' +
+                ", aiQuestionOption='" + aiQuestionOption + '\'' +
+                ", aiQuestionAnswer='" + aiQuestionAnswer + '\'' +
+                ", aiQuestionType='" + aiQuestionType + '\'' +
+                ", aiQuestionScore='" + aiQuestionScore + '\'' +
+                ", aiQuestionNotice='" + aiQuestionNotice + '\'' +
+                ", aiQuestionGuid='" + aiQuestionGuid + '\'' +
+                ", aiQuestionAnswerDescribe='" + aiQuestionAnswerDescribe + '\'' +
+                ", aiScoreMethodName='" + aiScoreMethodName + '\'' +
+                ", aiScoreMethod='" + aiScoreMethod + '\'' +
+                ", aiQuestionImg=" + Arrays.toString(aiQuestionImg) +
+                ", aiScaleName='" + aiScaleName + '\'' +
+                '}';
     }
 }

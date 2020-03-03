@@ -23,7 +23,7 @@ public class aiDoc {
 
     private String aiDocPhoto;
 
-    private String aiUserType;
+    private String aiUserType="医生";
 
     private String aiIdCard;
 
@@ -129,5 +129,24 @@ public class aiDoc {
 
     public void setAiIdCard(String aiIdCard) {
         this.aiIdCard = aiIdCard == null ? null : aiIdCard.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "aiDoc{" +
+                "aiDocId='" + aiDocId + '\'' +
+                ", aiDocPwd='" + aiDocPwd + '\'' +
+                ", aiDocAge=" + aiDocAge +
+                ", aiDocSex='" + aiDocSex + '\'' +
+                ", aiDocName='" + aiDocName + '\'' +
+                ", aiDocUnit='" + aiDocUnit + '\'' +
+                ", aiDocDepartment='" + aiDocDepartment + '\'' +
+                ", aiDocPhone='" + aiDocPhone + '\'' +
+                ", aiDocSuperiorId='" + aiDocSuperiorId + '\'' +
+                ", aiDocPatientNum=" + aiDocPatientNum +
+                ", aiDocPhoto='" + aiDocPhoto + '\'' +
+                ", aiUserType='" + aiUserType + '\'' +
+                ", aiIdCard='" + aiIdCard + '\'' +
+                '}';
     }
 }

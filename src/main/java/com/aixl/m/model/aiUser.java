@@ -5,7 +5,7 @@ public class aiUser {
 
     private String aiUserPwd;
 
-    private String aiUserType;
+    private String aiUserType="用户";
 
     public String getAiUserId() {
         return aiUserId;
@@ -29,5 +29,14 @@ public class aiUser {
 
     public void setAiUserType(String aiUserType) {
         this.aiUserType = aiUserType == null ? null : aiUserType.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "aiUser{" +
+                "aiUserId='" + aiUserId + '\'' +
+                ", aiUserPwd='" + aiUserPwd + '\'' +
+                ", aiUserType='" + aiUserType + '\'' +
+                '}';
     }
 }

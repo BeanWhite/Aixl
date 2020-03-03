@@ -1,6 +1,7 @@
 package com.aixl.m.dao;
 
 import com.aixl.m.model.aiScale;
+import com.github.pagehelper.Page;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,4 +18,8 @@ public interface aiScaleMapper {
     List<aiScale> selectAll();
 
     int updateByPrimaryKey(aiScale record);
+
+    Page<aiScale> selectByPages();
+
+    List<aiScale> getScaleIdList();
 }

@@ -4,9 +4,12 @@ import com.aixl.m.dao.aiScaleMapper;
 import com.aixl.m.dao.aiTestMapper;
 import com.aixl.m.model.aiScale;
 import com.aixl.m.model.aiTest;
+import com.aixl.m.model.aiTestHistory;
 import com.aixl.m.utils.RedisUtils;
 import com.aixl.m.utils.ReturnObject;
 import com.aixl.m.utils.ReturnUtils;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +53,14 @@ public class aiScaleService {
         }
     }
 
+    /**
+     * 分页获取量表基本信息
+     */
+    public ReturnObject<Object> getPages(Integer currentPage,Integer pageSize){
+        PageHelper.startPage(currentPage,pageSize);
+        Page<aiScale> page = scaleMapper.selectByPages();
+        return ReturnUtils.success(page.getTotal(),page);
+    }
 
     /**
      * 根据量表id获取量表中的题目信息
@@ -73,6 +84,66 @@ public class aiScaleService {
         }else {
             return ReturnUtils.success("1",tests);
         }
+    }
+
+
+    /**
+     * 根据量表id或名称获取信息
+     * @param currentPage
+     * @param pageSize
+     * @param param
+     * @return
+     */
+    public ReturnObject<Object> getTestByIdOrName(Integer currentPage,Integer pageSize, String param){
+       PageHelper.startPage(currentPage,pageSize);
+       Page<aiTest> page = testMapper.selectByIdOrName(param);
+       return ReturnUtils.success(page.getTotal(),page);
+    }
+
+
+    /**
+     * 根据量表id和题号（id）获取题目信息
+     * @param a
+     * @param b
+     * @return
+     */
+    public ReturnObject<Object> getTestByDoubleId(String a,String b){
+        return ReturnUtils.success(testMapper.selectByDoubleId(a,b));
+    }
+
+    /**
+     * 修改题目信息
+     * @param test
+     * @return
+     */
+    public ReturnObject<Object> setTest(aiTest test){
+        int a =testMapper.setTest(test);
+        return ReturnUtils.success(a);
+    }
+
+    /**
+     * 获取量表所有id
+     * @return
+     */
+    public ReturnObject<Object> getScaleIdList(){
+        List<aiScale> list = scaleMapper.getScaleIdList();
+        return ReturnUtils.success(list);
+    }
+
+    /**
+     * 添加题目
+     * @param test
+     * @return
+     */
+    public ReturnObject<Object> addTest(aiTest test){
+        int a= testMapper.addTest(test);
+        System.out.println(test.toString());
+        return ReturnUtils.success(a);
+    }
+
+    public ReturnObject<Object> deleteTest(aiTest test){
+        int a = testMapper.deleteTest(test);
+        return ReturnUtils.success(a);
     }
 
 }

@@ -12,12 +12,22 @@ public class ReturnObject <T extends Object > {
  //    返回数据对象
     private T object;
 
+    //返回的附加数据包
+    private Object o;
 
     //返回状态
     private String status;
 
     //返回数字状态
     private int status_n;
+
+    public Object getO() {
+        return o;
+    }
+
+    public void setO(Object o) {
+        this.o = o;
+    }
 
     public int getStatus_n() {
         return status_n;

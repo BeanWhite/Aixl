@@ -34,4 +34,12 @@
     from ai_scale
   </select>
 
+  <select id="selectByPages" resultMap="BaseResultMap">
+    select * from ai_scale
+  </select>
+
+  <select id="getScaleIdList" resultMap="BaseResultMap">
+    select ai_scale_id from ai_scale
+   </select>
+
 </mapper>

@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aixl.m.dao.aiDocMapper">
-  <resultMap id="BaseResultMap" type="com.aixl.m.model.aiDoc">
-    <id column="ai_doc_id" jdbcType="VARCHAR" property="aiDocId" />
-    <result column="ai_doc_pwd" jdbcType="VARCHAR" property="aiDocPwd" />
-    <result column="ai_doc_age" jdbcType="INTEGER" property="aiDocAge" />
-    <result column="ai_doc_sex" jdbcType="VARCHAR" property="aiDocSex" />
-    <result column="ai_doc_name" jdbcType="VARCHAR" property="aiDocName" />
-    <result column="ai_doc_unit" jdbcType="VARCHAR" property="aiDocUnit" />
-    <result column="ai_doc_department" jdbcType="VARCHAR" property="aiDocDepartment" />
-    <result column="ai_doc_phone" jdbcType="VARCHAR" property="aiDocPhone" />
-    <result column="ai_doc_superior_id" jdbcType="VARCHAR" property="aiDocSuperiorId" />
-    <result column="ai_doc_patient_num" jdbcType="INTEGER" property="aiDocPatientNum" />
-    <result column="ai_doc_photo" jdbcType="VARCHAR" property="aiDocPhoto" />
-    <result column="ai_user_type" jdbcType="VARCHAR" property="aiUserType" />
-    <result column="ai_id_card" jdbcType="VARCHAR" property="aiIdCard" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <resultMap id="BaseResultMap" type="com.aixl.m.model.aiDoc">
+        <id column="ai_doc_id" jdbcType="VARCHAR" property="aiDocId"/>
+        <result column="ai_doc_pwd" jdbcType="VARCHAR" property="aiDocPwd"/>
+        <result column="ai_doc_age" jdbcType="INTEGER" property="aiDocAge"/>
+        <result column="ai_doc_sex" jdbcType="VARCHAR" property="aiDocSex"/>
+        <result column="ai_doc_name" jdbcType="VARCHAR" property="aiDocName"/>
+        <result column="ai_doc_unit" jdbcType="VARCHAR" property="aiDocUnit"/>
+        <result column="ai_doc_department" jdbcType="VARCHAR" property="aiDocDepartment"/>
+        <result column="ai_doc_phone" jdbcType="VARCHAR" property="aiDocPhone"/>
+        <result column="ai_doc_superior_id" jdbcType="VARCHAR" property="aiDocSuperiorId"/>
+        <result column="ai_doc_patient_num" jdbcType="INTEGER" property="aiDocPatientNum"/>
+        <result column="ai_doc_photo" jdbcType="VARCHAR" property="aiDocPhoto"/>
+        <result column="ai_user_type" jdbcType="VARCHAR" property="aiUserType"/>
+        <result column="ai_id_card" jdbcType="VARCHAR" property="aiIdCard"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from ai_doc
     where ai_doc_id = #{aiDocId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.aixl.m.model.aiDoc">
-    insert into ai_doc (ai_doc_id, ai_doc_pwd, ai_doc_age, 
+    <insert id="insert" parameterType="com.aixl.m.model.aiDoc">
+    insert ignore ai_doc (ai_doc_id, ai_doc_pwd, ai_doc_age,
       ai_doc_sex, ai_doc_name, ai_doc_unit, 
       ai_doc_department, ai_doc_phone, ai_doc_superior_id, 
       ai_doc_patient_num, ai_doc_photo, ai_user_type, 
@@ -32,7 +32,7 @@
       #{aiDocPatientNum,jdbcType=INTEGER}, #{aiDocPhoto,jdbcType=VARCHAR}, #{aiUserType,jdbcType=VARCHAR}, 
       #{aiIdCard,jdbcType=VARCHAR})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.aixl.m.model.aiDoc">
+    <update id="updateByPrimaryKey" parameterType="com.aixl.m.model.aiDoc">
     update ai_doc
     set ai_doc_pwd = #{aiDocPwd,jdbcType=VARCHAR},
       ai_doc_age = #{aiDocAge,jdbcType=INTEGER},
@@ -48,17 +48,42 @@
       ai_id_card = #{aiIdCard,jdbcType=VARCHAR}
     where ai_doc_id = #{aiDocId,jdbcType=VARCHAR}
   </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select ai_doc_id, ai_doc_pwd, ai_doc_age, ai_doc_sex, ai_doc_name, ai_doc_unit, ai_doc_department, 
     ai_doc_phone, ai_doc_superior_id, ai_doc_patient_num, ai_doc_photo, ai_user_type, 
     ai_id_card
     from ai_doc
     where ai_doc_id = #{aiDocId,jdbcType=VARCHAR}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
+    <select id="selectAll" resultMap="BaseResultMap">
     select ai_doc_id, ai_doc_pwd, ai_doc_age, ai_doc_sex, ai_doc_name, ai_doc_unit, ai_doc_department, 
     ai_doc_phone, ai_doc_superior_id, ai_doc_patient_num, ai_doc_photo, ai_user_type, 
     ai_id_card
     from ai_doc
   </select>
+    <update id="setPwd" parameterType="com.aixl.m.model.aiDoc">
+    update ai_doc
+    set ai_doc_pwd = #{aiDocPwd,jdbcType=VARCHAR}
+    where ai_doc_id = #{aiDocId,jdbcType=VARCHAR} and ai_doc_department = #{aiDocDepartment,jdbcType=VARCHAR}
+  </update>
+    <update id="reSetPwd" parameterType="com.aixl.m.model.aiDoc">
+        update ai_doc
+    set ai_doc_pwd = "123456"
+    where ai_doc_id = #{aiDocId,jdbcType=VARCHAR}
+    </update>
+    <update id="setDocMsg" parameterType="com.aixl.m.model.aiDoc">
+     update ai_doc
+    set
+      ai_doc_age = #{aiDocAge,jdbcType=INTEGER},
+      ai_doc_sex = #{aiDocSex,jdbcType=VARCHAR},
+      ai_doc_name = #{aiDocName,jdbcType=VARCHAR},
+      ai_doc_unit = #{aiDocUnit,jdbcType=VARCHAR},
+      ai_doc_department = #{aiDocDepartment,jdbcType=VARCHAR},
+      ai_doc_phone = #{aiDocPhone,jdbcType=VARCHAR},
+      ai_doc_superior_id = #{aiDocSuperiorId,jdbcType=VARCHAR},
+      ai_doc_patient_num = #{aiDocPatientNum,jdbcType=INTEGER},
+      ai_doc_photo = #{aiDocPhoto,jdbcType=VARCHAR},
+      ai_id_card = #{aiIdCard,jdbcType=VARCHAR}
+    where ai_doc_id = #{aiDocId,jdbcType=VARCHAR}
+  </update>
 </mapper>

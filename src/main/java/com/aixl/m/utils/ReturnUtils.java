@@ -9,7 +9,7 @@ public class ReturnUtils {
     private final static String FAIL_MSG = "FAIL";
     private final static int ERROR_CODE = -1;
     private final static String ERROR_MSG = "ERROR";
-
+    private final static Object OT_MSG = null;
 
     /**
      * 数据获取成功返回的消息列表
@@ -22,7 +22,26 @@ public class ReturnUtils {
     public static ReturnObject<Object> success(Object o) {
         return success(null, o);
     }
+    public static ReturnObject<Object> success(String msg, Object o) {
+        return success(msg,o,null);
+    }
 
+    public static ReturnObject<Object> success(Object ot,Object o){
+        return success(ot,o,null);
+    }
+
+    public static ReturnObject<Object> success(Object ot,Object o ,String msg){
+        return success(ot,o,msg,null);
+    }
+
+    public static ReturnObject<Object> success(Object ot, Object o,String msg ,String status){
+        ReturnObject<Object> oobject = new ReturnObject<>();
+        oobject.setMsg(msg==null?SUCCESS_MSG:msg);
+        oobject.setObject(o);
+        oobject.setO(ot);
+        oobject.setStatus(status);
+        return oobject;
+    }
     public static ReturnObject<Object> success(String msg,Object o,String status){
         ReturnObject<Object> object = new ReturnObject<>();
         object.setMsg(msg == null ? SUCCESS_MSG : msg);
@@ -36,9 +55,6 @@ public class ReturnUtils {
         object.setObject(o);
         object.setStatus_n(status);
         return object;
-    }
-    public static ReturnObject<Object> success(String msg, Object o) {
-        return success(msg,o,null);
     }
 
 

@@ -1,10 +1,18 @@
 server:
   port: 80
-  tomcat:
-    #设置传输数据大小为无限制
-    max-connections: -1
-    max-http-form-post-size: -1
-    max-threads: -1
+#  tomcat:
+#    #设置传输数据大小为无限制
+#    max-connections: 50000 #最大连接数
+#    max-http-form-post-size: -1 #post方式数据大小设置
+#    max-threads: 500   #最大线程数
+  #将tomcat替换为undertow
+  undertow:
+    direct-buffers: true
+    io-threads: 4
+    worker-threads: 160
+    max-http-post-size: -1
+    max-cookies: 500
+    max-headers: 1000
 
 spring:
   datasource:
@@ -44,7 +52,7 @@ spring:
       use-global-dataSource-stat: true
 #      filters: stat
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/neuropsychoogical_cognition?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      url: jdbc:mysql://localhost:3306/neuropsychoogical_cognition?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
       username: root
       password: root
 #      initial-size: 10
@@ -59,6 +67,7 @@ spring:
 #      test-on-return: false
 #      pool-prepared-statements: false
 #      max-pool-prepared-statement-per-connection-size: 20
+
   jackson:
     date-format: yyyy-MM-dd
     time-zone: GMT+8
@@ -98,12 +107,15 @@ spring:
       max-file-size: -1
       max-request-size: -1
 
-
-
 mybatis:
 #  mapper-locations: classpath:com/aixl/m/dao/mapper/*.xml
   type-aliases-package: com.aixl.m.model
   mapper-locations: classpath:mapper/*.xml
 
 
+#配置分页插件
 
+pagehelper:
+  helper-dialect: mysql
+  reasonable: false
+  page-size-zero: true

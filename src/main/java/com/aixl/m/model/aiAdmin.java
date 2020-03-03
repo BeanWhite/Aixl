@@ -13,7 +13,7 @@ public class aiAdmin {
 
     private Integer aiAdminLimit = null;
 
-    private String aiUserType = null;
+    private String aiUserType = "管理员";
 
     private String aiIdCard = null;
 

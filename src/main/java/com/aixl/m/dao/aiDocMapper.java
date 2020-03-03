@@ -16,4 +16,11 @@ public interface aiDocMapper {
     List<aiDoc> selectAll();
 
     int updateByPrimaryKey(aiDoc record);
+
+    int setPwd(aiDoc record);
+
+    int reSetPwd(aiDoc record);
+
+    int setDocMsg(aiDoc record);
+
 }

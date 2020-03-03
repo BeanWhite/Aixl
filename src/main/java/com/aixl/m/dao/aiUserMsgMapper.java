@@ -18,5 +18,7 @@ public interface aiUserMsgMapper {
 
     int updateByPrimaryKey(aiUserMsg record);
 
-    List<aiUserMsg> selectMsgForDoc(String parameter);
+    aiUserMsg selectMsgForDoc(String parameter);
+
+    int updataMsgForDoc(aiUserMsg record);
 }

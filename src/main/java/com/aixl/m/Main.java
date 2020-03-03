@@ -28,16 +28,16 @@ public class Main {
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
-       SpringApplication.run(Main.class,args);
+        SpringApplication.run(Main.class, args);
     }
-
 
 
     /**
      * 自动创建JavaBean、mapper、interface,调用完后需要取消调用，否则会清楚之后的修改内容并重建
+     *
      * @throws Exception
      */
-    public void MBG() throws Exception{
+    public void MBG() throws Exception {
         List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
         File configFile = new File("src/main/resources/mbg.xml");

@@ -58,7 +58,7 @@ public class Login {
         return object;
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ReturnObject<Object> getAdmin(String id, String pwd) {
         return adminService.getAdmin(id, pwd);
     }

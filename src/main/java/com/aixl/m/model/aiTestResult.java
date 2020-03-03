@@ -1,21 +1,55 @@
 package com.aixl.m.model;
 
-import java.util.Date;
+import java.util.ArrayList;
 
 public class aiTestResult {
     private String aiUserId;
 
-    private String aiResultName;
+    private Integer aiScaleId;
 
-    private String aiResultDescribe;
+    private String aiTestName;
 
-    private String aiResultLev;
+    private aiTestImg testImg;
 
-    private Date aiResultTime;
+    private ArrayList<aiTestImg> testImgs;
 
-    private Date aiResultLastTime;
+    private aiTestHtml testHtml;
 
-    private String aiResultTotal;
+    private ArrayList<aiTestHtml> testHtmls;
+
+
+    public aiTestImg getTestImg() {
+        return testImg;
+    }
+
+    public void setTestImg(aiTestImg testImg) {
+        this.testImg = testImg;
+    }
+
+    public ArrayList<aiTestImg> getTestImgs() {
+        return testImgs;
+    }
+
+    public void setTestImgs(ArrayList<aiTestImg> testImgs) {
+        this.testImgs = testImgs;
+    }
+
+    public aiTestHtml getTestHtml() {
+        return testHtml;
+    }
+
+    public void setTestHtml(aiTestHtml testHtml) {
+        this.testHtml = testHtml;
+    }
+
+    public ArrayList<aiTestHtml> getTestHtmls() {
+        return testHtmls;
+    }
+
+    public void setTestHtmls(ArrayList<aiTestHtml> testHtmls) {
+        this.testHtmls = testHtmls;
+    }
+
 
     public String getAiUserId() {
         return aiUserId;
@@ -25,51 +59,32 @@ public class aiTestResult {
         this.aiUserId = aiUserId == null ? null : aiUserId.trim();
     }
 
-    public String getAiResultName() {
-        return aiResultName;
+    public Integer getAiScaleId() {
+        return aiScaleId;
     }
 
-    public void setAiResultName(String aiResultName) {
-        this.aiResultName = aiResultName == null ? null : aiResultName.trim();
+    public void setAiScaleId(Integer aiScaleId) {
+        this.aiScaleId = aiScaleId;
     }
 
-    public String getAiResultDescribe() {
-        return aiResultDescribe;
+    public String getAiTestName() {
+        return aiTestName;
     }
 
-    public void setAiResultDescribe(String aiResultDescribe) {
-        this.aiResultDescribe = aiResultDescribe == null ? null : aiResultDescribe.trim();
+    public void setAiTestName(String aiTestName) {
+        this.aiTestName = aiTestName == null ? null : aiTestName.trim();
     }
 
-    public String getAiResultLev() {
-        return aiResultLev;
-    }
-
-    public void setAiResultLev(String aiResultLev) {
-        this.aiResultLev = aiResultLev == null ? null : aiResultLev.trim();
-    }
-
-    public Date getAiResultTime() {
-        return aiResultTime;
-    }
-
-    public void setAiResultTime(Date aiResultTime) {
-        this.aiResultTime = aiResultTime;
-    }
-
-    public Date getAiResultLastTime() {
-        return aiResultLastTime;
-    }
-
-    public void setAiResultLastTime(Date aiResultLastTime) {
-        this.aiResultLastTime = aiResultLastTime;
-    }
-
-    public String getAiResultTotal() {
-        return aiResultTotal;
-    }
-
-    public void setAiResultTotal(String aiResultTotal) {
-        this.aiResultTotal = aiResultTotal == null ? null : aiResultTotal.trim();
+    @Override
+    public String toString() {
+        return "aiTestResult{" +
+                "aiUserId='" + aiUserId + '\'' +
+                ", aiScaleId=" + aiScaleId +
+                ", aiTestName='" + aiTestName + '\'' +
+                ", testImg=" + testImg +
+                ", testImgs=" + testImgs +
+                ", testHtml=" + testHtml +
+                ", testHtmls=" + testHtmls +
+                '}';
     }
 }

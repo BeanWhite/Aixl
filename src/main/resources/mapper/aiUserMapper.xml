@@ -11,15 +11,14 @@
     where ai_user_id = #{aiUserId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.aixl.m.model.aiUser">
-    insert into ai_user (ai_user_id, ai_user_pwd, ai_user_type
+    insert ignore ai_user (ai_user_id, ai_user_pwd, ai_user_type
       )
     values (#{aiUserId,jdbcType=VARCHAR}, #{aiUserPwd,jdbcType=VARCHAR}, #{aiUserType,jdbcType=VARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.aixl.m.model.aiUser">
     update ai_user
-    set ai_user_pwd = #{aiUserPwd,jdbcType=VARCHAR},
-      ai_user_type = #{aiUserType,jdbcType=VARCHAR}
+    set ai_user_pwd = #{aiUserPwd,jdbcType=VARCHAR}
     where ai_user_id = #{aiUserId,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">

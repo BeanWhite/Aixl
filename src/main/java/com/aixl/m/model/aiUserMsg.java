@@ -352,4 +352,45 @@ public class aiUserMsg {
     public void setAiUserParents(String aiUserParents) {
         this.aiUserParents = aiUserParents == null ? null : aiUserParents.trim();
     }
+
+    @Override
+    public String toString() {
+        return "aiUserMsg{" +
+                "aiUserId='" + aiUserId + '\'' +
+                ", aiUserPatientNumber='" + aiUserPatientNumber + '\'' +
+                ", aiUserDepartment='" + aiUserDepartment + '\'' +
+                ", aiUserPhoto='" + aiUserPhoto + '\'' +
+                ", aiDocName='" + aiDocName + '\'' +
+                ", aiUserIdNum='" + aiUserIdNum + '\'' +
+                ", aiUserOffice='" + aiUserOffice + '\'' +
+                ", aiUserFrom='" + aiUserFrom + '\'' +
+                ", aiUserQq='" + aiUserQq + '\'' +
+                ", aiUserPhone='" + aiUserPhone + '\'' +
+                ", aiUserEmail='" + aiUserEmail + '\'' +
+                ", aiUserEmergencyConPhone='" + aiUserEmergencyConPhone + '\'' +
+                ", aiUserHome='" + aiUserHome + '\'' +
+                ", aiUserAddress='" + aiUserAddress + '\'' +
+                ", aiUserEmergencyConName='" + aiUserEmergencyConName + '\'' +
+                ", aiUserAge=" + aiUserAge +
+                ", aiUserSex='" + aiUserSex + '\'' +
+                ", aiUserName='" + aiUserName + '\'' +
+                ", aiUserNation='" + aiUserNation + '\'' +
+                ", aiUserNativePlace='" + aiUserNativePlace + '\'' +
+                ", aiUserEduBg='" + aiUserEduBg + '\'' +
+                ", aiUserPoliticsStatus='" + aiUserPoliticsStatus + '\'' +
+                ", aiUserHealthCon='" + aiUserHealthCon + '\'' +
+                ", aiUserHeight=" + aiUserHeight +
+                ", aiUserWeight=" + aiUserWeight +
+                ", aiUserBirth=" + aiUserBirth +
+                ", aiUserUnit='" + aiUserUnit + '\'' +
+                ", aiUserMarriage='" + aiUserMarriage + '\'' +
+                ", aiUserProfession='" + aiUserProfession + '\'' +
+                ", aiUserTrade='" + aiUserTrade + '\'' +
+                ", aiUserDuty='" + aiUserDuty + '\'' +
+                ", aiUserAiUserAbilityname='" + aiUserAiUserAbilityname + '\'' +
+                ", aiUserBloodType='" + aiUserBloodType + '\'' +
+                ", aiUserChildren='" + aiUserChildren + '\'' +
+                ", aiUserParents='" + aiUserParents + '\'' +
+                '}';
+    }
 }

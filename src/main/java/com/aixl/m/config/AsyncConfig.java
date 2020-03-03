@@ -10,6 +10,9 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
 
+/**
+ * 多线程异步调用配置类
+ */
 @Configuration
 @EnableAsync
 public class AsyncConfig implements AsyncConfigurer {
@@ -27,17 +30,17 @@ public class AsyncConfig implements AsyncConfigurer {
         ThreadPoolTaskExecutor threadPool = new ThreadPoolTaskExecutor();
 
         //设置核心线程数
-        threadPool.setCorePoolSize(12);
+        threadPool.setCorePoolSize(1000);
         //设置最大线程数
-        threadPool.setMaxPoolSize(2000);
+        threadPool.setMaxPoolSize(50000);
 
         //线程池所用缓存队列
-        threadPool.setQueueCapacity(10000000);
+        threadPool.setQueueCapacity(100000);
         //等待任务在关机时完成 --表名等待所有线程执行完
         threadPool.setWaitForTasksToCompleteOnShutdown(true);
 
         //等待时间（默认值0，此时立即停止），并没等待xx秒后强制停止
-        threadPool.setAwaitTerminationSeconds(60);
+        threadPool.setAwaitTerminationSeconds(50);
         //线程名称前缀
         threadPool.setThreadNamePrefix("Derry-Async-");
         //初始化

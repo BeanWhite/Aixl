@@ -43,7 +43,7 @@
     where ai_user_id = #{aiUserId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.aixl.m.model.aiUserMsg">
-    insert into ai_user_msg (ai_user_id, ai_user_patient_number, ai_user_department, 
+    insert ignore ai_user_msg (ai_user_id, ai_user_patient_number, ai_user_department,
       ai_user_photo, ai_doc_name, ai_user_id_num, 
       ai_user_office, ai_user_from, ai_user_qq, 
       ai_user_phone, ai_user_email, ai_user_emergency_con_phone, 
@@ -138,9 +138,22 @@
 <!--  </select>-->
 
   <select id="selectMsgForDoc" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select ai_user_name,ai_user_sex,ai_user_age,ai_user_edu_bg,ai_user_marriage,ai_user_profession,
-    ai_user_office,ai_user_from from ai_user_msg where ai_user_id=#{parameter,jdbcType=VARCHAR}
+    select * from ai_user_msg where ai_user_id=#{parameter,jdbcType=VARCHAR}
   </select>
+  <update id="updataMsgForDoc" parameterType="com.aixl.m.model.aiUserMsg">
+      update ai_user_msg
+    set
+      ai_user_office = #{aiUserOffice,jdbcType=VARCHAR},
+      ai_user_from = #{aiUserFrom,jdbcType=VARCHAR},
+      ai_user_age = #{aiUserAge,jdbcType=INTEGER},
+      ai_user_sex = #{aiUserSex,jdbcType=VARCHAR},
+      ai_user_name = #{aiUserName,jdbcType=VARCHAR},
+      ai_user_edu_bg = #{aiUserEduBg,jdbcType=VARCHAR},
+      ai_user_marriage = #{aiUserMarriage,jdbcType=VARCHAR},
+      ai_user_profession = #{aiUserProfession,jdbcType=VARCHAR}
+    where ai_user_id = #{aiUserId,jdbcType=VARCHAR}
+
+  </update>
 
 <!--  <select id="selectMsgForDoc" parameterType="java.lang.String" resultMap="BaseResultMap">-->
 <!--    select  * from ai_user_msg where ai_user_id=#{parameter,jdbcType=VARCHAR}-->

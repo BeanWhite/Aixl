@@ -17,7 +17,7 @@
       and ai_admin_department = #{aiAdminDepartment,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.aixl.m.model.aiAdmin">
-    insert into ai_admin (ai_admin_id, ai_admin_department, ai_admin_pwd, 
+    insert ignore ai_admin (ai_admin_id, ai_admin_department, ai_admin_pwd,
       ai_admin_unit, ai_admin_name, ai_admin_limit, 
       ai_user_type, ai_id_card)
     values (#{aiAdminId,jdbcType=VARCHAR}, #{aiAdminDepartment,jdbcType=VARCHAR}, #{aiAdminPwd,jdbcType=VARCHAR}, 
@@ -33,14 +33,13 @@
       ai_user_type = #{aiUserType,jdbcType=VARCHAR},
       ai_id_card = #{aiIdCard,jdbcType=VARCHAR}
     where ai_admin_id = #{aiAdminId,jdbcType=VARCHAR}
-      and ai_admin_department = #{aiAdminDepartment,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
     select ai_admin_id, ai_admin_department, ai_admin_pwd, ai_admin_unit, ai_admin_name, 
     ai_admin_limit, ai_user_type, ai_id_card
     from ai_admin
     where ai_admin_id = #{aiAdminId,jdbcType=VARCHAR}
-      and ai_admin_department = #{aiAdminDepartment,jdbcType=VARCHAR}
+      and ai_admin_pwd = #{aiAdminPwd,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select ai_admin_id, ai_admin_department, ai_admin_pwd, ai_admin_unit, ai_admin_name, 
