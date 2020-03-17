@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aixl.m.dao.aiAdminMapper">
+  <resultMap id="BaseResultMap" type="com.aixl.m.model.aiAdmin">
+    <id column="ai_admin_id" jdbcType="VARCHAR" property="aiAdminId" />
+    <id column="ai_admin_department" jdbcType="VARCHAR" property="aiAdminDepartment" />
+    <result column="ai_admin_pwd" jdbcType="VARCHAR" property="aiAdminPwd" />
+    <result column="ai_admin_unit" jdbcType="VARCHAR" property="aiAdminUnit" />
+    <result column="ai_admin_name" jdbcType="VARCHAR" property="aiAdminName" />
+    <result column="ai_admin_limit" jdbcType="INTEGER" property="aiAdminLimit" />
+    <result column="ai_user_type" jdbcType="VARCHAR" property="aiUserType" />
+    <result column="ai_id_card" jdbcType="VARCHAR" property="aiIdCard" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from ai_admin
+    where ai_admin_id = #{aiAdminId,jdbcType=VARCHAR}
+      and ai_admin_department = #{aiAdminDepartment,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aixl.m.model.aiAdmin">
+    insert ignore ai_admin (ai_admin_id, ai_admin_department, ai_admin_pwd,
+      ai_admin_unit, ai_admin_name, ai_admin_limit, 
+      ai_user_type, ai_id_card)
+    values (#{aiAdminId,jdbcType=VARCHAR}, #{aiAdminDepartment,jdbcType=VARCHAR}, #{aiAdminPwd,jdbcType=VARCHAR}, 
+      #{aiAdminUnit,jdbcType=VARCHAR}, #{aiAdminName,jdbcType=VARCHAR}, #{aiAdminLimit,jdbcType=INTEGER}, 
+      #{aiUserType,jdbcType=VARCHAR}, #{aiIdCard,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.aixl.m.model.aiAdmin">
+    update ai_admin
+    set ai_admin_pwd = #{aiAdminPwd,jdbcType=VARCHAR},
+      ai_admin_unit = #{aiAdminUnit,jdbcType=VARCHAR},
+      ai_admin_name = #{aiAdminName,jdbcType=VARCHAR},
+      ai_admin_limit = #{aiAdminLimit,jdbcType=INTEGER},
+      ai_user_type = #{aiUserType,jdbcType=VARCHAR},
+      ai_id_card = #{aiIdCard,jdbcType=VARCHAR}
+    where ai_admin_id = #{aiAdminId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select ai_admin_id, ai_admin_department, ai_admin_pwd, ai_admin_unit, ai_admin_name, 
+    ai_admin_limit, ai_user_type, ai_id_card
+    from ai_admin
+    where ai_admin_id = #{aiAdminId,jdbcType=VARCHAR}
+      and ai_admin_pwd = #{aiAdminPwd,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ai_admin_id, ai_admin_department, ai_admin_pwd, ai_admin_unit, ai_admin_name, 
+    ai_admin_limit, ai_user_type, ai_id_card
+    from ai_admin
+  </select>
+</mapper>
