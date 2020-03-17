@@ -7,7 +7,6 @@ package com.example.demo;
 @SpringBootTest
 @EnableAsync
 class DemoApplicationTests {
-
     @Test
     void contextLoads() {
     }

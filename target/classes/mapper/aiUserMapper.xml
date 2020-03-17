@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aixl.m.dao.aiUserMapper">
+  <resultMap id="BaseResultMap" type="com.aixl.m.model.aiUser">
+    <id column="ai_user_id" jdbcType="VARCHAR" property="aiUserId" />
+    <result column="ai_user_pwd" jdbcType="VARCHAR" property="aiUserPwd" />
+    <result column="ai_user_type" jdbcType="VARCHAR" property="aiUserType" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ai_user
+    where ai_user_id = #{aiUserId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aixl.m.model.aiUser">
+    insert ignore ai_user (ai_user_id, ai_user_pwd, ai_user_type
+      )
+    values (#{aiUserId,jdbcType=VARCHAR}, #{aiUserPwd,jdbcType=VARCHAR}, #{aiUserType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.aixl.m.model.aiUser">
+    update ai_user
+    set ai_user_pwd = #{aiUserPwd,jdbcType=VARCHAR}
+    where ai_user_id = #{aiUserId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ai_user_id, ai_user_pwd, ai_user_type
+    from ai_user
+    where ai_user_id = #{aiUserId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ai_user_id, ai_user_pwd, ai_user_type
+    from ai_user
+  </select>
+</mapper>

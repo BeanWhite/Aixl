@@ -56,6 +56,11 @@ public class WebSocketServer {
     public void onOpen(Session session, @PathParam("sid") String sid) throws Exception {
         this.session = session;
         this.sid = sid;
+        //检查该账号是否登录，若为已登录则不允许登录
+//        if(webSocketServersMap.get(sid)!=null){
+//            //session.close();
+//            return;
+//        }
         //连接成功后检查是否有为接受的消息
         System.out.println("===="+this.sid+"\t"+"用户登录sid");
         webSocketServers.add(this);
@@ -68,18 +73,16 @@ public class WebSocketServer {
 //            e.printStackTrace();
 //        }
     }
-
     /**
      * 连接关闭调用
      */
     @OnClose
     public void onClose() {
+        System.out.println(this.sid+"删除的sid");
         webSocketServers.remove(this);//从set中删除
         webSocketServersMap.remove(this.sid);
         subOnlineCount();//在线人数减一
     }
-
-
     /**
      * 收到客户端消息后调用的方法
      *
@@ -142,6 +145,8 @@ public class WebSocketServer {
         }
     }
 
+
+
     /**
      * 服务器接收客户端发过来的消息，如果status > 100则需要服务器处理
      * @param message
@@ -151,7 +156,6 @@ public class WebSocketServer {
     public void pointUser(String message, Session session) throws Exception {
         //System.out.println(message.toString());
         httpHeaderDataPackage dataPackage = JSON.parseObject(message, httpHeaderDataPackage.class);
-
         if(dataPackage.getStatus()>100){
          dateOption(dataPackage);
             return;//处理完成后直接返回
@@ -250,6 +254,7 @@ public class WebSocketServer {
 
     public static void sendInfo(String message, @PathParam("sid") String sid) throws Exception {
         for (WebSocketServer item : webSocketServers) {
+
             try {
                 if (sid == null) {
                     item.sendMessage(message);
