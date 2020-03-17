@@ -13,29 +13,32 @@ import org.springframework.web.bind.annotation.*;
 public class testController {
 
     //@Async
-    @RequestMapping(value = "/t", method = RequestMethod.POST)
-    public void test(@RequestBody String s) {
+    @RequestMapping(value = "/tp", method = RequestMethod.POST)
+    public String test(@RequestBody String s) {
+        System.out.println(s);
+        //System.out.println(s);
+        //test();
+        return "fadfdafadfa";
+    }
+
+    @RequestMapping(value = "/t/{s}", method = RequestMethod.PUT)
+    public void t(@PathVariable(value = "s") String s) {
+        System.out.println(s);
+    }
+
+    @RequestMapping(value = "/t2", method = RequestMethod.POST)
+    public void test2(String s) {
         System.out.println(s);
         //System.out.println(s);
         //test();
     }
 
-    @RequestMapping(value = "/t/{s}",method = RequestMethod.PUT)
-    public void t(@PathVariable(value = "s") String s){
-        System.out.println(s);
-    }
-    @RequestMapping(value = "/t2", method = RequestMethod.POST)
-    public void test2( String s) {
-        System.out.println(s);
-        //System.out.println(s);
-        //test();
-    }
     @RequestMapping(value = "/t1/{s}", method = RequestMethod.POST)
-    public void test1(@PathVariable(value = "s")String s) {
+    public void test1(@PathVariable(value = "s") String s) {
         ActiveXComponent ax = null;
 
-       // String str = "请A001号到3号窗口";
-        String str =s;
+        // String str = "请A001号到3号窗口";
+        String str = s;
         try {
             ax = new ActiveXComponent("Sapi.SpVoice");
 
