@@ -25,6 +25,9 @@ public class httpHeaderDataPackage {
     //数据值
     private Object data;
 
+    //其它数据
+    private Object ot;
+
     //数据类型
     private String dataType;
 
@@ -54,6 +57,15 @@ public class httpHeaderDataPackage {
 
     //数据包是否需要缓存到服务器消息队列
     private boolean isCache;
+
+
+    public Object getOt() {
+        return ot;
+    }
+
+    public void setOt(Object ot) {
+        this.ot = ot;
+    }
 
     public boolean isCache() {
         return isCache;

@@ -67,6 +67,7 @@ public class WebSocketServer {
         webSocketServersMap.put(sid, this);
         checkMsg(sid,session);
         addOnlineCount();
+        session.setMaxIdleTimeout(3600000);
 //        try {
 //            sendMessage("连接成功！！！");
 //        } catch (Exception e) {

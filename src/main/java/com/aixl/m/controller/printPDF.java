@@ -34,6 +34,13 @@ public class printPDF {
     private RedisUtils redisUtils;
 
 
+    /**
+     * 打印报告
+     * @param s html+css代码
+     * @param name  pdf名称
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/p", method = RequestMethod.POST)
     public ReturnObject print(String s, String name) throws Exception {
         //System.out.println(s);
@@ -83,6 +90,10 @@ public class printPDF {
         }
     }
 
+    /**
+     * 将pdf中的图片保存至服务器
+     * @param imgModel  接收前端传过来的数据模型
+     */
     @RequestMapping(value = "/Img", method = RequestMethod.POST)
     public void saveImg(@RequestBody JSONObject imgModel) {
         ImgModel img = JSON.parseObject(String.valueOf(imgModel), ImgModel.class);
@@ -90,9 +101,9 @@ public class printPDF {
 
         ArrayList<PicData> images = img.getImages();
         for (int i = 0; i < images.size(); i++) {
-            String baseImg = ""; //图片url
-            String fileName = "";//图片保存文件名
-            String path = ""; //生基本成路径
+            String baseImg = ""; //图片base64
+            String fileName = "";//图片保存文件名，必须填
+            String path = ""; //生基本成路径，可以不写
 
             baseImg = images.get(i).getUrl();
             fileName = images.get(i).getName();
@@ -136,7 +147,7 @@ public class printPDF {
             }
         }
         //存入redius方便下次使用
-        redisUtils.setCache(images.get(0).getScaleName(), images);
+       // redisUtils.setCache(images.get(0).getScaleName(), images);
     }
 
     public static String getSubUtilSimple(String soap, String rgex) {
