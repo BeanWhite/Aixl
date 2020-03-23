@@ -146,6 +146,7 @@ public class printPDF {
                 }
             }
         }
+
         //存入redius方便下次使用
        // redisUtils.setCache(images.get(0).getScaleName(), images);
     }
