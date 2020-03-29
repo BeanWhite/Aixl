@@ -3,7 +3,8 @@ package com.aixl.m.model;
 public class PicData {
     private String url; //图片base64编码
     private String name;//图片文件名
-    private String path="D:/AixlProject/AiWeb/img/cacheImg";
+    //private String path="D:/AixlProject/AiWeb/img/cacheImg";
+    private String path = "D:\\nginx-1.17.7\\html\\xlrzpc\\img\\cacheImg";
     private String scaleName; //图片所属量表
 
     public String getScaleName() {

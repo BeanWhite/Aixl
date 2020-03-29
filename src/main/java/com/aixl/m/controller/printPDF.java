@@ -53,9 +53,9 @@ public class printPDF {
         //添加html
         // prince.setBaseURL("D:\\AixlProject\\AiWeb\\new_file.html");
 
-        //prince.setBaseURL("D:\\AixlProject\\AiWeb\\html\\report\\report.html");
-        // boolean b =   prince.convertString(s,"src/pdf/2.pdf");
-        boolean b = prince.convertString(s, "D:\\AixlProject\\AiWeb\\js\\pdfDocument\\" + name);
+        //boolean b = prince.convertString(s, "D:\\AixlProject\\AiWeb\\js\\pdfDocument\\" + name);
+        //服务器使用地址
+        boolean b = prince.convertString(s,"D:\\nginx-1.17.7\\html\\xlrzpc\\js\\pdfDocument\\"+name);
         System.out.println(b);
         //输入类型
         // prince.setInputType("html");

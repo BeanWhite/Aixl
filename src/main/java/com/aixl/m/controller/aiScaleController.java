@@ -44,10 +44,16 @@ public class aiScaleController {
      * @return 题目信息
      */
     @RequestMapping(value = "/testMsg/{id}", method = RequestMethod.GET)
+    @Deprecated
     public ReturnObject<Object> getScaleMsg(@PathVariable("id") Integer id) {
         return scaleService.getScaleTest(id);
     }
 
+    @RequestMapping(value = "/testMsg/{id}")
+    public ReturnObject<Object> getScaleMsg_n(@PathVariable("id")Integer id){
+
+        return scaleService.getScaleTest_n(id);
+    }
 
     /**
      * 根据id号或名称分页获取

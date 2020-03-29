@@ -1,49 +1,190 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aixl.m.dao.aiTestHistoryMapper">
-  <resultMap id="BaseResultMap" type="com.aixl.m.model.aiTestHistory">
-    <id column="ai_user_id" jdbcType="CHAR" property="aiUserId" />
-    <id column="ai_scale_id" jdbcType="INTEGER" property="aiScaleId" />
-    <id column="ai_test_time" jdbcType="TIMESTAMP" property="aiTestTime" />
-    <result column="ai_scale_name" jdbcType="CHAR" property="aiScaleName" />
-    <result column="ai_doc_id" jdbcType="CHAR" property="aiDocId" />
-    <result column="ai_doc_name" jdbcType="CHAR" property="aiDocName" />
-    <result column="ai_user_name" jdbcType="CHAR" property="aiUserName"/>
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="map">
+    <resultMap id="BaseResultMap" type="com.aixl.m.model.aiTestHistory">
+        <id column="ai_user_id" jdbcType="CHAR" property="aiUserId"/>
+        <id column="ai_test_time" jdbcType="TIMESTAMP" property="aiTestTime"/>
+        <id column="ai_scale_name" jdbcType="CHAR" property="aiScaleName"/>
+        <result column="ai_scale_id" jdbcType="INTEGER" property="aiScaleId"/>
+        <result column="ai_doc_id" jdbcType="CHAR" property="aiDocId"/>
+        <result column="ai_doc_name" jdbcType="CHAR" property="aiDocName"/>
+        <result column="ai_user_name" jdbcType="CHAR" property="aiUserName"/>
+        <result column="report_content" jdbcType="LONGVARCHAR" property="reportContent"/>
+        <result column="msg" jdbcType="VARCHAR" property="msg"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+    </resultMap>
+    <resultMap id="Map2" type="com.aixl.m.model.aiTestHistory">
+        <id column="ai_user_id" jdbcType="CHAR" property="aiUserId"/>
+        <id column="ai_test_time" jdbcType="TIMESTAMP" property="aiTestTime"/>
+        <id column="ai_scale_name" jdbcType="CHAR" property="aiScaleName"/>
+        <result column="ai_scale_id" jdbcType="INTEGER" property="aiScaleId"/>
+        <result column="ai_doc_id" jdbcType="CHAR" property="aiDocId"/>
+        <result column="ai_doc_name" jdbcType="CHAR" property="aiDocName"/>
+        <result column="ai_user_name" jdbcType="CHAR" property="aiUserName"/>
+        <result column="report_content" jdbcType="LONGVARCHAR" property="reportContent"/>
+        <result column="msg" jdbcType="VARCHAR" property="msg"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <collection column="start_time" property="groupByStartTime" ofType="aiTestHistory" javaType="java.util.ArrayList" select="byStartTime">
+        </collection>
+    </resultMap>
+    <select id="byStartTime" parameterType="com.aixl.m.model.aiTestHistory" resultMap="BaseResultMap">
+        select ai_user_id, ai_scale_id, ai_test_time,
+      ai_scale_name, ai_doc_id, ai_doc_name,ai_user_name,start_time from ai_test_history where start_time = #{startTime}
+    </select>
+    <select id="selectGroupByStartTime" resultMap="Map2">
+            select ai_user_id, ai_test_time, ai_doc_id, ai_doc_name,ai_user_name,start_time from ai_test_history group by start_time order by start_time asc
+    </select>
+
+    <select id="selectGroupByName" parameterType="java.lang.String" resultMap="Map2">
+        select ai_user_id, ai_test_time, ai_doc_id, ai_doc_name,ai_user_name,start_time
+        from ai_test_history
+        where ai_user_name = #{name} group by start_time order by start_time asc
+    </select>
+    <select id="selectGroupById" parameterType="java.lang.String" resultMap="Map2">
+        select ai_user_id, ai_test_time, ai_doc_id, ai_doc_name,ai_user_name,start_time
+        from ai_test_history
+        where ai_user_id = #{id} group by start_time order by start_time asc
+    </select>
+    <select id="selectGroupTime" parameterType="map" resultMap="Map2">
+         select ai_user_id, ai_test_time, ai_doc_id, ai_doc_name,ai_user_name,start_time
+        from ai_test_history
+        where start_time>=#{time1} and start_time &lt;= #{time2} group by start_time order by start_time asc
+    </select>
+    <select id="selectGroupNameId" parameterType="map" resultMap="Map2">
+         select ai_user_id, ai_test_time, ai_doc_id, ai_doc_name,ai_user_name,start_time
+        from ai_test_history
+        where ai_user_name =#{name} and ai_user_id = #{id} group by start_time order by start_time asc
+    </select>
+    <select id="selectGroupNameTime" parameterType="map" resultMap="Map2">
+         select ai_user_id, ai_test_time, ai_doc_id, ai_doc_name,ai_user_name,start_time
+        from ai_test_history
+        where ai_user_name = #{name} and start_time >= #{time1} and start_time &lt;= #{time2} group by start_time order by start_time asc
+    </select>
+    <select id="selectGroupIdTime" parameterType="map" resultMap="Map2">
+     select ai_user_id, ai_test_time, ai_doc_id, ai_doc_name,ai_user_name,start_time
+        from ai_test_history
+        where ai_user_id = #{id} and start_time >= #{time1} and start_time &lt;= #{time2} group by start_time order by start_time asc
+    </select>
+    <select id="selectGroupINT" parameterType="map" resultMap="Map2">
+ select ai_user_id, ai_test_time, ai_doc_id, ai_doc_name,ai_user_name,start_time
+        from ai_test_history
+        where ai_user_id = #{id} and start_time >= #{time1} and start_time &lt;= #{time2} and ai_user_name = #{name} group by start_time order by start_time asc
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="map">
     delete from ai_test_history
     where ai_user_id = #{aiUserId,jdbcType=CHAR}
       and ai_scale_id = #{aiScaleId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.aixl.m.model.aiTestHistory">
+    <insert id="insert" parameterType="com.aixl.m.model.aiTestHistory">
     insert ignore ai_test_history (ai_user_id, ai_scale_id, ai_test_time,
-      ai_scale_name, ai_doc_id, ai_doc_name,ai_user_name
+      ai_scale_name, ai_doc_id, ai_doc_name,ai_user_name,report_content,msg,start_time
       )
     values (#{aiUserId,jdbcType=CHAR}, #{aiScaleId,jdbcType=INTEGER}, #{aiTestTime,jdbcType=TIMESTAMP}, 
-      #{aiScaleName,jdbcType=CHAR}, #{aiDocId,jdbcType=CHAR}, #{aiDocName,jdbcType=CHAR}, #{aiUserName,jdbcType=CHAR}
+      #{aiScaleName,jdbcType=CHAR}, #{aiDocId,jdbcType=CHAR}, #{aiDocName,jdbcType=CHAR}, #{aiUserName,jdbcType=CHAR},
+      #{reportContent,jdbcType=LONGVARCHAR},#{msg},#{startTime}
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="com.aixl.m.model.aiTestHistory">
+
+<!--    基本不用-->
+    <update id="updateByPrimaryKey" parameterType="com.aixl.m.model.aiTestHistory">
     update ai_test_history
     set ai_test_time = #{aiTestTime,jdbcType=TIMESTAMP},
       ai_scale_name = #{aiScaleName,jdbcType=CHAR},
       ai_doc_id = #{aiDocId,jdbcType=CHAR},
       ai_doc_name = #{aiDocName,jdbcType=CHAR},
-      ai_user_name = #{aiUserName,jdbcType=CHAR}
+      ai_user_name = #{aiUserName,jdbcType=CHAR},
+      report_content = #{reportContent,jdbcType=LONGVARCHAR}
     where ai_user_id = #{aiUserId,jdbcType=CHAR}
       and ai_scale_id = #{aiScaleId,jdbcType=INTEGER}
   </update>
-  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
-    select *
+
+    <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select ai_user_id, ai_scale_id, ai_test_time,
+      ai_scale_name, ai_doc_id, ai_doc_name,ai_user_name,start_time
     from ai_test_history
     where ai_user_id = #{aiUserId,jdbcType=CHAR}
       and ai_scale_id = #{aiScaleId,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select *
+
+    <select id="selectAll" resultMap="BaseResultMap">
+    select ai_user_id, ai_scale_id, ai_test_time,
+      ai_scale_name, ai_doc_id, ai_doc_name,ai_user_name,start_time
     from ai_test_history
   </select>
-  <select id="getHistory" parameterType="java.lang.String" resultMap="BaseResultMap">
+
+    <select id="selectMsgAllByPage" resultMap="BaseResultMap">
+    select ai_user_id, ai_scale_id, ai_test_time,msg,
+      ai_scale_name, ai_doc_id, ai_doc_name,ai_user_name,start_time
+    from ai_test_history order by start_time asc
+  </select>
+
+    <select id="selectMsgAll" resultMap="BaseResultMap">
+    select ai_user_id, ai_scale_id, ai_test_time,
+      ai_scale_name, ai_doc_id, ai_doc_name,ai_user_name,start_time
+    from ai_test_history
+  </select>
+
+
+    <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ai_user_id, ai_scale_id, ai_test_time,
+      ai_scale_name, ai_doc_id, ai_doc_name,ai_user_name,start_time
+      from ai_test_history where ai_user_id= #{id}
+  </select>
+
+    <select id="getHistory" parameterType="java.lang.String" resultMap="BaseResultMap">
     select * from ai_test_history   where ai_user_id = #{aiUserId,jdbcType=CHAR}
   </select>
+
+    <select id="getReport" parameterType="com.aixl.m.model.aiTestHistory" resultMap="BaseResultMap">
+    select report_content,ai_scale_id,msg,start_time from ai_test_history
+    where
+    ai_user_id = #{aiUserId,jdbcType=CHAR}
+      and ai_scale_name = #{aiScaleName,jdbcType=CHAR}
+      and ai_test_time = #{aiTestTime}
+  </select>
+
+    <select id="getReportById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select report_content,msg,ai_scale_id,start_time from ai_test_history
+    where ai_user_id = #{id,jdbcType=CHAR}
+  </select>
+
+  <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+     select ai_user_id, ai_scale_id, ai_test_time,,start_time
+      ai_scale_name, ai_doc_id, ai_doc_name,ai_user_name from ai_test_history where ai_user_name = #{userName}
+  </select>
+
+  <select id="selectByTime" parameterType="map" resultMap="BaseResultMap">
+     select ai_user_id, ai_scale_id, ai_test_time,
+      ai_scale_name, ai_doc_id, ai_doc_name,ai_user_name,start_time from ai_test_history
+      where ai_test_time >= #{time1} and ai_test_time &lt;= #{time2}
+  </select>
+
+  <select id="selectByIdAndName" parameterType="map" resultMap="BaseResultMap">
+     select ai_user_id, ai_scale_id, ai_test_time,
+      ai_scale_name, ai_doc_id, ai_doc_name,ai_user_name ,start_time from ai_test_history
+      where ai_user_id = #{id} and ai_user_name = #{name}
+  </select>
+
+  <select id="selectByIdAndTime" parameterType="map" resultMap="BaseResultMap">
+     select ai_user_id, ai_scale_id, ai_test_time,
+      ai_scale_name, ai_doc_id, ai_doc_name,ai_user_name,start_time from ai_test_history
+      where ai_user_id = #{id} and ai_test_time >= #{time1} and ai_test_time &lt;= #{time2}
+  </select>
+
+  <select id="selectByNameAndTime" parameterType="map" resultMap="BaseResultMap">
+     select ai_user_id, ai_scale_id, ai_test_time,
+      ai_scale_name, ai_doc_id, ai_doc_name,ai_user_name ,start_timefrom ai_test_history
+      where ai_user_name = #{name} and ai_test_time >= #{time1} and ai_test_time &lt;= #{time2}
+  </select>
+
+  <select id="selectINT" parameterType="map" resultMap="BaseResultMap">
+    select ai_user_id, ai_scale_id, ai_test_time,
+      ai_scale_name, ai_doc_id, ai_doc_name,ai_user_name ,start_timefrom ai_test_history
+      where ai_user_id = #{id} and ai_user_name = #{name} and ai_test_time >= #{time1} and ai_test_time &lt;= #{time2}
+  </select>
+
+    <select id="selectAllGroupByStartTime" resultMap="BaseResultMap">
+        select ai_user_id, ai_scale_id, ai_test_time,
+      ai_scale_name, ai_doc_id, ai_doc_name,ai_user_name,start_time from ai_test_history
+    </select>
 </mapper>

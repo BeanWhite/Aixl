@@ -12,7 +12,10 @@ import com.aixl.m.utils.ReturnObject;
 import com.aixl.m.utils.ReturnUtils;
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -78,9 +81,9 @@ public class UserService {
      * @param string
      * @return
      */
-    public ReturnObject<Object> addUser(String string) {
-        aiUser user = JSON.parseObject(string, aiUser.class);
-        int a = userMapper.insert(user);
+    public ReturnObject<Object> addUser(aiUser string) {
+
+        int a = userMapper.insert(string);
         if (a > 0) {
             //新增成功
         } else {
@@ -164,9 +167,6 @@ public class UserService {
         }else {
             return ReturnUtils.success(0);
         }
-
     }
-
-
 
 }

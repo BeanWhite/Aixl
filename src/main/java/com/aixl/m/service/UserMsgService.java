@@ -59,17 +59,17 @@ public class UserMsgService {
     public ReturnObject<Object> updateMsgForDoc(String parameter){
         aiUserMsg t = JSON.parseObject(parameter,aiUserMsg.class);
         int a = userMsgMapper.updataMsgForDoc(t);
-        redisUtils.setCache("userMsg="+t.getAiUserId(),t,keepTime);
+        redisUtils.setCache("userMSG="+t.getAiUserId(),t,keepTime);
         return  ReturnUtils.success(a);
     }
 
     /**
      * 新增一个用户
-     * @param parameter
+     * @param t
      * @return
      */
-    public ReturnObject<Object> addUser(String parameter){
-        aiUserMsg t = JSON.parseObject(parameter,aiUserMsg.class);
+    public ReturnObject<Object> addUser(aiUserMsg t){
+
         int a = userMsgMapper.insert(t);
         if(a>0){
             System.out.println("新增成功");

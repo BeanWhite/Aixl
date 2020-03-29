@@ -10,6 +10,10 @@ import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import java.security.NoSuchAlgorithmException;
+
 @Service
 public class aiDocService {
 
@@ -32,6 +36,7 @@ public class aiDocService {
      */
     public ReturnObject<Object> getDoc(String id,String pwd){
         aiDoc doc = (aiDoc) redisUtils.getCache("doc="+id);
+        String key = null;
         if(doc == null){
             try {
                 doc = docMapper.selectByPrimaryKey(id);
@@ -55,6 +60,9 @@ public class aiDocService {
             else
                 this.MSG = "账号或密码错误";
         }
+
+        if(this.MSG.equals("登录成功"))
+            redisUtils.clear("reports="+doc.getAiDocId());
         return ReturnUtils.success(this.MSG,this.MSG=="登录成功"?doc.getAiUserType():null,1);
     }
 
@@ -145,6 +153,52 @@ public class aiDocService {
      */
     public ReturnObject<Object> getDocMsg(String doc){
       return   ReturnUtils.success(docMapper.selectByPrimaryKey(doc));
+    }
+
+    /**
+     * 随机生成秘钥
+     */
+    public  String getKey() {
+        try {
+            KeyGenerator kg = KeyGenerator.getInstance("AES");
+            kg.init(56);
+            //要生成多少位，只需要修改这里即可128, 192或256
+            SecretKey sk = kg.generateKey();
+            byte[] b = sk.getEncoded();
+            String s = byteToHexString(b);
+            System.out.println(s);
+            System.out.println("十六进制密钥长度为"+s.length());
+            System.out.println("二进制密钥的长度为"+s.length()*4);
+            return s;
+        }
+        catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            System.out.println("没有此算法。");
+            return null;
+        }
+    }
+
+
+    /**
+     * byte数组转化为16进制字符串
+     * @param bytes
+     * @return
+     */
+    public  String byteToHexString(byte[] bytes) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < bytes.length; i++) {
+            String strHex=Integer.toHexString(bytes[i]);
+            if(strHex.length() > 3) {
+                sb.append(strHex.substring(6));
+            } else {
+                if(strHex.length() < 2) {
+                    sb.append("0" + strHex);
+                } else {
+                    sb.append(strHex);
+                }
+            }
+        }
+        return sb.toString();
     }
 
 }

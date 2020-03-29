@@ -1,6 +1,5 @@
 package com.aixl.m;
 
-import org.apache.ibatis.annotations.CacheNamespace;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
@@ -28,6 +27,7 @@ public class Main {
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
+
         SpringApplication.run(Main.class, args);
     }
 

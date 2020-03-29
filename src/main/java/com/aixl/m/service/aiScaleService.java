@@ -63,10 +63,37 @@ public class aiScaleService {
     }
 
     /**
+     * 将从数据库获取的信息进行处理，分类完成返回给前端
+     * @param id
+     * @return
+     */
+    public ReturnObject<Object> getScaleTest_n(Integer id){
+
+//        List<aiTest> tests =(List<aiTest>)redisUtils.getCache("scaleTestMsg="+id);
+//        if(tests==null){
+//            try {
+//                tests = testMapper.selectByScaleId(id);
+//                if(tests.size()==0){
+//                    return ReturnUtils.success("1","没有内容");
+//                }else {
+//                    redisUtils.setCache("scaleTestMsg="+id,tests,keepTime);
+//                    return ReturnUtils.success("1",tests);
+//                }
+//            }catch (Exception e){
+//                return ReturnUtils.success("0","没有内容");
+//            }
+//        }else {
+//            return ReturnUtils.success("1",tests);
+//        }
+        return ReturnUtils.error("暂未开放");
+    }
+
+    /**
      * 根据量表id获取量表中的题目信息
      * @param id
      * @return
      */
+    @Deprecated
     public ReturnObject<Object> getScaleTest(Integer id){
         List<aiTest> tests =(List<aiTest>)redisUtils.getCache("scaleTestMsg="+id);
         if(tests==null){

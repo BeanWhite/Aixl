@@ -25,7 +25,6 @@ public class RedisUtils<T> {
         this.redisTemplate = redisTemplate;
     }
 
-
     //============================String=============================
 
     /**
@@ -35,6 +34,7 @@ public class RedisUtils<T> {
      * @return 值
      */
     public T getCache(String key) {
+
         return key == null ? null : redisTemplate.opsForValue().get(key);
     }
 
@@ -172,6 +172,20 @@ public class RedisUtils<T> {
             }
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 删除缓存
+     * @param key   key值
+     * @return true 删除成功，false 删除失败
+     */
+    public boolean clear(String key){
+        try {
+            return redisTemplate.delete(key);
+        }catch (Exception e){
             e.printStackTrace();
             return false;
         }
