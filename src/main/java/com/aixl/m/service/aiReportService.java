@@ -315,11 +315,10 @@ public class aiReportService {
         //存入一个新的之前需要将之前的数据取出来，防止丢失
         ArrayList<aiTestHistory> arrayList = null;
         try {
-            arrayList = (ArrayList<aiTestHistory>) redisUtils.getCache(key);
+            arrayList = (ArrayList<aiTestHistory>) redisUtils.getCache("reports="+key);
         } catch (Exception e) {
             arrayList = null;
         }
-
         if (arrayList == null)
             arrayList = new ArrayList<>();
         arrayList.add(value);

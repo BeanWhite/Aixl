@@ -18,6 +18,7 @@ import sun.misc.BASE64Decoder;
 import java.io.*;
 
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,6 +45,8 @@ public class printPDF {
     @RequestMapping(value = "/p", method = RequestMethod.POST)
     public ReturnObject print(String s, String name) throws Exception {
         //System.out.println(s);
+        //name = name.replaceAll(" ","");
+        String uuid = UUID.randomUUID().toString().replaceAll("-","")+".pdf";
         Prince prince = new Prince("C:\\Program Files (x86)\\Prince\\engine\\bin\\prince.exe");
         //添加js
         //prince.addScript("");
@@ -55,20 +58,15 @@ public class printPDF {
 
         //boolean b = prince.convertString(s, "D:\\AixlProject\\AiWeb\\js\\pdfDocument\\" + name);
         //服务器使用地址
-        boolean b = prince.convertString(s,"D:\\nginx-1.17.7\\html\\xlrzpc\\js\\pdfDocument\\"+name);
-        System.out.println(b);
+        boolean b = prince.convertString(s,"D:\\nginx-1.17.7\\html\\xlrzpc\\js\\pdfDocument\\"+uuid);
+        System.out.println(b+" "+uuid);
         //输入类型
         // prince.setInputType("html");
-
-
         //pdf输出
         //  prince.setPDFOutputIntent("D:\\");
-
-
         // prince.convert("D:\\AixlProject\\AiWeb\\new_file.html","D:\\1.pdf");
-
         //prince.convert("D:\\AixlProject\\AiWeb\\new_file.html",);
-        return ReturnUtils.success(b);
+        return ReturnUtils.success(uuid,b);
 
     }
 

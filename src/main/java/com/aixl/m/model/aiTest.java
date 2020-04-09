@@ -9,27 +9,128 @@ public class aiTest {
 
     private String aiQuestionContent;
 
+    //对上一个变量进行分解处理后的结果
+    private String[] aiQuestionContents;
+
     private String aiQuestionOption;
+    private String[] aiQuestionOptions;
 
     private String aiQuestionAnswer;
+    private String[] aiQuestionAnswers;
 
     private String aiQuestionType;
+    private String[] aiQuestionTypes;
 
     private String aiQuestionScore;
+    private String[] aiQuestionScores;
 
+    private String aiQuestionNotices[];
     private String aiQuestionNotice;
 
+    private String aiQuestionGuids[];
     private String aiQuestionGuid;
 
+    private String aiQuestionAnswerDescribes[];
     private String aiQuestionAnswerDescribe;
 
+    private String[] aiScoreMethodNames;
     private String aiScoreMethodName;
 
+    private String aiScoreMethods[];
     private String aiScoreMethod;
 
     private byte[] aiQuestionImg;
 
     private String aiScaleName;
+    private String[] aiScaleNames;
+
+    public String[] getAiQuestionContents() {
+        return aiQuestionContents;
+    }
+
+    public void setAiQuestionContents(String[] aiQuestionContents) {
+        this.aiQuestionContents = aiQuestionContents;
+    }
+
+    public String[] getAiQuestionOptions() {
+        return aiQuestionOptions;
+    }
+
+    public void setAiQuestionOptions(String[] aiQuestionOptions) {
+        this.aiQuestionOptions = aiQuestionOptions;
+    }
+
+    public String[] getAiQuestionAnswers() {
+        return aiQuestionAnswers;
+    }
+
+    public void setAiQuestionAnswers(String[] aiQuestionAnswers) {
+        this.aiQuestionAnswers = aiQuestionAnswers;
+    }
+
+    public String[] getAiQuestionTypes() {
+        return aiQuestionTypes;
+    }
+
+    public void setAiQuestionTypes(String[] aiQuestionTypes) {
+        this.aiQuestionTypes = aiQuestionTypes;
+    }
+
+    public String[] getAiQuestionScores() {
+        return aiQuestionScores;
+    }
+
+    public void setAiQuestionScores(String[] aiQuestionScores) {
+        this.aiQuestionScores = aiQuestionScores;
+    }
+
+    public String[] getAiQuestionNotices() {
+        return aiQuestionNotices;
+    }
+
+    public void setAiQuestionNotices(String[] aiQuestionNotices) {
+        this.aiQuestionNotices = aiQuestionNotices;
+    }
+
+    public String[] getAiQuestionGuids() {
+        return aiQuestionGuids;
+    }
+
+    public void setAiQuestionGuids(String[] aiQuestionGuids) {
+        this.aiQuestionGuids = aiQuestionGuids;
+    }
+
+    public String[] getAiQuestionAnswerDescribes() {
+        return aiQuestionAnswerDescribes;
+    }
+
+    public void setAiQuestionAnswerDescribes(String[] aiQuestionAnswerDescribes) {
+        this.aiQuestionAnswerDescribes = aiQuestionAnswerDescribes;
+    }
+
+    public String[] getAiScoreMethodNames() {
+        return aiScoreMethodNames;
+    }
+
+    public void setAiScoreMethodNames(String[] aiScoreMethodNames) {
+        this.aiScoreMethodNames = aiScoreMethodNames;
+    }
+
+    public String[] getAiScoreMethods() {
+        return aiScoreMethods;
+    }
+
+    public void setAiScoreMethods(String[] aiScoreMethods) {
+        this.aiScoreMethods = aiScoreMethods;
+    }
+
+    public String[] getAiScaleNames() {
+        return aiScaleNames;
+    }
+
+    public void setAiScaleNames(String[] aiScaleNames) {
+        this.aiScaleNames = aiScaleNames;
+    }
 
     public String getAiScaleName() {
         return aiScaleName;
@@ -149,17 +250,28 @@ public class aiTest {
                 "aiScaleId=" + aiScaleId +
                 ", aiQuestionId=" + aiQuestionId +
                 ", aiQuestionContent='" + aiQuestionContent + '\'' +
+                ", aiQuestionContents=" + Arrays.toString(aiQuestionContents) +
                 ", aiQuestionOption='" + aiQuestionOption + '\'' +
+                ", aiQuestionOptions=" + Arrays.toString(aiQuestionOptions) +
                 ", aiQuestionAnswer='" + aiQuestionAnswer + '\'' +
+                ", aiQuestionAnswers=" + Arrays.toString(aiQuestionAnswers) +
                 ", aiQuestionType='" + aiQuestionType + '\'' +
+                ", aiQuestionTypes=" + Arrays.toString(aiQuestionTypes) +
                 ", aiQuestionScore='" + aiQuestionScore + '\'' +
+                ", aiQuestionScores=" + Arrays.toString(aiQuestionScores) +
+                ", aiQuestionNotices=" + Arrays.toString(aiQuestionNotices) +
                 ", aiQuestionNotice='" + aiQuestionNotice + '\'' +
+                ", aiQuestionGuids=" + Arrays.toString(aiQuestionGuids) +
                 ", aiQuestionGuid='" + aiQuestionGuid + '\'' +
+                ", aiQuestionAnswerDescribes=" + Arrays.toString(aiQuestionAnswerDescribes) +
                 ", aiQuestionAnswerDescribe='" + aiQuestionAnswerDescribe + '\'' +
+                ", aiScoreMethodNames=" + Arrays.toString(aiScoreMethodNames) +
                 ", aiScoreMethodName='" + aiScoreMethodName + '\'' +
+                ", aiScoreMethods=" + Arrays.toString(aiScoreMethods) +
                 ", aiScoreMethod='" + aiScoreMethod + '\'' +
                 ", aiQuestionImg=" + Arrays.toString(aiQuestionImg) +
                 ", aiScaleName='" + aiScaleName + '\'' +
+                ", aiScaleNames=" + Arrays.toString(aiScaleNames) +
                 '}';
     }
 }

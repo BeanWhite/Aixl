@@ -3,9 +3,16 @@ package com.aixl.m.controller;
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
 import com.jacob.com.Variant;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.annotation.AccessType;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.File;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/t")
@@ -31,6 +38,48 @@ public class testController {
         System.out.println(s);
         //System.out.println(s);
         //test();
+    }
+
+    //@RequestMapping(value = "/file")
+    public File getF(){
+        return null;
+    }
+
+    /**
+     * 实现文件下载功能
+     * @return
+     */
+    @RequestMapping(value = "/file")
+    public ResponseEntity<FileSystemResource> getFile(){
+       // File file = new File("D:\\AixlProject\\test1.pdf");
+        return fileDownLoad("D:\\迅雷下载\\冰雪奇缘.mkv");
+    }
+
+    public ResponseEntity<FileSystemResource> fileDownLoad(String url){
+        String[] s = url.split("/./");
+        System.out.println(url);
+        System.out.println(s.length);
+        String type = s[s.length-1];//文件类型
+        File file = new File(url);
+        if(file==null){
+            return null;
+        }
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Cache-Control","no-cache,no-store," +
+                "must-revalidate");
+        httpHeaders.add("Content-Disposition","attachment;filename="+
+                System.currentTimeMillis()+type);
+        httpHeaders.add("Pragms","no-cache");
+        httpHeaders.add("Expires","0");
+        httpHeaders.add("Last-Modified",new Date().toString());
+        httpHeaders.add("ETag",String.valueOf(System.currentTimeMillis()));
+
+            return ResponseEntity
+                    .ok()
+                    .headers(httpHeaders)
+                    .contentLength(file.length())
+                    .contentType(MediaType.parseMediaType("application/octet-stream"))
+                    .body(new FileSystemResource(file));
     }
 
     @RequestMapping(value = "/t1/{s}", method = RequestMethod.POST)

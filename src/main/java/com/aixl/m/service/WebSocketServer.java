@@ -1,9 +1,11 @@
 package com.aixl.m.service;
 
 import com.aixl.m.model.httpHeaderDataPackage;
+import com.aixl.m.utils.RedisUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -40,12 +42,17 @@ public class WebSocketServer {
     //待发送的的消息列表,用户登录成功后即发送推送信息<目标对象id，消息列表>
     private static ConcurrentMap<String, ArrayList<Object>> beSentMSG = new ConcurrentHashMap<>();
 
+    @Autowired
+    private  RedisUtils<Object> redisUtils;
 
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private Session session;
 
     //接收sid,用户id
     private String sid = "";
+
+
+
 
     /**
      * 连接建立成功调用
@@ -66,13 +73,9 @@ public class WebSocketServer {
         webSocketServers.add(this);
         webSocketServersMap.put(sid, this);
         checkMsg(sid,session);
-        addOnlineCount();
-        session.setMaxIdleTimeout(3600000);
-//        try {
-//            sendMessage("连接成功！！！");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+
+        //设置client的连接时间，超出这个时间将会关闭，单位ms
+        session.setMaxIdleTimeout(3600*24*1000);//设置最大连接时长为24小时
     }
     /**
      * 连接关闭调用

@@ -178,6 +178,17 @@ public class RedisUtils<T> {
     }
 
     /**
+     * 获取并清除缓存
+     * @param key   缓存key值
+     * @return
+     */
+    public T getAndClear(String key){
+        T t = key == null ? null : redisTemplate.opsForValue().get(key);
+        clear(key);
+        return t;
+    }
+
+    /**
      * 删除缓存
      * @param key   key值
      * @return true 删除成功，false 删除失败

@@ -6,6 +6,10 @@ import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFa
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.stereotype.Component;
 
+
+/**
+ * websocket发送消息大小配置
+ */
 @Component
 public class CustomizationBean implements WebServerFactoryCustomizer<UndertowServletWebServerFactory> {
 

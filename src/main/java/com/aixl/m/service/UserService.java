@@ -49,14 +49,13 @@ public class UserService {
             try {
                 user = userMapper.selectByPrimaryKey(id);
                 if (user != null) {
-                    redisUtils.setCache("user=" + id, user, keepTime);
-                    if (user.getAiUserPwd().equals(pwd))
+//                    redisUtils.setCache("user=" + id, user, keepTime);
+//                    if (user.getAiUserPwd().equals(pwd))
                         this.MSG = "登录成功";
-                    else
-                        this.MSG = "账号或密码错误";
-
+//                    else
+//                        this.MSG = "账号或密码错误";
                 } else {
-                    this.MSG = "账号或密码错误";
+                    this.MSG = "账号错误";
                 }
 
             } catch (Exception e) {
@@ -65,12 +64,7 @@ public class UserService {
                 return ReturnUtils.success(this.MSG, null, 0);
             }
         } else {
-            if (user.getAiUserPwd().equals(pwd)) {
                 this.MSG = "登录成功";
-            } else {
-                this.MSG = "账号或密码错误";
-            }
-
         }
         return ReturnUtils.success(this.MSG, this.MSG == "登录成功" ? user.getAiUserType() : null, 1);
     }

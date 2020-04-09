@@ -32,7 +32,7 @@
       ai_scale_name, ai_doc_id, ai_doc_name,ai_user_name,start_time from ai_test_history where start_time = #{startTime}
     </select>
     <select id="selectGroupByStartTime" resultMap="Map2">
-            select ai_user_id, ai_test_time, ai_doc_id, ai_doc_name,ai_user_name,start_time from ai_test_history group by start_time order by start_time asc
+            select ai_user_id, ai_test_time, ai_doc_id, ai_doc_name,ai_user_name,start_time from ai_test_history group by start_time order by start_time desc
     </select>
 
     <select id="selectGroupByName" parameterType="java.lang.String" resultMap="Map2">
