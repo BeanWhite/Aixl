@@ -1,12 +1,10 @@
 package com.aixl.m.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
-import java.net.URL;
+
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 

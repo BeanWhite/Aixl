@@ -7,16 +7,16 @@ import org.mybatis.generator.internal.DefaultShellCallback;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
+@ServletComponentScan
+@MapperScan("com.aixl.m.dao")
 @EnableAsync
 @SpringBootApplication
-@MapperScan("com.aixl.m.dao")
 //@ComponentScan(basePackages = "com.aixl.m.utils")
 public class Main {
 

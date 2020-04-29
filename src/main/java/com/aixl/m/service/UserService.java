@@ -5,17 +5,15 @@ import com.aixl.m.dao.aiDocMapper;
 import com.aixl.m.dao.aiUserMapper;
 import com.aixl.m.model.aiDoc;
 import com.aixl.m.model.aiUser;
-import com.aixl.m.model.aiUserMsg;
 import com.aixl.m.model.userAdd;
 import com.aixl.m.utils.RedisUtils;
 import com.aixl.m.utils.ReturnObject;
 import com.aixl.m.utils.ReturnUtils;
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+
 
 @Service
 public class UserService {

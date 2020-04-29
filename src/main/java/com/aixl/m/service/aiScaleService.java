@@ -4,7 +4,6 @@ import com.aixl.m.dao.aiScaleMapper;
 import com.aixl.m.dao.aiTestMapper;
 import com.aixl.m.model.aiScale;
 import com.aixl.m.model.aiTest;
-import com.aixl.m.model.aiTestHistory;
 import com.aixl.m.utils.RedisUtils;
 import com.aixl.m.utils.ReturnObject;
 import com.aixl.m.utils.ReturnUtils;

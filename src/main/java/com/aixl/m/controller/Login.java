@@ -1,18 +1,16 @@
 package com.aixl.m.controller;
 
 
-import com.aixl.m.model.aiAdmin;
+
 import com.aixl.m.service.UserService;
 import com.aixl.m.service.aiAdminService;
 
 import com.aixl.m.service.aiDocService;
 import com.aixl.m.utils.ReturnObject;
-import com.aixl.m.utils.ReturnUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+
 
 @RestController
 @CrossOrigin(origins = "*", allowCredentials = "true")
@@ -55,6 +53,7 @@ public class Login {
         }catch (Exception e){
             //e.printStackTrace();
         }
+
         return object;
     }
 

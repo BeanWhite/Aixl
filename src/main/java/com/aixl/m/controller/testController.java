@@ -4,11 +4,9 @@ import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
 import com.jacob.com.Variant;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.data.annotation.AccessType;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
@@ -34,7 +32,7 @@ public class testController {
     }
 
     @RequestMapping(value = "/t2", method = RequestMethod.POST)
-    public void test2(String s) {
+    public void test2( String s) {
         System.out.println(s);
         //System.out.println(s);
         //test();
@@ -80,6 +78,12 @@ public class testController {
                     .contentLength(file.length())
                     .contentType(MediaType.parseMediaType("application/octet-stream"))
                     .body(new FileSystemResource(file));
+    }
+
+    @RequestMapping(value = "/t1",method = RequestMethod.GET)
+    public String test0(String s){
+        System.out.println(s);
+        return "Hello";
     }
 
     @RequestMapping(value = "/t1/{s}", method = RequestMethod.POST)

@@ -1,9 +1,8 @@
 package com.aixl.m.controller;
 
 
-import freemarker.core.BugException;
+
 import org.springframework.web.bind.annotation.*;
-import sun.security.ssl.Debug;
 
 import java.io.*;
 import java.net.*;
@@ -11,8 +10,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,8 +18,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 @RestController
