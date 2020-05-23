@@ -73,6 +73,16 @@ public class aiUserMsg {
 
     private String aiUserParents;
 
+    private String aiDocId;
+
+    public String getAiDocId() {
+        return aiDocId;
+    }
+
+    public void setAiDocId(String aiDocId) {
+        this.aiDocId = aiDocId;
+    }
+
     public String getAiUserId() {
         return aiUserId;
     }
@@ -353,6 +363,7 @@ public class aiUserMsg {
         this.aiUserParents = aiUserParents == null ? null : aiUserParents.trim();
     }
 
+
     @Override
     public String toString() {
         return "aiUserMsg{" +
@@ -391,6 +402,7 @@ public class aiUserMsg {
                 ", aiUserBloodType='" + aiUserBloodType + '\'' +
                 ", aiUserChildren='" + aiUserChildren + '\'' +
                 ", aiUserParents='" + aiUserParents + '\'' +
+                ", aiDocId='" + aiDocId + '\'' +
                 '}';
     }
 }

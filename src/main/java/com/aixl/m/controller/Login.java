@@ -57,16 +57,34 @@ public class Login {
         return object;
     }
 
+    /**
+     * 管理员登录
+     * @param id
+     * @param pwd
+     * @return
+     */
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ReturnObject<Object> getAdmin(String id, String pwd) {
         return adminService.getAdmin(id, pwd);
     }
 
+    /**
+     * 医生登录
+     * @param id
+     * @param pwd
+     * @return
+     */
     @RequestMapping(value = "/doc",method = RequestMethod.POST)
     public ReturnObject<Object> getDoc(String id, String pwd) {
         return docService.getDoc(id, pwd);
     }
 
+    /**
+     * 用户登录
+     * @param id
+     * @param pwd
+     * @return
+     */
     @RequestMapping(value = "/user",method = RequestMethod.POST)
     public ReturnObject<Object> getUser(String id, String pwd) {
         System.out.println(id+"\t"+pwd);

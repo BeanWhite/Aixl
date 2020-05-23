@@ -19,10 +19,6 @@ server:
     #为项目地址添加根路径
 #    context-path: "/demeo"
 
-
-
-
-
 spring:
   freemarker:
     #禁用检测templates文件
@@ -64,7 +60,7 @@ spring:
      # use-global-dataSource-stat: true
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://localhost:3306/neuropsychoogical_cognition?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
-      #url: jdbc:mysql://122.112.225.219:3306/neuropsychoogical_cognition?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+     # url: jdbc:mysql://122.112.225.219:3306/neuropsychoogical_cognition?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
       username: xlrz
       password: Aixl.Hgpsyxlrz2020!
       stat-view-servlet:

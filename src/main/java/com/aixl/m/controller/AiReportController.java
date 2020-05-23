@@ -47,8 +47,6 @@ public class AiReportController {
     public ReturnObject<Object> toPrintReport(@PathVariable(value = "userId") String userId,
                                               @PathVariable(value = "scaleId") Integer scaleId,
                                               @PathVariable(value = "testTime") String testTime) {
-
-
         return ReturnUtils.success();
     }
 
@@ -73,7 +71,6 @@ public class AiReportController {
 
     /**
      * 分页获取报告
-     *
      * @param currentPage 当前页码
      * @param pageSize    页面大小
      * @return 结果集
@@ -83,8 +80,6 @@ public class AiReportController {
                                           @PathVariable(value = "pageSize") Integer pageSize) {
         return reportService.getReports(currentPage, pageSize);
     }
-
-
     /**
      * 根据用户id获取所有报告（历史记录）
      *
@@ -99,10 +94,6 @@ public class AiReportController {
                                                @PathVariable(value = "userId") String userId) {
         return reportService.getReports(currentPage, pageSize, userId);
     }
-
-/**
- * new
- */
     /**
      * 获取所有历史记录信息
      * @return 结果信息
@@ -113,6 +104,12 @@ public class AiReportController {
         return reportService.getHistoryMsgAll();
     }
 
+    /**
+     * 分页获取信息
+     * @param currentPage   当前页
+     * @param pageSize      页面大小
+     * @return
+     */
     @RequestMapping(value = "/msg/{currentPage}/{pageSize}",method = RequestMethod.GET)
     public ReturnObject<Object> getHistoryMsgAllByPage(@PathVariable(value = "currentPage") Integer currentPage,
                                                        @PathVariable(value = "pageSize") Integer pageSize){

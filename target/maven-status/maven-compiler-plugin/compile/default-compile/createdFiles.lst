@@ -10,7 +10,6 @@ com\aixl\m\utils\ReturnUtils.class
 com\aixl\m\model\aiTestResult.class
 com\aixl\m\model\PicData.class
 com\aixl\m\service\aiScaleService.class
-com\aixl\m\controller\robot.class
 com\aixl\m\utils\Prince\Chunk.class
 com\aixl\m\controller\printPDF.class
 com\aixl\m\dao\aiUserMapper.class

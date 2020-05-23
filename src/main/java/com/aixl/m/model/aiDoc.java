@@ -27,6 +27,58 @@ public class aiDoc {
 
     private String aiIdCard;
 
+    private String aiDocEdu;
+
+    private String aiDocMarriage;
+
+    private String aiDocJob;
+
+    private String aiDocOffice;
+
+    private String aiDocFrom;
+
+
+
+    public String getAiDocEdu() {
+        return aiDocEdu;
+    }
+
+    public void setAiDocEdu(String aiDocEdu) {
+        this.aiDocEdu = aiDocEdu;
+    }
+
+    public String getAiDocMarriage() {
+        return aiDocMarriage;
+    }
+
+    public void setAiDocMarriage(String aiDocMarriage) {
+        this.aiDocMarriage = aiDocMarriage;
+    }
+
+    public String getAiDocJob() {
+        return aiDocJob;
+    }
+
+    public void setAiDocJob(String aiDocJob) {
+        this.aiDocJob = aiDocJob;
+    }
+
+    public String getAiDocOffice() {
+        return aiDocOffice;
+    }
+
+    public void setAiDocOffice(String aiDocOffice) {
+        this.aiDocOffice = aiDocOffice;
+    }
+
+    public String getAiDocFrom() {
+        return aiDocFrom;
+    }
+
+    public void setAiDocFrom(String aiDocFrom) {
+        this.aiDocFrom = aiDocFrom;
+    }
+
     public String getAiDocId() {
         return aiDocId;
     }
@@ -131,6 +183,7 @@ public class aiDoc {
         this.aiIdCard = aiIdCard == null ? null : aiIdCard.trim();
     }
 
+
     @Override
     public String toString() {
         return "aiDoc{" +
@@ -147,6 +200,11 @@ public class aiDoc {
                 ", aiDocPhoto='" + aiDocPhoto + '\'' +
                 ", aiUserType='" + aiUserType + '\'' +
                 ", aiIdCard='" + aiIdCard + '\'' +
+                ", aiDocEdu='" + aiDocEdu + '\'' +
+                ", aiDocMarriage='" + aiDocMarriage + '\'' +
+                ", aiDocJob='" + aiDocJob + '\'' +
+                ", aiDocOffice='" + aiDocOffice + '\'' +
+                ", aiDocFrom='" + aiDocFrom + '\'' +
                 '}';
     }
 }

@@ -5,15 +5,17 @@
     <id column="ai_user_id" jdbcType="VARCHAR" property="aiUserId" />
     <result column="ai_user_pwd" jdbcType="VARCHAR" property="aiUserPwd" />
     <result column="ai_user_type" jdbcType="VARCHAR" property="aiUserType" />
+    <result column="ai_user_status" jdbcType="VARCHAR" property="aiUserStatus"/>
+    <result column="ai_user_name" jdbcType="VARCHAR" property="aiUserName"/>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from ai_user
     where ai_user_id = #{aiUserId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.aixl.m.model.aiUser">
-    insert ignore ai_user (ai_user_id, ai_user_pwd, ai_user_type
+    insert ignore ai_user (ai_user_id, ai_user_pwd, ai_user_type,ai_user_status
       )
-    values (#{aiUserId,jdbcType=VARCHAR}, #{aiUserPwd,jdbcType=VARCHAR}, #{aiUserType,jdbcType=VARCHAR}
+    values (#{aiUserId,jdbcType=VARCHAR}, #{aiUserPwd,jdbcType=VARCHAR}, #{aiUserType,jdbcType=VARCHAR},#{aiUserStatus}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.aixl.m.model.aiUser">
@@ -22,7 +24,7 @@
     where ai_user_id = #{aiUserId,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select ai_user_id, ai_user_pwd, ai_user_type
+    select ai_user_id, ai_user_pwd, ai_user_type,ai_user_status
     from ai_user
     where ai_user_id = #{aiUserId,jdbcType=VARCHAR}
   </select>
@@ -30,4 +32,21 @@
     select ai_user_id, ai_user_pwd, ai_user_type
     from ai_user
   </select>
+
+  <select id="getStatusById" resultMap="BaseResultMap" parameterType="com.aixl.m.model.aiUser">
+        select a.ai_user_id,a.ai_user_type,a.ai_user_status,b.ai_user_name
+        from ai_user a,ai_user_msg b
+        where a.ai_user_id = #{aiUserId,jdbcType=VARCHAR} and  a.ai_user_id=b.ai_user_id
+  </select>
+  <select id="getStatus" resultMap="BaseResultMap">
+    select a.ai_user_id,a.ai_user_type,a.ai_user_status,b.ai_user_name from ai_user a,ai_user_msg b
+    where a.ai_user_id=b.ai_user_id
+  </select>
+
+  <update id="setStatusById" parameterType="map">
+     update ai_user
+    set ai_user_status = #{status,jdbcType=VARCHAR}
+    where ai_user_id = #{id,jdbcType=VARCHAR}
+  </update>
+
 </mapper>

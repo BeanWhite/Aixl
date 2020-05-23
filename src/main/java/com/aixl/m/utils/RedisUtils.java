@@ -193,7 +193,9 @@ public class RedisUtils<T> {
      */
     public boolean clear(String key){
         try {
+
             return redisTemplate.delete(key);
+
         }catch (Exception e){
             e.printStackTrace();
             return false;

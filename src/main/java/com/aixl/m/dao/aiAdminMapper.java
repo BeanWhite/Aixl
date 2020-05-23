@@ -10,13 +10,39 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface aiAdminMapper {
+    /**
+     *
+     * @param aiAdminId
+     * @param aiAdminDepartment
+     * @return
+     */
     int deleteByPrimaryKey(@Param("aiAdminId") String aiAdminId, @Param("aiAdminDepartment") String aiAdminDepartment);
 
+    /**
+     *
+     * @param record
+     * @return
+     */
     int insert(aiAdmin record);
 
+    /**
+     *
+     * @param aiAdminId
+     * @param aiAdminPwd
+     * @return
+     */
     aiAdmin selectByPrimaryKey(@Param("aiAdminId") String aiAdminId, @Param("aiAdminPwd") String aiAdminPwd);
 
+    /**
+     *
+     * @return
+     */
     List<aiAdmin> selectAll();
 
+    /**
+     *
+     * @param record
+     * @return
+     */
     int updateByPrimaryKey(aiAdmin record);
 }

@@ -144,11 +144,9 @@ public class printPDF {
                 }
             }
         }
-
         //存入redius方便下次使用
        // redisUtils.setCache(images.get(0).getScaleName(), images);
     }
-
     public static String getSubUtilSimple(String soap, String rgex) {
         Pattern pattern = Pattern.compile(rgex);
         Matcher m = pattern.matcher(soap);

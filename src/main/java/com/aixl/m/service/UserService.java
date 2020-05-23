@@ -3,13 +3,17 @@ package com.aixl.m.service;
 
 import com.aixl.m.dao.aiDocMapper;
 import com.aixl.m.dao.aiUserMapper;
+import com.aixl.m.dao.aiUserMsgMapper;
 import com.aixl.m.model.aiDoc;
 import com.aixl.m.model.aiUser;
+import com.aixl.m.model.aiUserMsg;
 import com.aixl.m.model.userAdd;
 import com.aixl.m.utils.RedisUtils;
 import com.aixl.m.utils.ReturnObject;
 import com.aixl.m.utils.ReturnUtils;
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +32,9 @@ public class UserService {
     @Autowired
     private aiDocMapper docMapper;
 
+    @Autowired
+    private aiUserMsgMapper userMsgMapper;
+
 
     private String MSG;
 
@@ -36,9 +43,8 @@ public class UserService {
 
     /**
      * 用户登录
-     *
-     * @param id
-     * @param pwd
+     * @param id    用户id
+     * @param pwd   用户密码
      * @return
      */
     public ReturnObject<Object> getUser(String id, String pwd) {
@@ -47,22 +53,25 @@ public class UserService {
             try {
                 user = userMapper.selectByPrimaryKey(id);
                 if (user != null) {
-//                    redisUtils.setCache("user=" + id, user, keepTime);
-//                    if (user.getAiUserPwd().equals(pwd))
+                    if(user.getAiUserStatus().equals("正常")){
+                        redisUtils.setCache("user=" + id, user, keepTime);
                         this.MSG = "登录成功";
-//                    else
-//                        this.MSG = "账号或密码错误";
+                    }else {
+                        this.MSG ="账号被禁用";
+                    }
                 } else {
                     this.MSG = "账号错误";
                 }
-
             } catch (Exception e) {
                 this.MSG = "登录失败";
                 e.printStackTrace();
                 return ReturnUtils.success(this.MSG, null, 0);
             }
         } else {
+            if(user.getAiUserStatus().equals("正常"))
                 this.MSG = "登录成功";
+            else
+                this.MSG = "账号被禁用";
         }
         return ReturnUtils.success(this.MSG, this.MSG == "登录成功" ? user.getAiUserType() : null, 1);
     }
@@ -84,6 +93,13 @@ public class UserService {
         return ReturnUtils.success(a);
     }
 
+    public ReturnObject<Object> addUserWhole(aiUser a, aiUserMsg b){
+       int t1 =  userMapper.insert(a);
+       if(t1>0){
+           int t2 = userMsgMapper.insert(b);
+           return ReturnUtils.success(t2);
+       }else return ReturnUtils.success(t1);
+    }
 
     /**
      * 修改用户密码
@@ -159,6 +175,31 @@ public class UserService {
         }else {
             return ReturnUtils.success(0);
         }
+    }
+
+
+    public ReturnObject<Object> getUserStatus(Integer a,Integer b){
+        PageHelper.startPage(a,b);
+        Page<aiUser> page = userMapper.getStatus();
+        return ReturnUtils.success(page.getTotal(),page);
+    }
+
+    public ReturnObject<Object> getUserStatusById(aiUser a){
+        return ReturnUtils.success(userMapper.getStatusById(a));
+    }
+
+    /**
+     * 设置用户状态
+     * @param id        用户id
+     * @param status    状态值
+     * @return
+     */
+    public ReturnObject<Object> setUserStatusById(String id,String status){
+        int  a = userMapper.setStatusById(id,status);
+        if(a>0){
+            redisUtils.clear("user="+id);
+        }
+        return ReturnUtils.success(a);
     }
 
 }

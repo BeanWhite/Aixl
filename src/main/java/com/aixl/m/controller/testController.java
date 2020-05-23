@@ -50,18 +50,17 @@ public class testController {
     @RequestMapping(value = "/file")
     public ResponseEntity<FileSystemResource> getFile(){
        // File file = new File("D:\\AixlProject\\test1.pdf");
-        return fileDownLoad("D:\\迅雷下载\\冰雪奇缘.mkv");
+        return fileDownLoad("D:\\迅雷下载\\1.mp4");
     }
 
     public ResponseEntity<FileSystemResource> fileDownLoad(String url){
         String[] s = url.split("/./");
-        System.out.println(url);
-        System.out.println(s.length);
         String type = s[s.length-1];//文件类型
         File file = new File(url);
         if(file==null){
             return null;
         }
+
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Cache-Control","no-cache,no-store," +
                 "must-revalidate");
@@ -119,8 +118,8 @@ public class testController {
             Dispatch.putRef(spFileStream, "Format", spAudioFormat);
             //调用输出 文件流打开方法，创建一个.wav文件
             //保存文件方式
-            // Dispatch.call(spFileStream, "Open", new Variant("D:\\test.wav"), new Variant(3), new Variant(true));
-//不保存文件方式
+            //Dispatch.call(spFileStream, "Open", new Variant("D:\\test.wav"), new Variant(3), new Variant(true));
+            //不保存文件方式
             Dispatch.call(spFileStream, "Open", new Variant(3), new Variant(true));
 
             //设置声音对象的音频输出流为输出文件对象

@@ -10,155 +10,43 @@ public class aiTest {
     private String aiQuestionContent;
 
     //对上一个变量进行分解处理后的结果
-    private String[] aiQuestionContents;
+    private Object aiQuestionContents;
 
     private String aiQuestionOption;
-    private String[] aiQuestionOptions;
+    private Object aiQuestionOptions;
 
     private String aiQuestionAnswer;
-    private String[] aiQuestionAnswers;
+    private Object aiQuestionAnswers;
 
     private String aiQuestionType;
-    private String[] aiQuestionTypes;
+    private Object aiQuestionTypes;
 
     private String aiQuestionScore;
-    private String[] aiQuestionScores;
+    private Object aiQuestionScores;
 
-    private String aiQuestionNotices[];
+    private Object aiQuestionNotices;
     private String aiQuestionNotice;
 
-    private String aiQuestionGuids[];
+    private Object aiQuestionGuids;
     private String aiQuestionGuid;
 
-    private String aiQuestionAnswerDescribes[];
+    private Object aiQuestionAnswerDescribes;
     private String aiQuestionAnswerDescribe;
 
-    private String[] aiScoreMethodNames;
+    private Object aiScoreMethodNames;
     private String aiScoreMethodName;
 
-    private String aiScoreMethods[];
+    private Object aiScoreMethods;
     private String aiScoreMethod;
 
     private byte[] aiQuestionImg;
 
     private String aiScaleName;
-    private String[] aiScaleNames;
+    private Object aiScaleNames;
 
-    public String[] getAiQuestionContents() {
-        return aiQuestionContents;
-    }
+    private Exception e;
 
-    public void setAiQuestionContents(String[] aiQuestionContents) {
-        this.aiQuestionContents = aiQuestionContents;
-    }
 
-    public String[] getAiQuestionOptions() {
-        return aiQuestionOptions;
-    }
-
-    public void setAiQuestionOptions(String[] aiQuestionOptions) {
-        this.aiQuestionOptions = aiQuestionOptions;
-    }
-
-    public String[] getAiQuestionAnswers() {
-        return aiQuestionAnswers;
-    }
-
-    public void setAiQuestionAnswers(String[] aiQuestionAnswers) {
-        this.aiQuestionAnswers = aiQuestionAnswers;
-    }
-
-    public String[] getAiQuestionTypes() {
-        return aiQuestionTypes;
-    }
-
-    public void setAiQuestionTypes(String[] aiQuestionTypes) {
-        this.aiQuestionTypes = aiQuestionTypes;
-    }
-
-    public String[] getAiQuestionScores() {
-        return aiQuestionScores;
-    }
-
-    public void setAiQuestionScores(String[] aiQuestionScores) {
-        this.aiQuestionScores = aiQuestionScores;
-    }
-
-    public String[] getAiQuestionNotices() {
-        return aiQuestionNotices;
-    }
-
-    public void setAiQuestionNotices(String[] aiQuestionNotices) {
-        this.aiQuestionNotices = aiQuestionNotices;
-    }
-
-    public String[] getAiQuestionGuids() {
-        return aiQuestionGuids;
-    }
-
-    public void setAiQuestionGuids(String[] aiQuestionGuids) {
-        this.aiQuestionGuids = aiQuestionGuids;
-    }
-
-    public String[] getAiQuestionAnswerDescribes() {
-        return aiQuestionAnswerDescribes;
-    }
-
-    public void setAiQuestionAnswerDescribes(String[] aiQuestionAnswerDescribes) {
-        this.aiQuestionAnswerDescribes = aiQuestionAnswerDescribes;
-    }
-
-    public String[] getAiScoreMethodNames() {
-        return aiScoreMethodNames;
-    }
-
-    public void setAiScoreMethodNames(String[] aiScoreMethodNames) {
-        this.aiScoreMethodNames = aiScoreMethodNames;
-    }
-
-    public String[] getAiScoreMethods() {
-        return aiScoreMethods;
-    }
-
-    public void setAiScoreMethods(String[] aiScoreMethods) {
-        this.aiScoreMethods = aiScoreMethods;
-    }
-
-    public String[] getAiScaleNames() {
-        return aiScaleNames;
-    }
-
-    public void setAiScaleNames(String[] aiScaleNames) {
-        this.aiScaleNames = aiScaleNames;
-    }
-
-    public String getAiScaleName() {
-        return aiScaleName;
-    }
-
-    public void setAiScaleName(String aiScaleName) {
-        this.aiScaleName = aiScaleName;
-    }
-
-    public Integer getAiScaleId() {
-        return aiScaleId;
-    }
-
-    public void setAiScaleId(Integer aiScaleId) {
-        this.aiScaleId = aiScaleId;
-    }
-
-    public Integer getAiQuestionId() {
-        return aiQuestionId;
-    }
-
-    public void setAiQuestionId(Integer aiQuestionId) {
-        this.aiQuestionId = aiQuestionId;
-    }
-
-    public String getAiQuestionContent() {
-        return aiQuestionContent;
-    }
 
     public void setAiQuestionContent(String aiQuestionContent) {
         this.aiQuestionContent = aiQuestionContent == null ? null : aiQuestionContent.trim();
@@ -244,34 +132,151 @@ public class aiTest {
         this.aiQuestionImg = aiQuestionImg;
     }
 
+    public Integer getAiScaleId() {
+        return aiScaleId;
+    }
+
+    public void setAiScaleId(Integer aiScaleId) {
+        this.aiScaleId = aiScaleId;
+    }
+
+    public Integer getAiQuestionId() {
+        return aiQuestionId;
+    }
+
+    public void setAiQuestionId(Integer aiQuestionId) {
+        this.aiQuestionId = aiQuestionId;
+    }
+
+    public String getAiQuestionContent() {
+        return aiQuestionContent;
+    }
+
+    public Object getAiQuestionContents() {
+        return aiQuestionContents;
+    }
+
+    public void setAiQuestionContents(Object aiQuestionContents) {
+        this.aiQuestionContents = aiQuestionContents;
+    }
+
+    public Object getAiQuestionOptions() {
+        return aiQuestionOptions;
+    }
+
+    public void setAiQuestionOptions(Object aiQuestionOptions) {
+        this.aiQuestionOptions = aiQuestionOptions;
+    }
+
+    public Object getAiQuestionAnswers() {
+        return aiQuestionAnswers;
+    }
+
+    public void setAiQuestionAnswers(Object aiQuestionAnswers) {
+        this.aiQuestionAnswers = aiQuestionAnswers;
+    }
+
+    public Object getAiQuestionTypes() {
+        return aiQuestionTypes;
+    }
+
+    public void setAiQuestionTypes(Object aiQuestionTypes) {
+        this.aiQuestionTypes = aiQuestionTypes;
+    }
+
+    public Object getAiQuestionScores() {
+        return aiQuestionScores;
+    }
+
+    public void setAiQuestionScores(Object aiQuestionScores) {
+        this.aiQuestionScores = aiQuestionScores;
+    }
+
+    public Object getAiQuestionNotices() {
+        return aiQuestionNotices;
+    }
+
+    public void setAiQuestionNotices(Object aiQuestionNotices) {
+        this.aiQuestionNotices = aiQuestionNotices;
+    }
+
+    public Object getAiQuestionGuids() {
+        return aiQuestionGuids;
+    }
+
+    public void setAiQuestionGuids(Object aiQuestionGuids) {
+        this.aiQuestionGuids = aiQuestionGuids;
+    }
+
+    public Object getAiQuestionAnswerDescribes() {
+        return aiQuestionAnswerDescribes;
+    }
+
+    public void setAiQuestionAnswerDescribes(Object aiQuestionAnswerDescribes) {
+        this.aiQuestionAnswerDescribes = aiQuestionAnswerDescribes;
+    }
+
+    public Object getAiScoreMethodNames() {
+        return aiScoreMethodNames;
+    }
+
+    public void setAiScoreMethodNames(Object aiScoreMethodNames) {
+        this.aiScoreMethodNames = aiScoreMethodNames;
+    }
+
+    public Object getAiScoreMethods() {
+        return aiScoreMethods;
+    }
+
+    public void setAiScoreMethods(Object aiScoreMethods) {
+        this.aiScoreMethods = aiScoreMethods;
+    }
+
+    public String getAiScaleName() {
+        return aiScaleName;
+    }
+
+    public void setAiScaleName(String aiScaleName) {
+        this.aiScaleName = aiScaleName;
+    }
+
+    public Object getAiScaleNames() {
+        return aiScaleNames;
+    }
+
+    public void setAiScaleNames(Object aiScaleNames) {
+        this.aiScaleNames = aiScaleNames;
+    }
+
     @Override
     public String toString() {
         return "aiTest{" +
                 "aiScaleId=" + aiScaleId +
                 ", aiQuestionId=" + aiQuestionId +
                 ", aiQuestionContent='" + aiQuestionContent + '\'' +
-                ", aiQuestionContents=" + Arrays.toString(aiQuestionContents) +
+                ", aiQuestionContents=" + aiQuestionContents +
                 ", aiQuestionOption='" + aiQuestionOption + '\'' +
-                ", aiQuestionOptions=" + Arrays.toString(aiQuestionOptions) +
+                ", aiQuestionOptions=" + aiQuestionOptions +
                 ", aiQuestionAnswer='" + aiQuestionAnswer + '\'' +
-                ", aiQuestionAnswers=" + Arrays.toString(aiQuestionAnswers) +
+                ", aiQuestionAnswers=" + aiQuestionAnswers +
                 ", aiQuestionType='" + aiQuestionType + '\'' +
-                ", aiQuestionTypes=" + Arrays.toString(aiQuestionTypes) +
+                ", aiQuestionTypes=" + aiQuestionTypes +
                 ", aiQuestionScore='" + aiQuestionScore + '\'' +
-                ", aiQuestionScores=" + Arrays.toString(aiQuestionScores) +
-                ", aiQuestionNotices=" + Arrays.toString(aiQuestionNotices) +
+                ", aiQuestionScores=" + aiQuestionScores +
+                ", aiQuestionNotices=" + aiQuestionNotices +
                 ", aiQuestionNotice='" + aiQuestionNotice + '\'' +
-                ", aiQuestionGuids=" + Arrays.toString(aiQuestionGuids) +
+                ", aiQuestionGuids=" + aiQuestionGuids +
                 ", aiQuestionGuid='" + aiQuestionGuid + '\'' +
-                ", aiQuestionAnswerDescribes=" + Arrays.toString(aiQuestionAnswerDescribes) +
+                ", aiQuestionAnswerDescribes=" + aiQuestionAnswerDescribes +
                 ", aiQuestionAnswerDescribe='" + aiQuestionAnswerDescribe + '\'' +
-                ", aiScoreMethodNames=" + Arrays.toString(aiScoreMethodNames) +
+                ", aiScoreMethodNames=" + aiScoreMethodNames +
                 ", aiScoreMethodName='" + aiScoreMethodName + '\'' +
-                ", aiScoreMethods=" + Arrays.toString(aiScoreMethods) +
+                ", aiScoreMethods=" + aiScoreMethods +
                 ", aiScoreMethod='" + aiScoreMethod + '\'' +
                 ", aiQuestionImg=" + Arrays.toString(aiQuestionImg) +
                 ", aiScaleName='" + aiScaleName + '\'' +
-                ", aiScaleNames=" + Arrays.toString(aiScaleNames) +
+                ", aiScaleNames=" + aiScaleNames +
+                ", e=" + e +
                 '}';
     }
 }

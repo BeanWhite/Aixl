@@ -26,7 +26,8 @@ public class DocController {
      */
     @RequestMapping(value = "/op/{json}",method = RequestMethod.POST)
     public ReturnObject<Object> addDoc(@PathVariable(value = "json") String string){
-       return docService.addDoc(string);
+        aiDoc doc = JSON.parseObject(string,aiDoc.class);
+       return docService.addDoc(doc);
     }
 
     /**
@@ -62,6 +63,22 @@ public class DocController {
     public ReturnObject<Object> reSetPassword(@PathVariable(value = "json")String a){
         aiDoc doc  = JSON.parseObject(a, aiDoc.class);
         return docService.reSetPw(doc);
+    }
+    /**
+     * 设置医生密码
+     * @param s     新密码
+     * @param id    医生id
+     * @return
+     */
+    @RequestMapping(value = "/password/{pwd}/{id}",method = RequestMethod.PUT)
+    public ReturnObject<Object> setPassword(@PathVariable(value = "pwd") String s,
+                                            @PathVariable(value = "id") String id){
+        aiDoc doc= new aiDoc();
+        doc.setAiDocPwd(s);
+        doc.setAiDocId(id);
+
+
+        return docService.setPwd(doc);
     }
 
     /**

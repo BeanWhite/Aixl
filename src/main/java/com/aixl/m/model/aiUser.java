@@ -7,6 +7,26 @@ public class aiUser {
 
     private String aiUserType="用户";
 
+    private String aiUserStatus;
+
+    private String aiUserName;
+
+    public String getAiUserName() {
+        return aiUserName;
+    }
+
+    public void setAiUserName(String aiUserName) {
+        this.aiUserName = aiUserName;
+    }
+
+    public String getAiUserStatus() {
+        return aiUserStatus;
+    }
+
+    public void setAiUserStatus(String aiUserStatus) {
+        this.aiUserStatus = aiUserStatus;
+    }
+
     public String getAiUserId() {
         return aiUserId;
     }

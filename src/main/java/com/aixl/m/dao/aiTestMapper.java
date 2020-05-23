@@ -10,19 +10,59 @@ import java.util.List;
 
 @Repository
 public interface aiTestMapper {
+    /**
+     *
+     * @param record
+     * @return
+     */
     int insert(aiTest record);
 
+    /**
+     *
+     * @return
+     */
     List<aiTest> selectAll();
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     List<aiTest> selectByScaleId(Integer id);
 
+    /**
+     *
+     * @param param
+     * @return
+     */
     Page<aiTest> selectByIdOrName(String param);
 
+    /**
+     *
+     * @param scaleId
+     * @param questionId
+     * @return
+     */
     int selectByDoubleId(@Param("scaleId")String scaleId,@Param("questionId")String questionId);
 
+    /**
+     *
+     * @param test
+     * @return
+     */
     int setTest(aiTest test);
 
+    /**
+     *
+     * @param test
+     * @return
+     */
     int addTest(aiTest test);
 
+    /**
+     *
+     * @param test
+     * @return
+     */
     int deleteTest(aiTest test);
 }

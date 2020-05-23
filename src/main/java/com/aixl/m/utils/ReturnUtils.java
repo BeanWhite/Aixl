@@ -57,7 +57,6 @@ public class ReturnUtils {
         return object;
     }
 
-
     /**
      * 数据库读取出错返回的消息列表
      * @return
@@ -77,16 +76,10 @@ public class ReturnUtils {
         return returnObject;
     }
 
-
-
     public static ReturnObject<Object> serviceError(){
         ReturnObject returnObject = new ReturnObject();
         returnObject.setMsg("服务器出错，请联系管理员！");
         returnObject.setObject(null);
         return returnObject;
     }
-
-
-
-
 }

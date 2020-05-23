@@ -2,11 +2,14 @@ package com.aixl.m.service;
 
 
 import com.aixl.m.dao.aiUserMsgMapper;
+import com.aixl.m.model.aiTestHistory;
 import com.aixl.m.model.aiUserMsg;
 import com.aixl.m.utils.RedisUtils;
 import com.aixl.m.utils.ReturnObject;
 import com.aixl.m.utils.ReturnUtils;
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,16 @@ public class UserMsgService {
     @Autowired
     private aiUserMsgMapper userMsgMapper;
 
+    public ReturnObject<Object> getUserMsgsForDoc(Integer currentPage,Integer pageSize){
+        try {
+            PageHelper.startPage(currentPage, pageSize);
+            Page<aiUserMsg> page = userMsgMapper.selectAllByPage();
+            return ReturnUtils.success(page.getTotal(),page);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     /**
      * 根据用户id号查询用户信息
@@ -52,11 +65,11 @@ public class UserMsgService {
 
     /**
      * 修改用户信息
-     * @param parameter aiUserMsg对象JSON字符串
+     * @param t aiUserMsg对象
      * @return
      */
-    public ReturnObject<Object> updateMsgForDoc(String parameter){
-        aiUserMsg t = JSON.parseObject(parameter,aiUserMsg.class);
+    public ReturnObject<Object> updateMsgForDoc(aiUserMsg t){
+
         int a = userMsgMapper.updataMsgForDoc(t);
         redisUtils.setCache("userMSG="+t.getAiUserId(),t,keepTime);
         return  ReturnUtils.success(a);

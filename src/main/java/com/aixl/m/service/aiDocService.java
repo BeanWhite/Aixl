@@ -30,8 +30,8 @@ public class aiDocService {
 
     /**
      * 医生登录，数据库操作出错时返回“登录失败”。
-     * @param id
-     * @param pwd
+     * @param id    医生id
+     * @param pwd   医生密码
      * @return
      */
     public ReturnObject<Object> getDoc(String id,String pwd){
@@ -69,36 +69,37 @@ public class aiDocService {
     /**
      * 修改医生登录密码
      * 参数为医生对象
-     * @param string
+     * @param doc
      * @return
      */
-    public ReturnObject<Object> setPwd(String string){
-        aiDoc doc= JSON.parseObject(string,aiDoc.class);
+    public ReturnObject<Object> setPwd(aiDoc doc){
+
         int a = docMapper.setPwd(doc);
         if(a>0){
             //成功
+            redisUtils.clear("doc="+doc.getAiDocId());
         }else {
             //失败
         }
-        return ReturnUtils.success();
+        return ReturnUtils.success(a);
     }
 
     /**
      * 创建一个医生账户
      * 参数为医生对象
      * 对象只包含医生id，医生密码，医生类型(可以不用)，医生信息（可以不用）
-     * @param string
+     * @param doc
      * @return
      */
-    public ReturnObject<Object> addDoc(String string){
-        aiDoc doc = JSON.parseObject(string,aiDoc.class);
+    public ReturnObject<Object> addDoc(aiDoc doc){
+
         int a = docMapper.insert(doc);
         if(a>0){
             //成功
         }else {
             //失败
         }
-        return ReturnUtils.success();
+        return ReturnUtils.success(a);
     }
 
     /**
@@ -113,6 +114,7 @@ public class aiDocService {
         int a = docMapper.setDocMsg(doc);
         if(a>0){
             //成功
+        redisUtils.clear("doc="+doc.getAiDocId());
         }else {
             //失败
         }
@@ -129,6 +131,7 @@ public class aiDocService {
         int a = docMapper.deleteByPrimaryKey(string);
         if(a>0){
             //成功
+            redisUtils.clear("doc="+string);
         }else {
             //失败
         }
@@ -142,6 +145,9 @@ public class aiDocService {
      */
     public ReturnObject<Object> reSetPw(aiDoc doc){
         int a = docMapper.reSetPwd(doc);
+        if(a>0){
+            redisUtils.clear("doc="+doc.getAiDocId());
+        }
         return ReturnUtils.success(a);
     }
 

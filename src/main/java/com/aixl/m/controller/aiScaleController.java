@@ -49,7 +49,7 @@ public class aiScaleController {
         return scaleService.getScaleTest(id);
     }
 
-    @RequestMapping(value = "/testMsg/{id}")
+    @RequestMapping(value = "/tMsg/{id}",method = RequestMethod.GET)
     public ReturnObject<Object> getScaleMsg_n(@PathVariable("id")Integer id){
 
         return scaleService.getScaleTest_n(id);

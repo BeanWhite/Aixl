@@ -154,6 +154,9 @@
     where ai_user_id = #{aiUserId,jdbcType=VARCHAR}
 
   </update>
+  <select id="selectAllByPage" resultMap="BaseResultMap">
+    select * from ai_user_msg
+  </select>
 
 <!--  <select id="selectMsgForDoc" parameterType="java.lang.String" resultMap="BaseResultMap">-->
 <!--    select  * from ai_user_msg where ai_user_id=#{parameter,jdbcType=VARCHAR}-->
