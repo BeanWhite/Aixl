@@ -47,6 +47,7 @@ public class WebSocketServer {
 
 
 
+
     /**
      * 连接建立成功调用
      */
@@ -66,9 +67,9 @@ public class WebSocketServer {
         webSocketServers.add(this);
         webSocketServersMap.put(sid, this);
         checkMsg(sid,session);
-
         //设置client的连接时间，超出这个时间将会关闭，单位ms
         session.setMaxIdleTimeout(3600*24*1000);//设置最大连接时长为24小时
+
     }
     /**
      * 连接关闭调用
@@ -128,6 +129,8 @@ public class WebSocketServer {
     public void onError(Session session, Throwable error) {
         error.printStackTrace();
     }
+
+
 
 
     public void dateOption(httpHeaderDataPackage obj){

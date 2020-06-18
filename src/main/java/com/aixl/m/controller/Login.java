@@ -7,11 +7,14 @@ import com.aixl.m.service.aiAdminService;
 
 import com.aixl.m.service.aiDocService;
 import com.aixl.m.utils.ReturnObject;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
 
+
+@Slf4j
 @RestController
 @CrossOrigin(origins = "*", allowCredentials = "true")
 @RequestMapping("/login")
@@ -76,6 +79,8 @@ public class Login {
      */
     @RequestMapping(value = "/doc",method = RequestMethod.POST)
     public ReturnObject<Object> getDoc(String id, String pwd) {
+        log.info("医生登录");
+        log.error("*************");
         return docService.getDoc(id, pwd);
     }
 

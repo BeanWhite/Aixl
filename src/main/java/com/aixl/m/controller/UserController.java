@@ -103,18 +103,19 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/userW/{json}/{v}")
-    public ReturnObject<Object> usesr(@PathVariable(value = "json") String string,@PathVariable(value = "v") Integer v){
+    public ReturnObject<Object> usesr(@PathVariable(value = "json") String string,@PathVariable(value = "v") Integer v,String doc){
         aiUser user = new aiUser();
         aiUserMsg userMsg = JSON.parseObject(string,aiUserMsg.class);
         if(v == 1){//修改信息
-            System.out.println("修改信息");
+            //System.out.println("修改信息");
            return userMsgService.updateMsgForDoc(userMsg);
         }else if(v==0){ //新增信息
             user.setAiUserPwd("123456");
             user.setAiUserId(userMsg.getAiUserId());
             user.setAiUserType("用户");
-          userService.addUser(user);
-            System.out.println("新增信息");
+            user.setAiUserSuperiorId(doc);
+            userService.addUser(user);
+            //System.out.println("新增信息");
           return userMsgService.addUser(userMsg);
         }
         return ReturnUtils.error("错误数据");
@@ -144,6 +145,12 @@ public class UserController {
         return userService.addUser(user);
     }
 
+    /**
+     * 医生账号创建病人账号和医生账号
+     * @param type  未定义
+     * @param value 创建的信息内容
+     * @return
+     */
     @RequestMapping(value = "/user/{type}",method = RequestMethod.POST)
     public ReturnObject<Object> addUserWhole(@PathVariable(value = "type") String type,
                                              String value){
@@ -164,7 +171,7 @@ public class UserController {
             doc.setAiDocEdu(u.getEdu());
             doc.setAiDocMarriage(u.getMarriage());
             doc.setAiDocFrom(u.getFrom());
-            System.out.println(doc.toString());
+            doc.setAiDocSuperiorId(u.getMasterId());
             return docService.addDoc(doc);
         }else if(u.getUserType().equals("用户")){
             //创建病人
@@ -175,6 +182,7 @@ public class UserController {
             user.setAiUserStatus("正常");
             user.setAiUserPwd("123456");
             user.setAiUserName(u.getName());
+            user.setAiUserSuperiorId(u.getMasterId());
 
             userMsg.setAiUserId(u.getId());
             userMsg.setAiDocId(u.getMasterId());
@@ -245,22 +253,25 @@ public class UserController {
      * @param b     页面大小
      * @return
      */
-    @RequestMapping(value = "/status/{currentPage}/{pageSize}",method = RequestMethod.GET)
-    public ReturnObject<Object> getUserStatus(@PathVariable(value = "currentPage")Integer a,
+    @RequestMapping(value = "/status/{id}/{currentPage}/{pageSize}",method = RequestMethod.GET)
+    public ReturnObject<Object> getUserStatus(@PathVariable(value = "id") String id,@PathVariable(value = "currentPage")Integer a,
                                               @PathVariable(value = "pageSize")Integer b){
-        return userService.getUserStatus(a,b);
+        return userService.getUserStatus(a,b,id);
     }
 
     /**
      * 根据用户id搜索用户状态
-     * @param id
+     * @param key   查询关键字
+     * @param docId 发起查询的医生账号
      * @return
      */
-    @RequestMapping(value = "/status/{id}",method = RequestMethod.GET)
-    public ReturnObject<Object> getUserStatusById(@PathVariable(value = "id") String id){
-        aiUser a = new aiUser();
-        a.setAiUserId(id);
-        return userService.getUserStatusById(a);
+    @RequestMapping(value = "/status/{key}/search/{docId}/{currentPage}/{pageSize}",method = RequestMethod.GET)
+    public ReturnObject<Object> getUserStatusById(@PathVariable(value = "key") String key,
+                                                  @PathVariable(value = "docId")String docId,
+                                                  @PathVariable(value = "currentPage")Integer currentPage,
+                                                  @PathVariable(value = "pageSize")Integer pageSize){
+
+        return userService.getUserStatusById(key,docId,currentPage,pageSize);
     }
 
     /**

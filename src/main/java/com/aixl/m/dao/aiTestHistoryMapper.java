@@ -160,7 +160,7 @@ public interface aiTestHistoryMapper {
      * 按开始时间分组分页获取所有信息
      * @return
      */
-    Page<aiTestHistory> selectGroupByStartTime();
+    Page<aiTestHistory> selectGroupByStartTime(String id);
 
     /**
      * 分组获取，分页获取
@@ -227,4 +227,18 @@ public interface aiTestHistoryMapper {
                                        @Param("name")String name,
                                        @Param("time1")String time1,
                                        @Param("time2")String time2);
+
+
+    /**
+     *  使用mybatis方式动态拼接sql语句
+     * @param id    用户id
+     * @param name  用户名
+     * @param time1 开始时间
+     * @param time2 结束时间
+     * @return
+     */
+    Page<aiTestHistory> selectGroupByConditions(@Param("id")String id,
+                                                @Param("name")String name,
+                                                @Param("time1")String time1,
+                                                @Param("time2")String time2);
 }

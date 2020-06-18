@@ -7,15 +7,22 @@
     <result column="ai_user_type" jdbcType="VARCHAR" property="aiUserType" />
     <result column="ai_user_status" jdbcType="VARCHAR" property="aiUserStatus"/>
     <result column="ai_user_name" jdbcType="VARCHAR" property="aiUserName"/>
+    <result column="ai_user_superior_id" jdbcType="VARCHAR" property="aiUserSuperiorId"/>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from ai_user
     where ai_user_id = #{aiUserId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.aixl.m.model.aiUser">
-    insert ignore ai_user (ai_user_id, ai_user_pwd, ai_user_type,ai_user_status
+    insert ignore ai_user (ai_user_id, ai_user_pwd,
+    ai_user_type,ai_user_status,ai_user_superior_id
       )
-    values (#{aiUserId,jdbcType=VARCHAR}, #{aiUserPwd,jdbcType=VARCHAR}, #{aiUserType,jdbcType=VARCHAR},#{aiUserStatus}
+    values (
+    #{aiUserId,jdbcType=VARCHAR},
+    #{aiUserPwd,jdbcType=VARCHAR},
+    #{aiUserType,jdbcType=VARCHAR},
+    #{aiUserStatus},
+    #{aiUserSuperiorId}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.aixl.m.model.aiUser">
@@ -38,9 +45,9 @@
         from ai_user a,ai_user_msg b
         where a.ai_user_id = #{aiUserId,jdbcType=VARCHAR} and  a.ai_user_id=b.ai_user_id
   </select>
-  <select id="getStatus" resultMap="BaseResultMap">
+  <select id="getStatus" resultMap="BaseResultMap" parameterType="java.lang.String">
     select a.ai_user_id,a.ai_user_type,a.ai_user_status,b.ai_user_name from ai_user a,ai_user_msg b
-    where a.ai_user_id=b.ai_user_id
+    where a.ai_user_id=b.ai_user_id and a.ai_user_superior_id = #{id}
   </select>
 
   <update id="setStatusById" parameterType="map">
@@ -48,5 +55,13 @@
     set ai_user_status = #{status,jdbcType=VARCHAR}
     where ai_user_id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <select id="getStatusByIdOrName" resultMap="BaseResultMap" parameterType="java.lang.String">
+      select a.ai_user_id,a.ai_user_type,a.ai_user_status,b.ai_user_name
+        from ai_user a,ai_user_msg b
+        where
+        (a.ai_user_id like concat('%',#{key},'%') or b.ai_user_name like concat('%',#{key},'%'))
+        and  a.ai_user_id=b.ai_user_id  and a.ai_user_superior_id = #{docId}
+  </select>
 
 </mapper>

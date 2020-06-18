@@ -44,17 +44,18 @@ public interface aiUserMapper {
     int updateByPrimaryKey(aiUser record);
 
     /**
-     * @param aiUser
+     * 获取用户状态
+     * @param aiUser    User对象，里面只有id有效
      * @return
      */
     aiUser getStatusById(aiUser aiUser);
 
     /**
-     *
-
+     *根据医生id号分页获取所有病人状态列表
+     * @param id    医生id号
      * @return
      */
-    Page<aiUser> getStatus();
+    Page<aiUser> getStatus(String id);
 
     /**
      * 修改用户状态
@@ -63,4 +64,13 @@ public interface aiUserMapper {
      * @return
      */
     int setStatusById(@Param("id") String id, @Param("status") String status);
+
+
+    /**
+     * 分页查询获取获取用户状态
+     * @param key 查询的id号或名字
+     * @param docId 查询发起者的id号
+     * @return
+     */
+    Page<aiUser> getStatusByIdOrName(@Param("key") String key,@Param("docId") String docId);
 }

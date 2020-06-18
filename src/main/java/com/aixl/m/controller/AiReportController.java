@@ -17,6 +17,7 @@ import java.util.Map;
 /**
  * 控制层，报告管理
  */
+
 @RestController
 @CrossOrigin(origins = "*", allowCredentials = "true")
 @RequestMapping("/report")
@@ -71,6 +72,7 @@ public class AiReportController {
 
     /**
      * 分页获取报告
+     *
      * @param currentPage 当前页码
      * @param pageSize    页面大小
      * @return 结果集
@@ -80,6 +82,7 @@ public class AiReportController {
                                           @PathVariable(value = "pageSize") Integer pageSize) {
         return reportService.getReports(currentPage, pageSize);
     }
+
     /**
      * 根据用户id获取所有报告（历史记录）
      *
@@ -94,8 +97,10 @@ public class AiReportController {
                                                @PathVariable(value = "userId") String userId) {
         return reportService.getReports(currentPage, pageSize, userId);
     }
+
     /**
      * 获取所有历史记录信息
+     *
      * @return 结果信息
      */
     @RequestMapping(value = "/msg", method = RequestMethod.GET)
@@ -106,15 +111,16 @@ public class AiReportController {
 
     /**
      * 分页获取信息
-     * @param currentPage   当前页
-     * @param pageSize      页面大小
+     *
+     * @param currentPage 当前页
+     * @param pageSize    页面大小
      * @return
      */
-    @RequestMapping(value = "/msg/{currentPage}/{pageSize}",method = RequestMethod.GET)
+    @RequestMapping(value = "/msg/{currentPage}/{pageSize}", method = RequestMethod.GET)
     public ReturnObject<Object> getHistoryMsgAllByPage(@PathVariable(value = "currentPage") Integer currentPage,
-                                                       @PathVariable(value = "pageSize") Integer pageSize){
+                                                       @PathVariable(value = "pageSize") Integer pageSize) {
 
-        return reportService.getHistoryMsgAllByPage(currentPage,pageSize);
+        return reportService.getHistoryMsgAllByPage(currentPage, pageSize);
     }
 
     /**
@@ -189,8 +195,8 @@ public class AiReportController {
             @PathVariable(value = "testName") String testName,
             @PathVariable(value = "content") String content,
             @PathVariable(value = "scaleId") Integer scaleId,
-            @PathVariable(value = "msg")String msg,
-            @PathVariable(value = "docId")String docId) {
+            @PathVariable(value = "msg") String msg,
+            @PathVariable(value = "docId") String docId) {
         aiTestHistory testHistory = new aiTestHistory();
         testHistory.setTime(time);
         testHistory.setAiUserId(userId);
@@ -205,132 +211,104 @@ public class AiReportController {
 
     /**
      * 新增的报告内容如果有图片，需要使用该方式
-     * @param value JSON格式数据，
      *
+     * @param value JSON格式数据，
      * @return
      */
-    @RequestMapping(value = "/op/Max",method = RequestMethod.POST)
-    public ReturnObject<Object> addReport_Max(String value){
-        aiTestHistory testHistory = JSON.parseObject(value,aiTestHistory.class);
+    @RequestMapping(value = "/op/Max", method = RequestMethod.POST)
+    public ReturnObject<Object> addReport_Max(String value) {
+        aiTestHistory testHistory = JSON.parseObject(value, aiTestHistory.class);
         System.out.println(testHistory.toString());
         return reportService.addHistory(testHistory);
     }
 
 
 
-    /**
-     * 查询用户信息
-     * @param map
-     * @return
-     */
-    @RequestMapping(value = "/msgs/{map}", method = RequestMethod.GET)
-    public ReturnObject<Object> getMSG(@PathVariable(value = "map") String map) {
-        Map<String, String> m = JSON.parseObject(map, Map.class);
-        String id = m.get("id");
-        String name = m.get("name");
-        String t1 = m.get("time1");
-        String t2 = m.get("time2");
-        if (id == null || name == null || t1 == null || t2 == null)
-            return ReturnUtils.success("请保证每一个参数都有值", -1);
-        //每一个选项都不为空
-        if (!id.equals("") && !name.equals("") && !t1.equals("") && !t2.equals("")) {
-            return reportService.getINT(id, name, t1, t2);
-        } else if (!id.equals("") && !name.equals("")) {
-            //id和名字不为空
-            return reportService.getByIdAndName(id, name);
-        } else if (!id.equals("") && !t1.equals("") && !t2.equals("")) {
-            //id和时间不为空
-            return reportService.getByIdAndTime(id, t1, t2);
-        } else if (!name.equals("") && !t1.equals("") && !t2.equals("")) {
-            //名字和时间不为空
-            return reportService.getByNameAndTime(name, t1, t2);
-        } else if (!id.equals("")) {
-            return reportService.getHistoryMsgByUserId(id);
-        } else if (!name.equals("")) {
-            return reportService.getByUserName(name);
-        } else if (!t1.equals("") && !t2.equals("")) {
-            return reportService.getByTime(t1, t2);
-        } else if (id.replaceAll(" ", "").equals("")
-                && name.replaceAll(" ", "").equals("")
-                && t1.replaceAll(" ", "").equals("")
-                && t2.replaceAll(" ", "").equals("")) {
-            return reportService.getHistoryMsgAll();
-        }
-        return ReturnUtils.success("未知操作", -1);
-    }
-
 
 
     /**
      * 在线打印报告时调用
-     * @param key   目前设置为医生id号
-     * @return  ArrayListj
+     *
+     * @param key 目前设置为医生id号
+     * @return ArrayListj
      */
-    @RequestMapping(value = "/redis/{key}",method = RequestMethod.GET)
-    public ReturnObject<Object>  getReportFromRedius(@PathVariable(value = "key") String key){
+    @RequestMapping(value = "/redis/{key}", method = RequestMethod.GET)
+    public ReturnObject<Object> getReportFromRedius(@PathVariable(value = "key") String key) {
         return reportService.getReportFromRedis(key);
     }
 
     /**
      * 医生重新开始新测评是调用，删除之前的报告缓存
+     *
      * @param key
      * @return
      */
-    @RequestMapping(value = "/redis0/{key}",method = RequestMethod.DELETE)
-    public ReturnObject<Object> clearReportFromRedis(@PathVariable(value = "key") String key){
+    @RequestMapping(value = "/redis0/{key}", method = RequestMethod.DELETE)
+    public ReturnObject<Object> clearReportFromRedis(@PathVariable(value = "key") String key) {
         return ReturnUtils.success(reportService.clearReportFromRedis(key));
     }
 
 
-    @RequestMapping(value = "/report/group",method = RequestMethod.GET)
+    /**
+     *
+     * @return
+     */
+    @RequestMapping(value = "/report/group", method = RequestMethod.GET)
     @Deprecated
-    public ReturnObject<Object> selectAllGroupByStartTime(){
+    public ReturnObject<Object> selectAllGroupByStartTime() {
         return reportService.selectAllGroupByStartTime();
     }
 
-    @RequestMapping(value = "/report/group/start/{a}/{b}",method = RequestMethod.GET)
-    public ReturnObject<Object> selectGroupByStartTime(@PathVariable(value = "a") Integer currentPage,@PathVariable(value = "b") Integer pageSize){
-        return reportService.selectGroupByStartTime(currentPage,pageSize);
+
+    /**
+     * 默认显示所有数据页面
+     * @param id                当前登录的医生账号
+     * @param currentPage       分页显示当前页
+     * @param pageSize          分页显示页面大小
+     * @return
+     */
+    @RequestMapping(value = "/report/group/start/{id}/{a}/{b}", method = RequestMethod.GET)
+    public ReturnObject<Object> selectGroupByStartTime(@PathVariable(value = "id") String id,
+                                                       @PathVariable(value = "a") Integer currentPage,
+                                                       @PathVariable(value = "b") Integer pageSize) {
+        return reportService.selectGroupByStartTime(currentPage, pageSize, id);
     }
 
-    @RequestMapping(value = "/report/groups/{map}",method = RequestMethod.GET)
-    public ReturnObject<Object> groupByName(@PathVariable(value = "map") String map){
+    /**
+     * 按条件查询用户历史答题记录接口
+     * @param map   id:查询用户id号，
+     *              name：查询用户名字，
+     *              time1：查询用户答题的开始时间，
+     *              time2：查询用户答题的结束时间
+     *              pageSize：分页查询页面大小
+     *              currentPage：分页查询当前页
+     * @return
+     */
+    @RequestMapping(value = "/report/groups/{map}", method = RequestMethod.GET)
+    public ReturnObject<Object> groupByName(@PathVariable(value = "map") String map) {
         Map<String, String> m = JSON.parseObject(map, Map.class);
         String id = m.get("id");
         String name = m.get("name");
         String t1 = m.get("time1");
         String t2 = m.get("time2");
         Object p = m.get("pageSize");
-        Object c =m.get("currentPage");
+        Object c = m.get("currentPage");
+        String docId = m.get("docId");
         Integer pageSize = Integer.valueOf(String.valueOf(p));
         Integer currentPage = Integer.valueOf(String.valueOf(c));
-        if (id == null || name == null || t1 == null || t2 == null)
-            return ReturnUtils.success("请保证每一个参数都有值", -1);
-        //每一个选项都不为空
-        if (!id.equals("") && !name.equals("") && !t1.equals("") && !t2.equals("")) {
-            return reportService.selectGroupByNameIdTime(currentPage,pageSize,name,id,t1,t2);
-        } else if (!id.equals("") && !name.equals("")) {
-            //id和名字不为空
-            return reportService.selectGroupByNameId(currentPage,pageSize,name,id);
-        } else if (!id.equals("") && !t1.equals("") && !t2.equals("")) {
-            //id和时间不为空
-            return reportService.selectGroupByIdTime(currentPage,pageSize,id,t1,t2);
-        } else if (!name.equals("") && !t1.equals("") && !t2.equals("")) {
-            //名字和时间不为空
-            return reportService.selectGroupByNameTime(currentPage,pageSize,name,t1,t2);
-        } else if (!id.equals("")) {
-            return reportService.selectGroupById(currentPage,pageSize,id);
-        } else if (!name.equals("")) {
-            return reportService.selectGroupByName(currentPage,pageSize,name);
-        } else if (!t1.equals("") && !t2.equals("")) {
-            return reportService.selectGroupByTime(currentPage,pageSize,t1,t2);
-        } else if (id.replaceAll(" ", "").equals("")
-                && name.replaceAll(" ", "").equals("")
-                && t1.replaceAll(" ", "").equals("")
-                && t2.replaceAll(" ", "").equals("")) {
-            return reportService.selectGroupByStartTime(currentPage,pageSize);
+        try {
+            if (id.replaceAll(" ", "").equals("")
+                    && name.replaceAll(" ", "").equals("")
+                    && t1.replaceAll(" ", "").equals("")
+                    && t2.replaceAll(" ", "").equals("")) {
+                //全部都为空
+                return reportService.selectGroupByStartTime(currentPage, pageSize, docId);
+            }else
+            return reportService.selectGroupByConditions(currentPage, pageSize, id, name, t1, t2);
+        } catch (Exception e) {
+            return ReturnUtils.error("未知错误", -1);
         }
-        return ReturnUtils.success("未知操作", -1);
+
     }
 }
 

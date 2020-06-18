@@ -178,14 +178,31 @@ public class UserService {
     }
 
 
-    public ReturnObject<Object> getUserStatus(Integer a,Integer b){
+    /**
+     * 分页获取用户某个医生下所有用户状态信息
+     * @param a 开始页面
+     * @param b 页面大小
+     * @param id    医生id号
+     * @return
+     */
+    public ReturnObject<Object> getUserStatus(Integer a,Integer b,String id){
         PageHelper.startPage(a,b);
-        Page<aiUser> page = userMapper.getStatus();
+        Page<aiUser> page = userMapper.getStatus(id);
         return ReturnUtils.success(page.getTotal(),page);
     }
 
-    public ReturnObject<Object> getUserStatusById(aiUser a){
-        return ReturnUtils.success(userMapper.getStatusById(a));
+    /**
+     * 分页模糊查询用户状态
+     * @param id                用户id或名字
+     * @param currentPage       当前页码
+     * @param pageSize          页面大小
+     * @return
+     */
+    public ReturnObject<Object> getUserStatusById(String id,String docId,Integer currentPage,Integer pageSize){
+        PageHelper.startPage(currentPage,pageSize);
+        Page<aiUser> page = userMapper.getStatusByIdOrName(id,docId);
+        //return ReturnUtils.success(userMapper.getStatusById(a));
+        return ReturnUtils.success(page.getTotal(),page);
     }
 
     /**

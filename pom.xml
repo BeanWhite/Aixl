@@ -17,7 +17,6 @@
     <properties>
         <java.version>1.8</java.version>
     </properties>
-
     <dependencies>
 <!--        通过jdbc连接数据库-->
 <!--        <dependency>-->
@@ -200,6 +199,15 @@
             <artifactId>jacob</artifactId>
             <version>1.18</version>
         </dependency>
+
+        <!--        日志打印依赖依赖-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.6</version>
+        </dependency>
+
+
     </dependencies>
     <build>
         <!--        打包生成的包名-->

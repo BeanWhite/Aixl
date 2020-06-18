@@ -359,9 +359,9 @@ public class aiReportService {
      * @param pageSize
      * @return  返回所有信息记录
      */
-    public ReturnObject<Object> selectGroupByStartTime(Integer currentPage,Integer pageSize){
+    public ReturnObject<Object> selectGroupByStartTime(Integer currentPage,Integer pageSize,String id){
         PageHelper.startPage(currentPage, pageSize);
-        Page<aiTestHistory> page = testHistoryMapper.selectGroupByStartTime();
+        Page<aiTestHistory> page = testHistoryMapper.selectGroupByStartTime(id);
         return ReturnUtils.success(page.getTotal(),page);
     }
 
@@ -463,6 +463,28 @@ public class aiReportService {
                                                         String t1,String t2){
         PageHelper.startPage(currentPage, pageSize);
         Page<aiTestHistory> page = testHistoryMapper.selectGroupINT(id,name,t1,t2);
+        return ReturnUtils.success(page.getTotal(),page);
+    }
+
+
+    /**
+     *
+     * @param currentPage   当前页码
+     * @param pageSize      页面大小
+     * @param id            用户id
+     * @param name          用户名字
+     * @param t1            开始时间
+     * @param t2            结束时间
+     * @return
+     */
+    public  ReturnObject<Object> selectGroupByConditions(Integer currentPage,
+                                                         Integer pageSize,
+                                                         String id,
+                                                         String name,
+                                                         String t1,
+                                                         String t2){
+        PageHelper.startPage(currentPage,pageSize);
+        Page<aiTestHistory> page = testHistoryMapper.selectGroupByConditions(id,name,t1,t2);
         return ReturnUtils.success(page.getTotal(),page);
     }
 }

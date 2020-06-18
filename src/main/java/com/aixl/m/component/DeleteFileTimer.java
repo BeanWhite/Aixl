@@ -1,6 +1,7 @@
 package com.aixl.m.component;
 
 
+import com.alibaba.druid.support.logging.Log;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -66,9 +67,8 @@ public class DeleteFileTimer {
                             System.out.println(f.toPath());
                         }
                         // file.delete();
-                        System.out.println("删除成功");
-
                     } else {
+                     
                         System.out.println("删除失败");
                     }
                 }

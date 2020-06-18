@@ -20,6 +20,9 @@ server:
 #    context-path: "/demeo"
 
 spring:
+  devtools:
+    restart:
+      exclude: log/**  #配置服务器启动热部署时忽略刷新的的路径
   freemarker:
     #禁用检测templates文件
     check-template-location: false
@@ -60,7 +63,7 @@ spring:
      # use-global-dataSource-stat: true
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://localhost:3306/neuropsychoogical_cognition?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
-     # url: jdbc:mysql://122.112.225.219:3306/neuropsychoogical_cognition?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+#      url: jdbc:mysql://122.112.225.219:3306/neuropsychoogical_cognition?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
       username: xlrz
       password: Aixl.Hgpsyxlrz2020!
       stat-view-servlet:
@@ -144,6 +147,8 @@ mybatis:
 #  mapper-locations: classpath:com/aixl/m/dao/mapper/*.xml
   type-aliases-package: com.aixl.m.model
   mapper-locations: classpath:mapper/*.xml
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl   #控制台打印打印sql
   #configuration:
    # use-column-label: true #使用列标签替换列别名，支持别名，默认为true
 
@@ -151,10 +156,13 @@ mybatis:
 
 #配置分页插件
 
+
 pagehelper:
   helper-dialect: mysql
   reasonable: false
   page-size-zero: true
+
+
 #logging:
 #  pattern:
 #    console: '%d{yyyy-MM-dd HH:mm:ss} %logger{15} - %msg%n'
@@ -162,3 +170,11 @@ pagehelper:
 #  file:
 #    clean-history-on-start: false
 #  level: error
+#  file:
+#    path: log   #日志打印文件保存位置，根目录log文件下
+logging:
+  com.aixl.m: WARN
+  com.aixl.m.dao: DEBUG
+  file:
+    path: log
+

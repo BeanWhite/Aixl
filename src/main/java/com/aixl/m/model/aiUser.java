@@ -7,9 +7,11 @@ public class aiUser {
 
     private String aiUserType="用户";
 
-    private String aiUserStatus;
+    private String aiUserStatus="正常";
 
     private String aiUserName;
+
+    private String aiUserSuperiorId;
 
     public String getAiUserName() {
         return aiUserName;
@@ -51,12 +53,23 @@ public class aiUser {
         this.aiUserType = aiUserType == null ? null : aiUserType.trim();
     }
 
+    public String getAiUserSuperiorId() {
+        return aiUserSuperiorId;
+    }
+
+    public void setAiUserSuperiorId(String aiUserSuperiorId) {
+        this.aiUserSuperiorId = aiUserSuperiorId;
+    }
+
     @Override
     public String toString() {
         return "aiUser{" +
                 "aiUserId='" + aiUserId + '\'' +
                 ", aiUserPwd='" + aiUserPwd + '\'' +
                 ", aiUserType='" + aiUserType + '\'' +
+                ", aiUserStatus='" + aiUserStatus + '\'' +
+                ", aiUserName='" + aiUserName + '\'' +
+                ", aiUserSuperiorId='" + aiUserSuperiorId + '\'' +
                 '}';
     }
 }
